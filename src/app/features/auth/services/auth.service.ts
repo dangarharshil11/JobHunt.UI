@@ -1,11 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { LoginRequest } from '../models/login-request.model';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { CookieService } from 'ngx-cookie-service';
+
+import { LoginRequest } from '../models/login-request.model';
 import { LoginResponse } from '../models/login-response.model';
 import { environment } from 'src/environments/environment';
 import { User } from '../models/user.model';
-import { CookieService } from 'ngx-cookie-service';
+import { RegisterRequest } from '../models/register-request.model';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +16,17 @@ export class AuthService {
   $user = new BehaviorSubject<User | undefined>(undefined);
 
   constructor(private http: HttpClient, private cookieService: CookieService) { }
+
+  register(request: RegisterRequest): Observable<void>{
+    return this.http.post<void>(`${environment.authapiBaseUrl}/api/auth/register`,{
+      firstName: request.firstName,
+      lastName: request.lastName,
+      email: request.email,
+      phoneNumber: request.phoneNumber,
+      role: request.role,
+      password: request.password
+    });
+  }
 
   login(request: LoginRequest): Observable<LoginResponse>{
     return this.http.post<LoginResponse>(`${environment.authapiBaseUrl}/api/auth/login`, {
