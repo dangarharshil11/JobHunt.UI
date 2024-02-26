@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
+
 import { LoginRequest } from '../models/login-request.model';
 import { AuthService } from '../services/auth.service';
 
@@ -10,7 +13,7 @@ import { AuthService } from '../services/auth.service';
 export class LoginComponent {
   model: LoginRequest
 
-  constructor(private authService: AuthService){
+  constructor(private authService: AuthService, private cookieService: CookieService, private route: Router){
     this.model = {
       email: '',
       password: ''
@@ -20,7 +23,8 @@ export class LoginComponent {
   onFormSubmit(): void{
     this.authService.login(this.model).subscribe({
       next: (response) => {
-        console.log(response);
+        this.cookieService.set('Authorization', `Bearer ${response.token}`, undefined, '/', undefined, true, 'Strict');
+        this.route.navigateByUrl('/');
       },
       error: (error) => {
         console.error(error);
