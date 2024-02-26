@@ -11,6 +11,7 @@ import { AuthService } from '../services/auth.service';
 })
 export class RegisterComponent {
   model: RegisterRequest;
+  error: string = '';
 
   constructor(private authService: AuthService,private route: Router){
     this.model = {
@@ -24,13 +25,21 @@ export class RegisterComponent {
   }
 
     onFormSubmit(): void{
-      this.authService.register(this.model).subscribe({
-        next: (response) => {  
-          this.route.navigateByUrl('/login');
-        },
-        error: (error) => {
-          console.error(error);
-        }
-      });
+      this.error = '';
+      
+      if(this.model.email.trim() == '' || this.model.firstName.trim() == '' || this.model.password.trim() == '' || this.model.role.trim() == ''){
+        this.error = ('Please Enter all the Details');
+      }
+      else{
+        this.authService.register(this.model).subscribe({
+          next: (response) => {  
+            this.route.navigateByUrl('/login');
+          },
+          error: (error) => {
+            console.error(error);
+          }
+        });
+      }
+      
     }
 }

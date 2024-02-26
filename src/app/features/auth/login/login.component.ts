@@ -11,7 +11,8 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  model: LoginRequest
+  model: LoginRequest;
+  error: string = '';
 
   constructor(private authService: AuthService, private cookieService: CookieService, private route: Router){
     this.model = {
@@ -21,22 +22,28 @@ export class LoginComponent {
   }
 
   onFormSubmit(): void{
-    this.authService.login(this.model).subscribe({
-      next: (response) => {
-        this.cookieService.set('Authorization', `Bearer ${response.token}`, undefined, '/', undefined, true, 'Strict');
-
-        this.authService.setUser({
-          userId: response.userId,
-          fullName: response.fullName,
-          email: response.email,
-          roles: response.roles,
-        }); 
-
-        this.route.navigateByUrl('/');
-      },
-      error: (error) => {
-        console.error(error);
-      }
-    });
+    this.error = ''
+    if(this.model.email.trim() == '' ||  this.model.password.trim() == ''){
+      this.error = ('Please Enter all the Details');
+    }
+    else{
+      this.authService.login(this.model).subscribe({
+        next: (response) => {
+          this.cookieService.set('Authorization', `Bearer ${response.token}`, undefined, '/', undefined, true, 'Strict');
+  
+          this.authService.setUser({
+            userId: response.userId,
+            fullName: response.fullName,
+            email: response.email,
+            roles: response.roles,
+          }); 
+  
+          this.route.navigateByUrl('/');
+        },
+        error: (error) => {
+          console.error(error);
+        }
+      });
+    } 
   }
 }
