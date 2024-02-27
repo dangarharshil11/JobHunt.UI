@@ -6,6 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./add-company-details.component.css']
 })
 export class AddCompanyDetailsComponent {
+  
   onFormSubmit(){
     
   }
