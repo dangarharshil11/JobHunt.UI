@@ -7,6 +7,7 @@ import { CompanyInfoComponent } from './features/employer/company-info/company-i
 import { AddCompanyDetailsComponent } from './features/employer/add-company-details/add-company-details.component';
 import { EditCompanyDetailsComponent } from './features/employer/edit-company-details/edit-company-details.component';
 import { VacancyListComponent } from './features/employer/vacancy-list/vacancy-list.component';
+import { AddVacancyComponent } from './features/employer/add-vacancy/add-vacancy.component';
 
 const routes: Routes = [
   {path: "login", component: LoginComponent},
@@ -15,6 +16,7 @@ const routes: Routes = [
   {path: "profile/add", component: AddCompanyDetailsComponent},
   {path: "profile/edit", component: EditCompanyDetailsComponent},
   {path: "vacancy", component: VacancyListComponent},
+  {path: "vacancy/add", component: AddVacancyComponent},
 ];
 
 @NgModule({

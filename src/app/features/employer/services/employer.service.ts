@@ -28,4 +28,8 @@ export class EmployerService {
   getVacancyByName(name: string): Observable<Vacancy[]>{
     return this.http.get<Vacancy[]>(`${environment.employerapiBaseUrl}/api/vacancy/getByCompany/${name}`);
   }
+
+  createVacancy(request: Vacancy): Observable<Vacancy>{
+    return this.http.post<Vacancy>(`${environment.employerapiBaseUrl}/api/vacancy/addVacancy`, request);
+  }
 }

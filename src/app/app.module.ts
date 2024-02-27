@@ -12,6 +12,7 @@ import { AddCompanyDetailsComponent } from './features/employer/add-company-deta
 import { CompanyInfoComponent } from './features/employer/company-info/company-info.component';
 import { EditCompanyDetailsComponent } from './features/employer/edit-company-details/edit-company-details.component';
 import { VacancyListComponent } from './features/employer/vacancy-list/vacancy-list.component';
+import { AddVacancyComponent } from './features/employer/add-vacancy/add-vacancy.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { VacancyListComponent } from './features/employer/vacancy-list/vacancy-l
     AddCompanyDetailsComponent,
     CompanyInfoComponent,
     EditCompanyDetailsComponent,
-    VacancyListComponent
+    VacancyListComponent,
+    AddVacancyComponent
   ],
   imports: [
     BrowserModule,

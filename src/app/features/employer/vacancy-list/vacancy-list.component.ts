@@ -10,7 +10,7 @@ import { EmployerService } from '../services/employer.service';
 })
 export class VacancyListComponent implements OnInit {
   Vacancies$?: Observable<Vacancy[]>;
-  organization: string | null = null
+  organization: string | null = null;
 
   constructor(private employerService: EmployerService){
     

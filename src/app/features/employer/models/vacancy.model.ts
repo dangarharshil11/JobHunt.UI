@@ -1,5 +1,4 @@
 export interface Vacancy{
-    id: string;
     publishedBy: string;
     publishedDate: Date;
     noOfVacancies: number;
