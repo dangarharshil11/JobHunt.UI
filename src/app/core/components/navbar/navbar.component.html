@@ -9,7 +9,7 @@
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="#">Home</a>
           </li>
-          <!-- <ng-container *ngIf="user !== undefined && user?.roles?.includes('Employer')"> -->
+          <ng-container *ngIf="user !== undefined && user?.roles?.includes('Employer')">
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Manage
@@ -17,10 +17,10 @@
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="#">Manage Hiring</a></li>
               <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#">Company Profile</a></li>
+              <li><a class="dropdown-item" [routerLink]="['/organization', user.email]">Organization Profile</a></li>
             </ul>
           </li>
-        <!-- </ng-container> -->
+        </ng-container>
         </ul>
         <div class="d-flex">
           <ng-container *ngIf="user == undefined; else showLogout">

@@ -31,7 +31,7 @@ export class AuthService {
   login(request: LoginRequest): Observable<LoginResponse>{
     return this.http.post<LoginResponse>(`${environment.authapiBaseUrl}/api/auth/login`, {
       email: request.email,
-      password: request.password
+      password: request.password,
     });
   }
 
