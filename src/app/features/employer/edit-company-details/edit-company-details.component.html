@@ -1,5 +1,5 @@
 <div class="container">
-    <h1 class="mt-3">Add Organization Details</h1>
+    <h1 class="mt-3">Update Organization Details</h1>
     <form #form="ngForm" (ngSubmit)="onFormSubmit()">
         <ng-container *ngIf="error">
             <span class="text-danger">{{error}}</span>
@@ -55,7 +55,7 @@
             </div>
 
             <div class="mt-3">
-                <button type="submit" class="btn btn-primary">Add Company Details</button>
+                <button type="submit" class="btn btn-primary">Update Company Details</button>
             </div>
         </div>
     </form>

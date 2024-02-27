@@ -2,7 +2,7 @@
     <h3 class="mt-3">Organization Information</h3>
     <ng-container *ngIf="profile$ | async as profile; else addProfile">
         <div class="d-flex justify-content-end mt-3">
-            <a [routerLink]="['/profile/update']" class="btn btn-primary">
+            <a [routerLink]="['/profile/edit']" class="btn btn-primary">
                 Update Organization Profile
             </a>
         </div>

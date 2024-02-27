@@ -27,4 +27,17 @@ export class EmployerService {
       createdBy: request.createdBy,
     });
   }
+
+  updateProfile(request: Organization): Observable<Organization>{
+    return this.http.put<Organization>(`${environment.employerapiBaseUrl}/api/company/updateDetails/${request.createdBy}`,{
+      organization: request.organization,
+      organizationType: request.organizationType,
+      companyEmail: request.companyEmail,
+      companyPhone: request.companyPhone,
+      noOfEmployees: request.noOfEmployees,
+      startYear: request.startYear,
+      about: request.about,
+      createdBy: request.createdBy,
+    });
+  }
 }

@@ -39,8 +39,4 @@ export class CompanyInfoComponent {
       this.profile$ = this.employerService.getprofile(this.email);
     }
   }
-
-  onFormSubmit(){
-
-  }
 }
