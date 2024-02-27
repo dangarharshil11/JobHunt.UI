@@ -4,6 +4,7 @@ import { CookieService } from 'ngx-cookie-service';
 
 import { LoginRequest } from '../models/login-request.model';
 import { AuthService } from '../services/auth.service';
+import { EmployerService } from '../../employer/services/employer.service';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,7 @@ export class LoginComponent {
   model: LoginRequest;
   error: string = '';
 
-  constructor(private authService: AuthService, private cookieService: CookieService, private route: Router){
+  constructor(private authService: AuthService, private cookieService: CookieService, private route: Router, private employerService: EmployerService){
     this.model = {
       email: '',
       password: ''
@@ -37,7 +38,18 @@ export class LoginComponent {
             email: response.email,
             roles: response.roles,
           }); 
-  
+
+          if(response.roles.includes('Employer') && this.model.email){
+            this.employerService.getprofile(this.model.email).subscribe({
+              next: (response) => {
+                localStorage.setItem('organization', response.organization)
+              },
+              error: (error) => {
+                console.error(error);
+              }
+            });
+          }
+
           this.route.navigateByUrl('/');
         },
         error: (error) => {

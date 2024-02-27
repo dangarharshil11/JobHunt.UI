@@ -1,8 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+
 import { Organization } from '../models/organization.model';
 import { environment } from 'src/environments/environment';
+import { Vacancy } from '../models/vacancy.model';
 
 @Injectable({
   providedIn: 'root'
@@ -16,28 +18,14 @@ export class EmployerService {
   }
 
   createProfile(request: Organization): Observable<Organization>{
-    return this.http.post<Organization>(`${environment.employerapiBaseUrl}/api/company/addDetails`,{
-      organization: request.organization,
-      organizationType: request.organizationType,
-      companyEmail: request.companyEmail,
-      companyPhone: request.companyPhone,
-      noOfEmployees: request.noOfEmployees,
-      startYear: request.startYear,
-      about: request.about,
-      createdBy: request.createdBy,
-    });
+    return this.http.post<Organization>(`${environment.employerapiBaseUrl}/api/company/addDetails`,request);
   }
 
   updateProfile(request: Organization): Observable<Organization>{
-    return this.http.put<Organization>(`${environment.employerapiBaseUrl}/api/company/updateDetails/${request.createdBy}`,{
-      organization: request.organization,
-      organizationType: request.organizationType,
-      companyEmail: request.companyEmail,
-      companyPhone: request.companyPhone,
-      noOfEmployees: request.noOfEmployees,
-      startYear: request.startYear,
-      about: request.about,
-      createdBy: request.createdBy,
-    });
+    return this.http.put<Organization>(`${environment.employerapiBaseUrl}/api/company/updateDetails/${request.createdBy}`,request);
+  }
+
+  getVacancyByName(name: string): Observable<Vacancy[]>{
+    return this.http.get<Vacancy[]>(`${environment.employerapiBaseUrl}/api/vacancy/getByCompany/${name}`);
   }
 }

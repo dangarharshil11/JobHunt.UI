@@ -11,6 +11,7 @@ import { RegisterComponent } from './features/auth/register/register.component';
 import { AddCompanyDetailsComponent } from './features/employer/add-company-details/add-company-details.component';
 import { CompanyInfoComponent } from './features/employer/company-info/company-info.component';
 import { EditCompanyDetailsComponent } from './features/employer/edit-company-details/edit-company-details.component';
+import { VacancyListComponent } from './features/employer/vacancy-list/vacancy-list.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { EditCompanyDetailsComponent } from './features/employer/edit-company-de
     AddCompanyDetailsComponent,
     CompanyInfoComponent,
     EditCompanyDetailsComponent,
+    VacancyListComponent
   ],
   imports: [
     BrowserModule,
