@@ -1,4 +1,4 @@
-export interface Vacancy{
+export interface VacancyResponse{
     id: string;
     publishedBy: string;
     publishedDate: Date;

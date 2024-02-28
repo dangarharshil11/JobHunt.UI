@@ -4,7 +4,8 @@ import { Observable } from 'rxjs';
 
 import { Organization } from '../models/organization.model';
 import { environment } from 'src/environments/environment';
-import { Vacancy } from '../models/vacancy.model';
+import { VacancyRequest } from '../models/vacancy-request.model';
+import { VacancyResponse } from '../models/vacancy-response.model';
 
 @Injectable({
   providedIn: 'root'
@@ -25,11 +26,23 @@ export class EmployerService {
     return this.http.put<Organization>(`${environment.employerapiBaseUrl}/api/company/updateDetails/${request.createdBy}`,request);
   }
 
-  getVacancyByName(name: string): Observable<Vacancy[]>{
-    return this.http.get<Vacancy[]>(`${environment.employerapiBaseUrl}/api/vacancy/getByCompany/${name}`);
+  getVacancyByName(name: string): Observable<VacancyResponse[]>{
+    return this.http.get<VacancyResponse[]>(`${environment.employerapiBaseUrl}/api/vacancy/getByCompany/${name}`);
   }
 
-  createVacancy(request: Vacancy): Observable<Vacancy>{
-    return this.http.post<Vacancy>(`${environment.employerapiBaseUrl}/api/vacancy/addVacancy`, request);
+  getVacancyById(id: string): Observable<VacancyResponse>{
+    return this.http.get<VacancyResponse>(`${environment.employerapiBaseUrl}/api/vacancy/getVacancyById/${id}`);
+  }
+
+  createVacancy(request: VacancyRequest): Observable<VacancyResponse>{
+    return this.http.post<VacancyResponse>(`${environment.employerapiBaseUrl}/api/vacancy/addVacancy`, request);
+  }
+
+  updateVacancy(request: VacancyRequest, id: string): Observable<VacancyResponse>{
+    return this.http.put<VacancyResponse>(`${environment.employerapiBaseUrl}/api/vacancy/updateVacancy/${id}`, request);
+  }
+
+  deleteVacancy(id: string) :Observable<VacancyResponse>{
+    return this.http.delete<VacancyResponse>(`${environment.employerapiBaseUrl}/api/vacancy/deleteVacancy/${id}`);
   }
 }

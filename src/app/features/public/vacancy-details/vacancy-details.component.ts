@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Vacancy } from '../models/vacancy.model';
-import { PublicService } from '../services/public.service';
 import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
+
+import { PublicService } from '../services/public.service';
+import { VacancyResponse } from '../models/vacancy-response.model';
 
 @Component({
   selector: 'app-vacancy-details',
@@ -11,7 +12,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class VacancyDetailsComponent implements OnInit {
   id: string | null = null;
-  vacancy$?: Observable<Vacancy>;
+  vacancy$?: Observable<VacancyResponse>;
 
   constructor(private readonly publicService: PublicService, private route: ActivatedRoute){}
 

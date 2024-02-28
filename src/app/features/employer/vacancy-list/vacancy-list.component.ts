@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Vacancy } from '../models/vacancy.model';
+
 import { EmployerService } from '../services/employer.service';
+import { VacancyResponse } from '../models/vacancy-response.model';
 
 @Component({
   selector: 'app-vacancy-list',
@@ -9,7 +10,7 @@ import { EmployerService } from '../services/employer.service';
   styleUrls: ['./vacancy-list.component.css']
 })
 export class VacancyListComponent implements OnInit {
-  Vacancies$?: Observable<Vacancy[]>;
+  Vacancies$?: Observable<VacancyResponse[]>;
   email: string | null = null;
 
   constructor(private employerService: EmployerService){
