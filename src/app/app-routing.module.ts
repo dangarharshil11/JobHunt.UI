@@ -12,11 +12,17 @@ import { EditVacancyComponent } from './features/employer/edit-vacancy/edit-vaca
 import { HomeComponent } from './features/public/home/home.component';
 import { VacancyDetailComponent } from './features/employer/vacancy-detail/vacancy-detail.component';
 import { JobDetailComponent } from './features/public/job-detail/job-detail.component';
+import { ProfileComponent } from './features/jobseeker/profile/profile.component';
+import { AddProfileComponent } from './features/jobseeker/add-profile/add-profile.component';
 
 const routes: Routes = [
+  // public Routes
   {path: "", component: HomeComponent},
   {path: "login", component: LoginComponent},
   {path: "register", component: RegisterComponent},
+  {path: "job/detail/:id", component: JobDetailComponent},
+
+  // Employer Routes
   {path: "organization/:email", component: CompanyInfoComponent},
   {path: "profile/add", component: AddCompanyDetailsComponent},
   {path: "profile/edit", component: EditCompanyDetailsComponent},
@@ -24,7 +30,10 @@ const routes: Routes = [
   {path: "vacancy/add", component: AddVacancyComponent},
   {path: "vacancy/details/:id", component: VacancyDetailComponent},
   {path: "vacancy/edit/:id", component: EditVacancyComponent},
-  {path: "job/detail/:id", component: JobDetailComponent}
+
+  // JobSeeker Routes
+  {path: "user/add", component: AddProfileComponent},
+  {path: "user/:email", component: ProfileComponent},
 ];
 
 @NgModule({

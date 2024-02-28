@@ -10,17 +10,31 @@
             <a class="nav-link active" aria-current="page" href="#">Home</a>
           </li>
           <ng-container *ngIf="user !== undefined && user?.roles?.includes('Employer')">
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Manage
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" [routerLink]="['/vacancy']">Manage Hiring</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" [routerLink]="['/organization', user.email]">Organization Profile</a></li>
-            </ul>
-          </li>
-        </ng-container>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Manage
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" [routerLink]="['/vacancy']">Manage Hiring</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" [routerLink]="['/organization', user.email]">Organization Profile</a></li>
+              </ul>
+            </li>
+          </ng-container>
+          <ng-container *ngIf="user !== undefined && user?.roles?.includes('JobSeeker')">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Manage
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" [routerLink]="['/user', user.email]">Profile</a></li>
+                <li><a class="dropdown-item" [routerLink]="['/vacancy']">Qualification</a></li>
+                <li><a class="dropdown-item" [routerLink]="['/vacancy']">Experiences</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" [routerLink]="['/organization', user.email]">Job Applications</a></li>
+              </ul>
+            </li>
+          </ng-container>
         </ul>
         <div class="d-flex">
           <ng-container *ngIf="user == undefined; else showLogout">

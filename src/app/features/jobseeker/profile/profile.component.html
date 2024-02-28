@@ -1,20 +1,20 @@
 <div class="container">
-    <h3 class="mt-3">Organization Information</h3>
+    <h3 class="mt-5 p-2">User Profile</h3>
     <ng-container *ngIf="profile$ | async as profile; else addProfile">
-        <div class="d-flex justify-content-end mt-3">
+        <div class="d-flex justify-content-end mt-2">
             <a [routerLink]="['/profile/edit']" class="btn btn-primary">
-                Update Organization Profile
+                Update User Profile
             </a>
         </div>
         <div class="container">
-                <div class="mt-5">
+                <div class="mt-1">
                     <div class="mt-1">
                         <div class="d-flex flex-row">
                             <div class="col-6 p-2">
-                                Organization Name: {{profile.organization}}
+                                First Name: {{profile.firstName}}
                             </div>
                             <div class="col-6 p-2">
-                                Organization Type: {{profile.organizationType}}
+                                Last Name: {{profile.lastName}}
                             </div>
                         </div>
                     </div>
@@ -22,10 +22,10 @@
                     <div class="mt-1">
                         <div class="d-flex flex-row">
                             <div class="col-6 p-2">
-                                Company Email: {{profile.companyEmail}}
+                                Phone Number: {{profile.phone}}
                             </div>
                             <div class="col-6 p-2">
-                                Company Phone: {{profile.companyPhone}}
+                                Date of Birth: {{profile.dateOfBirth | date: 'yyyy-MM-dd'}}
                             </div>
                         </div>
                     </div>
@@ -33,10 +33,10 @@
                     <div class="mt-1">
                         <div class="d-flex flex-row">
                             <div class="col-6 p-2">
-                                Start Year: {{profile.startYear}}
+                                Total Experience: {{profile.totalExperience}}
                             </div>
                             <div class="col-6 p-2">
-                                Total No Of Employees: {{profile.noOfEmployees}}
+                                Expected Salary: {{profile.expectedSalary}}
                             </div>
                         </div>
                     </div>
@@ -44,8 +44,8 @@
                     <div class="mt-1">
                         <div class="d-flex flex-row">
                             <div class="col-12 p-2">
-                                <p class="fw-bold">Organization Description</p>
-                                <pre style="white-space: pre-wrap;">{{profile.about}}</pre>
+                                <p class="m-0">Address: </p>
+                                <pre style="white-space: pre-wrap;">{{profile.address}}</pre>
                             </div>
                         </div>
                     </div>
@@ -55,10 +55,10 @@
         
     </ng-container>
     <ng-template #addProfile>
-        <p class="mt-3">You have not Added Organization Details </p>
+        <p class="mt-3">You have not Added Your Profile</p>
         <div class="d-flex justify-content-end mt-3">
-            <a [routerLink]="['/profile/add']" class="btn btn-primary">
-                Add Organization Profile
+            <a [routerLink]="['/user/add']" class="btn btn-primary">
+                Add Profile
             </a>
         </div>
     </ng-template>

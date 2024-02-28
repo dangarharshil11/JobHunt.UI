@@ -1,0 +1,66 @@
+<div class="container">
+    <h1 class="mt-3">Add Profile Details</h1>
+    <form #form="ngForm" (ngSubmit)="onFormSubmit()">
+        <ng-container *ngIf="error">
+            <span class="text-danger">{{error}}</span>
+        </ng-container>
+        <div class="mt-2 mb-5">
+            <div class="mt-3">
+                <div class="d-flex flex-row">
+                    <div class="col-6 p-2">
+                        <label for="firstName" class="form-label">First Name</label>
+                        <input type="text" id="firstName" name="firstName" class="form-control"[(ngModel)]="model.firstName"/>
+                    </div>
+                    <div class="col-6 p-2">
+                        <label for="lastName" class="form-label">Last Name</label>
+                        <input type="text" id="lastName" name="lastName" class="form-control"[(ngModel)]="model.lastName"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-3">
+                <div class="d-flex flex-row">
+                    <div class="col-6 p-2">
+                        <label for="phone" class="form-label">Phone Number</label>
+                        <input type="string" id="phone" name="phone" class="form-control"[(ngModel)]="model.phone"/>
+                    </div>
+                    <div class="col-6 p-2">
+                        <label for="dateOfBirth" class="form-label">Date of Birth</label>
+                        <input type="date" id="dateOfBirth" name="dateOfBirth" class="form-control"[(ngModel)]="model.dateOfBirth"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-3">
+                <div class="d-flex flex-row">
+                    <div class="col-6 p-2">
+                        <label for="totalExperience" class="form-label">Total Experience</label>
+                        <input type="number" id="totalExperience" name="totalExperience" class="form-control"[(ngModel)]="model.totalExperience" />
+                    </div>
+                    <div class="col-6 p-2">
+                        <label for="expectedSalary" class="form-label">Expected Salary</label>
+                        <input type="number" id="expectedSalary" name="expectedSalary" class="form-control"[(ngModel)]="model.expectedSalary"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-3 p-2">
+                <label for="address" class="form-label">Address</label>
+                <div class="d-flex flex-row">
+                    <textarea 
+                        id="address" 
+                        name="address" 
+                        class="form-control" 
+                        style="height: 100px; max-height: 100px;" 
+                        [(ngModel)]="model.address">
+                    </textarea>
+                </div>
+            </div>
+
+            <div class="mt-3">
+                <button type="submit" class="btn btn-primary">Add Profile Details</button>
+            </div>
+        </div>
+    </form>
+</div>
+
