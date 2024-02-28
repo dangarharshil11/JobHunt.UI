@@ -1,5 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import {  Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { Organization } from '../models/organization.model';
@@ -17,7 +17,7 @@ export class AddCompanyDetailsComponent implements OnDestroy{
 
   addProfileSubscription?: Subscription;
 
-  constructor(private route: ActivatedRoute, private router: Router, private employerService: EmployerService){
+  constructor(private router: Router, private employerService: EmployerService){
     this.profile ={
       organization: '',
       organizationType: '',

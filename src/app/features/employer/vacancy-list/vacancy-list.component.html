@@ -25,7 +25,7 @@
                     <td>{{vacancy.noOfVacancies}}</td>
                     <td>{{vacancy.minimumSalary}} - {{vacancy.maximumSalary}}</td>
                     <td>
-                        <a class="btn btn-light">Details</a>
+                        <a class="btn btn-light" [routerLink]="['/vacancy/details', vacancy.id]">Details</a>
                     </td>
                     <td>
                         <a class="btn btn-success">Edit</a>

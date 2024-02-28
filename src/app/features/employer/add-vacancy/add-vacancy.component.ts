@@ -19,6 +19,7 @@ export class AddVacancyComponent implements OnDestroy {
 
   constructor(private employerService: EmployerService, private router: Router){
     this.model = {
+      id: '',
       publishedBy: '',
       publishedDate: new Date(),
       noOfVacancies: 0,
