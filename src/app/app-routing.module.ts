@@ -8,10 +8,12 @@ import { AddCompanyDetailsComponent } from './features/employer/add-company-deta
 import { EditCompanyDetailsComponent } from './features/employer/edit-company-details/edit-company-details.component';
 import { VacancyListComponent } from './features/employer/vacancy-list/vacancy-list.component';
 import { AddVacancyComponent } from './features/employer/add-vacancy/add-vacancy.component';
-import { VacancyDetailsComponent } from './features/public/vacancy-details/vacancy-details.component';
 import { EditVacancyComponent } from './features/employer/edit-vacancy/edit-vacancy.component';
+import { HomeComponent } from './features/public/home/home.component';
+import { VacancyDetailComponent } from './features/employer/vacancy-detail/vacancy-detail.component';
 
 const routes: Routes = [
+  {path: "", component: HomeComponent},
   {path: "login", component: LoginComponent},
   {path: "register", component: RegisterComponent},
   {path: "organization/:email", component: CompanyInfoComponent},
@@ -19,7 +21,7 @@ const routes: Routes = [
   {path: "profile/edit", component: EditCompanyDetailsComponent},
   {path: "vacancy", component: VacancyListComponent},
   {path: "vacancy/add", component: AddVacancyComponent},
-  {path: "vacancy/details/:id", component: VacancyDetailsComponent},
+  {path: "vacancy/details/:id", component: VacancyDetailComponent},
   {path: "vacancy/edit/:id", component: EditVacancyComponent},
 ];
 

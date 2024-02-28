@@ -1,0 +1,21 @@
+<div class="container">
+    <div class="my-5">
+        <div class="row align-items-stretch">
+            <ng-container *ngIf="vacancies$ | async as vacancies">
+                <div class="col-12 col-md-4 mb-3" *ngFor="let vacancy of vacancies">
+                    <div class="card h-100">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">{{vacancy.jobTitle}}</h5>
+                            <div class="card-text">Organization Name: {{vacancy.publishedBy}}</div>
+                            <div class="card-text">No of Vacancies: {{vacancy.noOfVacancies}}</div>
+                            <div class="card-text">Salary Range: {{vacancy.minimumSalary}} - {{vacancy.maximumSalary}}</div>
+                            <span class="d-flex align-items-end mt-3" style="flex: 1">
+                                <a [routerLink]="['/job/details', vacancy.id]" class="btn btn-primary">Read More</a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</div>
