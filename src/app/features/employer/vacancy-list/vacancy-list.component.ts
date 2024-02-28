@@ -10,16 +10,16 @@ import { EmployerService } from '../services/employer.service';
 })
 export class VacancyListComponent implements OnInit {
   Vacancies$?: Observable<Vacancy[]>;
-  organization: string | null = null;
+  email: string | null = null;
 
   constructor(private employerService: EmployerService){
     
   }
 
   ngOnInit(): void {
-    this.organization = localStorage.getItem('organization');
-    if(this.organization){
-      this.Vacancies$ = this.employerService.getVacancyByName(this.organization);
+    this.email = localStorage.getItem('user-email');
+    if(this.email){
+      this.Vacancies$ = this.employerService.getVacancyByName(this.email);
     }
   }
 }

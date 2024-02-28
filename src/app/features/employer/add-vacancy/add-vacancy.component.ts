@@ -13,12 +13,11 @@ import { EmployerService } from '../services/employer.service';
 export class AddVacancyComponent implements OnDestroy {
   model: Vacancy;
   error: string = '';
-  organization: string | null = null;
+  email: string | null = null;
 
   addVacancySubscription?: Subscription;
 
   constructor(private employerService: EmployerService, private router: Router){
-    this.organization = localStorage.getItem('organization');
     this.model = {
       publishedBy: '',
       publishedDate: new Date(),
@@ -34,9 +33,9 @@ export class AddVacancyComponent implements OnDestroy {
   }
 
   onFormSubmit(){
-    if(this.organization){
-      this.model.publishedBy = this.organization
-
+    this.email = localStorage.getItem('user-email');
+    if(this.email){ 
+      this.model.publishedBy = this.email;
       this.addVacancySubscription = this.employerService.createVacancy(this.model).subscribe({
         next: (response) => {
           this.router.navigateByUrl('/vacancy');
@@ -45,8 +44,8 @@ export class AddVacancyComponent implements OnDestroy {
           console.error(error);
         }
       });
-    }
-  }
+    } 
+}
 
   ngOnDestroy(): void {
     this.addVacancySubscription?.unsubscribe();

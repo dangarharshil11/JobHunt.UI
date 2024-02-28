@@ -38,18 +38,6 @@ export class LoginComponent {
             email: response.email,
             roles: response.roles,
           }); 
-
-          if(response.roles.includes('Employer') && this.model.email){
-            this.employerService.getprofile(this.model.email).subscribe({
-              next: (response) => {
-                localStorage.setItem('organization', response.organization)
-              },
-              error: (error) => {
-                console.error(error);
-              }
-            });
-          }
-
           this.route.navigateByUrl('/');
         },
         error: (error) => {
