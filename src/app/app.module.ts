@@ -16,6 +16,7 @@ import { AddVacancyComponent } from './features/employer/add-vacancy/add-vacancy
 import { EditVacancyComponent } from './features/employer/edit-vacancy/edit-vacancy.component';
 import { HomeComponent } from './features/public/home/home.component';
 import { VacancyDetailComponent } from './features/employer/vacancy-detail/vacancy-detail.component';
+import { JobDetailComponent } from './features/public/job-detail/job-detail.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { VacancyDetailComponent } from './features/employer/vacancy-detail/vacan
     EditVacancyComponent,
     HomeComponent,
     VacancyDetailComponent,
+    JobDetailComponent,
   ],
   imports: [
     BrowserModule,

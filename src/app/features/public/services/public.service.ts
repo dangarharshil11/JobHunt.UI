@@ -21,7 +21,7 @@ export class PublicService {
     return this.http.get<VacancyResponse>(`${environment.employerapiBaseUrl}/api/vacancy/getVacancyById/${id}`);
   }
 
-  getprofile(email: string): Observable<Organization>{
-    return this.http.get<Organization>(`${environment.employerapiBaseUrl}/api/company/${email}`);
+  getProfileByName(name: string): Observable<Organization>{
+    return this.http.get<Organization>(`${environment.employerapiBaseUrl}/api/company/getProfileByName/${name}`);
   }
 }

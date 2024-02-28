@@ -11,6 +11,7 @@ import { AddVacancyComponent } from './features/employer/add-vacancy/add-vacancy
 import { EditVacancyComponent } from './features/employer/edit-vacancy/edit-vacancy.component';
 import { HomeComponent } from './features/public/home/home.component';
 import { VacancyDetailComponent } from './features/employer/vacancy-detail/vacancy-detail.component';
+import { JobDetailComponent } from './features/public/job-detail/job-detail.component';
 
 const routes: Routes = [
   {path: "", component: HomeComponent},
@@ -23,6 +24,7 @@ const routes: Routes = [
   {path: "vacancy/add", component: AddVacancyComponent},
   {path: "vacancy/details/:id", component: VacancyDetailComponent},
   {path: "vacancy/edit/:id", component: EditVacancyComponent},
+  {path: "job/detail/:id", component: JobDetailComponent}
 ];
 
 @NgModule({

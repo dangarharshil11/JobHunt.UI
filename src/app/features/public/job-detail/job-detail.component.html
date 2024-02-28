@@ -1,0 +1,106 @@
+<ng-container *ngIf="vacancy$ | async as vacancy; else loader">
+    <div class="container">
+        <div class="mt-4">
+            <div class="col-12 col-md-8 col-lg-6 mx-auto">
+                <h1 class="mt-4">Job Title: {{vacancy.jobTitle}}</h1>
+                
+                <div class="d-flex justify-content-between">
+                    <span>Posted on: {{vacancy.publishedDate | date: 'yyyy-MM-dd'}}</span>
+                    <span>Last Date to Apply: {{vacancy.lastDate | date: 'yyyy-MM-dd'}}</span>
+                </div>
+
+                <div class="mt-1 p-2">
+                    Organization Name: {{vacancy.publishedBy}}
+                </div>
+
+                <div class="mt-1 p-2">
+                    Minimum Qualification Required: {{vacancy.minimumQualification}}
+                </div>
+
+                <div class="mt-1 p-2">
+                    Minimum Experience Required: {{vacancy.experienceRequired}}
+                </div>
+
+                <div class="mt-1">
+                    <div class="d-flex flex-row">
+                        <div class="col-6 p-2">
+                            No of Vacancies: {{vacancy.noOfVacancies}}
+                        </div>
+                        <div class="col-6 p-2">
+                            Salary Range: {{vacancy.minimumSalary}} - {{vacancy.maximumSalary}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-1 p-2">
+                    <p class="fw-bold">Job Description:</p>
+                    <pre style="white-space: pre-wrap;">{{vacancy.jobDescription}}</pre>
+                </div>
+
+                <div class="mt-1 p-2">
+                    <a class="btn btn-primary">Apply</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-container>
+
+<ng-container *ngIf="profile$ | async as profile; else loader">
+    <div class="container">
+        <div class="mt-4">
+            <div class="col-12 col-md-8 col-lg-6 mx-auto">
+                <h3 class="mt-4" id="organization">Organization Information</h3>
+                <div class="mt-3">
+                    <div class="mt-1">
+                        <div class="d-flex flex-row">
+                            <div     class="col-6 p-2">
+                                Organization Name: {{profile.organization}}
+                            </div   >
+                            <div class="col-6 p-2">
+                                Organization Type: {{profile.organizationType}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-1">
+                        <div class="d-flex flex-row">
+                            <div class="col-6 p-2">
+                                Company Email: {{profile.companyEmail}}
+                            </div>
+                            <div class="col-6 p-2">
+                                Company Phone: {{profile.companyPhone}}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-1">
+                        <div class="d-flex flex-row">
+                            <div class="col-6 p-2">
+                                Start Year: {{profile.startYear}}
+                            </div>
+                            <div class="col-6 p-2">
+                                Total No Of Employees: {{profile.noOfEmployees}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-1">
+                        <div class="d-flex flex-row">
+                            <div class="col-12 p-2">
+                                <p class="fw-bold">Job Description:</p>
+                                <pre style="white-space: pre-wrap;">{{profile.about}}</pre>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-container>
+
+<ng-template #loader>
+    <div class="text-center mt-5">
+        <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+</ng-template>
