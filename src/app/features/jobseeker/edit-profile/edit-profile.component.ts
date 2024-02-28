@@ -1,21 +1,22 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { User } from '../models/user.model';
-import { JobuserService } from '../services/jobuser.service';
+import { Component } from '@angular/core';
 import { Subscription } from 'rxjs';
+
+import { JobuserService } from '../services/jobuser.service';
+import { User } from '../models/user.model';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-add-profile',
-  templateUrl: './add-profile.component.html',
-  styleUrls: ['./add-profile.component.css']
+  selector: 'app-edit-profile',
+  templateUrl: './edit-profile.component.html',
+  styleUrls: ['./edit-profile.component.css']
 })
-export class AddProfileComponent implements OnInit, OnDestroy {
+export class EditProfileComponent {
   model: User;
   email: string | null = null;
   id: string | null = null;
   error: string = '';
 
-  addProfileSubscription$?: Subscription;
+  editProfileSubscription$?: Subscription;
 
   constructor(private jobuserService: JobuserService, private router: Router){
     this.model = {
@@ -33,10 +34,15 @@ export class AddProfileComponent implements OnInit, OnDestroy {
  
   ngOnInit(): void {
     this.email = localStorage.getItem('user-email');
-    this.id = localStorage.getItem('user-id');
-    if(this.email && this.id){
-      this.model.email = this.email;
-      this.model.id = this.id;
+    if(this.email){
+      this.jobuserService.getProfile(this.email).subscribe({
+        next: (response) => {
+          this.model = response;
+        },
+        error: (error) => {
+          console.error(error);
+        }
+      });
     }
   }
 
@@ -46,9 +52,9 @@ export class AddProfileComponent implements OnInit, OnDestroy {
         this.error = 'Enter All the details'
     }
     else{
-      this.addProfileSubscription$ = this.jobuserService.addProfile(this.model).subscribe({
+      this.editProfileSubscription$ = this.jobuserService.editProfile(this.model, this.model.email).subscribe({
         next: (response) =>{
-          this.router.navigateByUrl(`/user/${response.email}`);
+          this.router.navigateByUrl(`/user/${response.email}`)
         },
         error: (error) => {
           console.error(error);
@@ -58,6 +64,6 @@ export class AddProfileComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.addProfileSubscription$?.unsubscribe();
+    this.editProfileSubscription$?.unsubscribe();
   }
 }

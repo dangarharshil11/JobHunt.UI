@@ -18,4 +18,8 @@ export class JobuserService {
   addProfile(request: User): Observable<User>{
     return this.http.post<User>(`${environment.jobseekerapiBaseUrl}/api/jobSeeker/addProfile`,request);
   }
+
+  editProfile(request: User, email: string): Observable<User>{
+    return this.http.put<User>(`${environment.jobseekerapiBaseUrl}/api/jobSeeker/updateProfile/${email}`, request)
+  } 
 }

@@ -14,6 +14,7 @@ import { VacancyDetailComponent } from './features/employer/vacancy-detail/vacan
 import { JobDetailComponent } from './features/public/job-detail/job-detail.component';
 import { ProfileComponent } from './features/jobseeker/profile/profile.component';
 import { AddProfileComponent } from './features/jobseeker/add-profile/add-profile.component';
+import { EditProfileComponent } from './features/jobseeker/edit-profile/edit-profile.component';
 
 const routes: Routes = [
   // public Routes
@@ -33,6 +34,7 @@ const routes: Routes = [
 
   // JobSeeker Routes
   {path: "user/add", component: AddProfileComponent},
+  {path: "user/edit", component: EditProfileComponent},
   {path: "user/:email", component: ProfileComponent},
 ];
 
