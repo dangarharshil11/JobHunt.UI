@@ -1,0 +1,46 @@
+<div class="container">
+    <div class="d-flex justify-content-between mt-3">
+        <div>
+            <h1 class="mt-3">Your Qualifications</h1>
+        </div>
+        <div class="my-auto">
+            <a class="btn btn-primary" [routerLink]="['/vacancy/add']">
+                Add Qualification
+            </a>
+        </div>
+    </div>
+
+    <ng-container *ngIf="qualifications$| async as qualifications">
+        <table *ngIf="qualifications != []; else noQualifications" class="table table-bordered mt-3">
+            <thead>
+                <tr>
+                    <th>Qualification Name</th>
+                    <th>University Name</th>
+                    <th>Years of Completion</th>
+                    <th>Grade or Score</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let qualification of qualifications">
+                    <td>{{qualification.qualificationName}}</td>
+                    <td>{{qualification.university}}</td>
+                    <td>{{qualification.yearsOfCompletion}}</td>
+                    <td>{{qualification.gradeOrScore}}</td>
+                    <td>
+                        <a class="btn btn-light" [routerLink]="['/qualification/details', qualification.id]">Details</a>
+                    </td>
+                    <td>
+                        <a class="btn btn-success" [routerLink]="['/qualification/edit', qualification.id]">Edit</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </ng-container>
+    <ng-template #noQualifications>
+        <p class="mt-2">
+            You have not added any qualifications yet!
+        </p>
+    </ng-template>
+</div>

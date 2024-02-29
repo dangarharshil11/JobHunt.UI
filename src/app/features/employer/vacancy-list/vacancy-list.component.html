@@ -11,7 +11,7 @@
     </div>
 
     <ng-container *ngIf="Vacancies$| async as vacancies">
-        <table *ngIf="vacancies == []; else noVacancies" class="table table-bordered mt-3">
+        <table *ngIf="vacancies != []; else noVacancies" class="table table-bordered mt-3">
             <thead>
                 <tr>
                     <th>Job Title</th>

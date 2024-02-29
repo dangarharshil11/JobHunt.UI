@@ -28,7 +28,7 @@
               </a>
               <ul class="dropdown-menu">
                 <li><a class="dropdown-item" [routerLink]="['/user', user.email]">Profile</a></li>
-                <li><a class="dropdown-item" [routerLink]="['/vacancy']">Qualification</a></li>
+                <li><a class="dropdown-item" [routerLink]="['/qualification', user.userId]">Qualification</a></li>
                 <li><a class="dropdown-item" [routerLink]="['/vacancy']">Experiences</a></li>
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item" [routerLink]="['/organization', user.email]">Job Applications</a></li>

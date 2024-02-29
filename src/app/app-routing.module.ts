@@ -15,6 +15,7 @@ import { JobDetailComponent } from './features/public/job-detail/job-detail.comp
 import { ProfileComponent } from './features/jobseeker/profile/profile.component';
 import { AddProfileComponent } from './features/jobseeker/add-profile/add-profile.component';
 import { EditProfileComponent } from './features/jobseeker/edit-profile/edit-profile.component';
+import { QualificationListComponent } from './features/jobseeker/qualification-list/qualification-list.component';
 
 const routes: Routes = [
   // public Routes
@@ -36,6 +37,7 @@ const routes: Routes = [
   {path: "user/add", component: AddProfileComponent},
   {path: "user/edit", component: EditProfileComponent},
   {path: "user/:email", component: ProfileComponent},
+  {path: "qualification/:id", component: QualificationListComponent}
 ];
 
 @NgModule({
