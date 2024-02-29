@@ -29,7 +29,19 @@ export class JobuserService {
     return this.http.get<QualificationResponse[]>(`${environment.jobseekerapiBaseUrl}/api/qualification/GetAllQualificationsByUserId/${userId}`);
   }
 
+  getQualificationById(id: string): Observable<QualificationResponse>{
+    return this.http.get<QualificationResponse>(`${environment.jobseekerapiBaseUrl}/api/qualification/GetQualificationById/${id}`);
+  }
+
   addQualification(request: QualificationRequest): Observable<QualificationResponse>{
     return this.http.post<QualificationResponse>(`${environment.jobseekerapiBaseUrl}/api/qualification/addQualification`, request)
+  }
+
+  editQualification(request: QualificationRequest, id: string): Observable<QualificationResponse>{
+    return this.http.put<QualificationResponse>(`${environment.jobseekerapiBaseUrl}/api/qualification/updateQualification/${id}`,request);
+  }
+
+  deleteQualification(id: string): Observable<QualificationResponse>{
+    return this.http.delete<QualificationResponse>(`${environment.jobseekerapiBaseUrl}/api/qualification/deleteQualification/${id}`)
   }
 }

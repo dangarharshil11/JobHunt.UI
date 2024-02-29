@@ -35,7 +35,6 @@ export class AddQualificationComponent implements OnInit, OnDestroy {
   }
 
   onFormSubmit(){
-    console.log(this.model);
     if(this.model.qualificationName == '' || this.model.university == '' || this.model.yearsOfCompletion == 0 || this.model.gradeOrScore == ''){
         this.error = 'Enter All the details'
     }
