@@ -29,10 +29,10 @@
                     <td>{{experience.startYear | date: 'yyyy-MM-dd'}}</td>
                     <td>{{experience.endYear | date: 'yyyy-MM-dd'}}</td>
                     <td>
-                        <a class="btn btn-light" [routerLink]="['/experiences/details', experience.id]">Details</a>
+                        <a class="btn btn-light" [routerLink]="['/experience/details', experience.id]">Details</a>
                     </td>
                     <td>
-                        <a class="btn btn-success" [routerLink]="['/experiences/edit', experience.id]">Edit</a>
+                        <a class="btn btn-success" [routerLink]="['/experience/edit', experience.id]">Edit</a>
                     </td>
                 </tr>
             </tbody>

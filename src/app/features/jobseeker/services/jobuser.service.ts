@@ -51,7 +51,19 @@ export class JobuserService {
     return this.http.get<ExperienceResponse[]>(`${environment.jobseekerapiBaseUrl}/api/experience/getAllExperiencesByUserId/${userId}`);
   }
 
+  getExperienceById(id: string): Observable<ExperienceResponse>{
+    return this.http.get<ExperienceResponse>(`${environment.jobseekerapiBaseUrl}/api/experience/getExperienceById/${id}`);
+  }
+
   addExperience(request: ExperienceRequest): Observable<ExperienceResponse>{
     return this.http.post<ExperienceResponse>(`${environment.jobseekerapiBaseUrl}/api/experience/addExperience`,request)
+  }
+
+  editExperience(request: ExperienceRequest, id: string): Observable<ExperienceResponse>{
+    return this.http.put<ExperienceResponse>(`${environment.jobseekerapiBaseUrl}/api/experience/updateExperience/${id}`,request)
+  }
+
+  deleteExperience(id: string): Observable<ExperienceResponse>{
+    return this.http.delete<ExperienceResponse>(`${environment.jobseekerapiBaseUrl}/api/experience/deleteExperience/${id}`);
   }
 }
