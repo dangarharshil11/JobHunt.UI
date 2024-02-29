@@ -59,7 +59,6 @@ export class EditExperienceComponent {
     }
     else{
       if(this.id){
-        console.log(this.model)
         this.editExperienceSubscription$ = this.jobuserService.editExperience(this.model, this.id).subscribe({
           next: (response) =>{
             this.router.navigateByUrl(`/experience/${this.id}`);

@@ -34,17 +34,23 @@ export class AddVacancyComponent implements OnDestroy {
 
   onFormSubmit(){
     this.email = localStorage.getItem('user-email');
-    if(this.email){ 
-      this.model.publishedBy = this.email;
-      this.addVacancySubscription = this.employerService.createVacancy(this.model).subscribe({
-        next: (response) => {
-          this.router.navigateByUrl('/vacancy');
-        },
-        error: (error) => {
-          console.error(error);
-        }
-      });
-    } 
+    if(this.model.experienceRequired == '' || this.model.jobTitle =='' || this.model.noOfVacancies == 0 || this.model.maximumSalary == 0 || 
+    this.model.minimumSalary == 0 || this.model.minimumQualification == '' || this.model.experienceRequired == '' || this.model.jobDescription ==''){
+      this.error = 'Enter all the Details'
+    }
+    else{
+      if(this.email){ 
+        this.model.publishedBy = this.email;
+        this.addVacancySubscription = this.employerService.createVacancy(this.model).subscribe({
+          next: (response) => {
+            this.router.navigateByUrl('/vacancy');
+          },
+          error: (error) => {
+            console.error(error);
+          }
+        });
+      } 
+    }
 }
 
   ngOnDestroy(): void {
