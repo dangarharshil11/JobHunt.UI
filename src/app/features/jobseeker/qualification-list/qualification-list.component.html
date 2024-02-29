@@ -11,7 +11,7 @@
     </div>
 
     <ng-container *ngIf="qualifications$| async as qualifications">
-        <table *ngIf="qualifications != []; else noQualifications" class="table table-bordered mt-3">
+        <table *ngIf="qualifications.length != 0; else noQualifications" class="table table-bordered mt-3">
             <thead>
                 <tr>
                     <th>Qualification Name</th>
