@@ -1,50 +1,54 @@
 <div class="container">
-    <h3 class="mt-5 p-2">User Profile</h3>
     <ng-container *ngIf="profile$ | async as profile; else addProfile">
-        <div class="d-flex justify-content-end mt-2">
-            <a [routerLink]="['/user/edit']" class="btn btn-primary">
-                Update User Profile
-            </a>
+        <div class="d-flex justify-content-between mt-3">
+            <div>
+                <h1 class="mt-3">User Profile</h1>
+            </div>
+            <div class="my-auto">
+                <a [routerLink]="['/user/edit']" class="btn btn-primary">
+                    Update User Profile
+                </a>
+            </div>
         </div>
         <div class="container">
-                <div class="mt-1">
-                    <div class="mt-1">
+                <div class="my-3 border border-dark rounded bg-light p-3">
+                    <div class="mt-2">
                         <div class="d-flex flex-row">
-                            <div class="col-6 p-2">
-                                First Name: {{profile.firstName}}
+                            <div class="col-6">
+                                <span class="fw-bold">First Name: </span>{{profile.firstName}}
                             </div>
-                            <div class="col-6 p-2">
-                                Last Name: {{profile.lastName}}
+                            <div class="col-6">
+                                <span class="fw-bold">Last Name: </span>{{profile.lastName}}
                             </div>
                         </div>
                     </div>
 
-                    <div class="mt-1">
+                    <div class="mt-2">
                         <div class="d-flex flex-row">
-                            <div class="col-6 p-2">
-                                Phone Number: {{profile.phone}}
+                            <div class="col-6">
+                                <span class="fw-bold">Phone Number: </span>{{profile.phone}}
                             </div>
-                            <div class="col-6 p-2">
-                                Date of Birth: {{profile.dateOfBirth | date: 'yyyy-MM-dd'}}
+                            <div class="col-6">
+                                <span class="fw-bold">Date of Birth: </span>{{profile.dateOfBirth | date: 'yyyy-MM-dd'}}
                             </div>
                         </div>
                     </div>
         
-                    <div class="mt-1">
+                    <div class="mt-2">
                         <div class="d-flex flex-row">
-                            <div class="col-6 p-2">
-                                Total Experience: {{profile.totalExperience}}
+                            <div class="col-6">
+                                <span class="fw-bold">Total Experience: </span>{{profile.totalExperience}}
                             </div>
-                            <div class="col-6 p-2">
-                                Expected Salary: {{profile.expectedSalary}}
+                            <div class="col-6">
+                                <span class="fw-bold">Expected Salary: </span>{{profile.expectedSalary}}
                             </div>
                         </div>
                     </div>
 
-                    <div class="mt-1">
+                    <div class="mt-2">
                         <div class="d-flex flex-row">
-                            <div class="col-12 p-2">
-                                <p class="m-0">Address: </p>
+                            <div class="col-12">
+                                <p class="m-0 fw-bold">Address: </p>
                                 <pre style="white-space: pre-wrap;">{{profile.address}}</pre>
                             </div>
                         </div>
@@ -55,11 +59,16 @@
         
     </ng-container>
     <ng-template #addProfile>
-        <p class="mt-3">You have not Added Your Profile</p>
-        <div class="d-flex justify-content-end mt-3">
-            <a [routerLink]="['/user/add']" class="btn btn-primary">
-                Add Profile
-            </a>
+        <div class="d-flex justify-content-between mt-3">
+            <div>
+                <h1 class="mt-3">User Profile</h1>
+            </div>
+            <div class="my-auto">
+                <a [routerLink]="['/user/add']" class="btn btn-primary">
+                    Add Profile
+                </a>
+            </div>
         </div>
+        <p class="mt-3">You have not Added Your Profile</p>
     </ng-template>
 </div>
