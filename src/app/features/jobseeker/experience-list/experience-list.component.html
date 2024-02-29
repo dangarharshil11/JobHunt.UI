@@ -26,8 +26,8 @@
                 <tr *ngFor="let experience of experiences">
                     <td>{{experience.companyName}}</td>
                     <td>{{experience.designation}}</td>
-                    <td>{{experience.startYear}}</td>
-                    <td>{{experience.endYear}}</td>
+                    <td>{{experience.startYear | date: 'yyyy-MM-dd'}}</td>
+                    <td>{{experience.endYear | date: 'yyyy-MM-dd'}}</td>
                     <td>
                         <a class="btn btn-light" [routerLink]="['/experiences/details', experience.id]">Details</a>
                     </td>

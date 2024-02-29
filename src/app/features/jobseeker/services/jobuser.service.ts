@@ -6,6 +6,7 @@ import { environment } from 'src/environments/environment';
 import { QualificationRequest } from '../models/qualification-request.model';
 import { QualificationResponse } from '../models/qualification-response.model';
 import { ExperienceResponse } from '../models/experience-response.model';
+import { ExperienceRequest } from '../models/experience-request.model';
 
 @Injectable({
   providedIn: 'root'
@@ -48,5 +49,9 @@ export class JobuserService {
 
   getAllExperiences(userId: string): Observable<ExperienceResponse[]>{
     return this.http.get<ExperienceResponse[]>(`${environment.jobseekerapiBaseUrl}/api/experience/getAllExperiencesByUserId/${userId}`);
+  }
+
+  addExperience(request: ExperienceRequest): Observable<ExperienceResponse>{
+    return this.http.post<ExperienceResponse>(`${environment.jobseekerapiBaseUrl}/api/experience/addExperience`,request)
   }
 }

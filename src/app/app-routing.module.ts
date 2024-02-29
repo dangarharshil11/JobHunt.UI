@@ -19,6 +19,7 @@ import { QualificationListComponent } from './features/jobseeker/qualification-l
 import { AddQualificationComponent } from './features/jobseeker/add-qualification/add-qualification.component';
 import { EditQualificationComponent } from './features/jobseeker/edit-qualification/edit-qualification.component';
 import { ExperienceListComponent } from './features/jobseeker/experience-list/experience-list.component';
+import { AddExperienceComponent } from './features/jobseeker/add-experience/add-experience.component';
 
 const routes: Routes = [
   // public Routes
@@ -43,6 +44,7 @@ const routes: Routes = [
   {path: "qualification/add", component: AddQualificationComponent},
   {path: "qualification/edit/:id", component: EditQualificationComponent},
   {path: "qualification/:id", component: QualificationListComponent},
+  {path: "experience/add", component: AddExperienceComponent},
   {path: "experience/:id", component: ExperienceListComponent},
 ];
 
