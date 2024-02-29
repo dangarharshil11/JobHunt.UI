@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Qualification } from '../models/qualification.model';
 import { JobuserService } from '../services/jobuser.service';
+import { QualificationResponse } from '../models/qualification-response.model';
 
 @Component({
   selector: 'app-qualification-list',
@@ -10,7 +10,7 @@ import { JobuserService } from '../services/jobuser.service';
 })
 export class QualificationListComponent implements OnInit {
   userId: string | null = null;
-  qualifications$?: Observable<Qualification[]>;
+  qualifications$?: Observable<QualificationResponse[]>;
 
   constructor(private jobuserService: JobuserService){}
 

@@ -21,6 +21,7 @@ import { ProfileComponent } from './features/jobseeker/profile/profile.component
 import { AddProfileComponent } from './features/jobseeker/add-profile/add-profile.component';
 import { EditProfileComponent } from './features/jobseeker/edit-profile/edit-profile.component';
 import { QualificationListComponent } from './features/jobseeker/qualification-list/qualification-list.component';
+import { AddQualificationComponent } from './features/jobseeker/add-qualification/add-qualification.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { QualificationListComponent } from './features/jobseeker/qualification-l
     AddProfileComponent,
     EditProfileComponent,
     QualificationListComponent,
+    AddQualificationComponent,
   ],
   imports: [
     BrowserModule,

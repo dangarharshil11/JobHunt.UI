@@ -1,5 +1,4 @@
-export interface Qualification{
-    id: string;
+export interface QualificationRequest{
     userId: string;
     qualificationName: string;
     university: string;

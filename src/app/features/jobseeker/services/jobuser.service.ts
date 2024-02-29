@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User } from '../models/user.model';
 import { environment } from 'src/environments/environment';
-import { Qualification } from '../models/qualification.model';
-import { Organization } from '../../employer/models/organization.model';
+import { QualificationRequest } from '../models/qualification-request.model';
+import { QualificationResponse } from '../models/qualification-response.model';
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +25,11 @@ export class JobuserService {
     return this.http.put<User>(`${environment.jobseekerapiBaseUrl}/api/jobSeeker/updateProfile/${email}`, request)
   } 
 
-  getAllQualifications(userId: string): Observable<Qualification[]>{
-    return this.http.get<Qualification[]>(`${environment.jobseekerapiBaseUrl}/api/qualification/GetAllQualificationsByUserId/${userId}`);
+  getAllQualifications(userId: string): Observable<QualificationResponse[]>{
+    return this.http.get<QualificationResponse[]>(`${environment.jobseekerapiBaseUrl}/api/qualification/GetAllQualificationsByUserId/${userId}`);
+  }
+
+  addQualification(request: QualificationRequest): Observable<QualificationResponse>{
+    return this.http.post<QualificationResponse>(`${environment.jobseekerapiBaseUrl}/api/qualification/addQualification`, request)
   }
 }
