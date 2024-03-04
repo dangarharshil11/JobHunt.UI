@@ -25,6 +25,7 @@ import { ExperienceDetailsComponent } from './features/jobseeker/experience-deta
 import { QualificationDetailsComponent } from './features/jobseeker/qualification-details/qualification-details.component';
 import { ApplicationListComponent } from './features/jobseeker/application-list/application-list.component';
 import { AppliedusersListComponent } from './features/employer/appliedusers-list/appliedusers-list.component';
+import { CandidateDetailsComponent } from './features/employer/candidate-details/candidate-details.component';
 
 const routes: Routes = [
   // public Routes
@@ -42,6 +43,7 @@ const routes: Routes = [
   {path: "vacancy/edit/:id", component: EditVacancyComponent},
   {path: "vacancy/applications/:id", component: AppliedusersListComponent},
   {path: "vacancy", component: VacancyListComponent},
+  {path: "candidate/:id", component: CandidateDetailsComponent},
 
   // JobSeeker Routes
   {path: "user/add", component: AddProfileComponent},

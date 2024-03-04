@@ -30,6 +30,7 @@ import { ExperienceDetailsComponent } from './features/jobseeker/experience-deta
 import { QualificationDetailsComponent } from './features/jobseeker/qualification-details/qualification-details.component';
 import { ApplicationListComponent } from './features/jobseeker/application-list/application-list.component';
 import { AppliedusersListComponent } from './features/employer/appliedusers-list/appliedusers-list.component';
+import { CandidateDetailsComponent } from './features/employer/candidate-details/candidate-details.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +60,7 @@ import { AppliedusersListComponent } from './features/employer/appliedusers-list
     QualificationDetailsComponent,
     ApplicationListComponent,
     AppliedusersListComponent,
+    CandidateDetailsComponent,
   ],
   imports: [
     BrowserModule,

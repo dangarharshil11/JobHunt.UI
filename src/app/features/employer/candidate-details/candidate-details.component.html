@@ -1,18 +1,9 @@
 <div class="container">
-    <h1 class="mt-3">User Profile</h1>
+    <h1 class="mt-3">Candidate Profile</h1>
     <div class="container">
         <div class="my-3 border border-dark rounded bg-light p-3">
-            <ng-container *ngIf="profile$ | async as profile; else addProfile">
-                <div class="d-flex justify-content-between">
-                    <div>
-                        <h3>Personal Details</h3>
-                    </div>
-                    <div>
-                        <a [routerLink]="['/user/edit']" class="btn btn-primary">
-                            Update Personal Details
-                        </a>
-                    </div>
-                </div>
+            <ng-container *ngIf="profile$ | async as profile; else noProfile">
+                <h3>Personal Details</h3>
                 <hr>
                 <div class="mt-2">
                     <div class="d-flex flex-row">
@@ -56,34 +47,20 @@
                     </div>
                 </div>
             </ng-container>
-            <ng-template #addProfile>
+            <ng-template #noProfile>
                 <div class="d-flex justify-content-between">
                     <div>
                         <h3>Personal Details</h3>
                     </div>
-                    <div>
-                        <a [routerLink]="['/user/edit']" class="btn btn-primary">
-                            Add Personal Details
-                        </a>
-                    </div>
                 </div>
                 <hr>
-                <p class="mt-3">You have not Added Your Profile</p>
+                <p class="mt-3">Candidate has no Personal Details</p>
             </ng-template>
         </div>
 
         <div class="my-3 border border-dark rounded bg-light p-3">
-            <ng-container *ngIf="experiences$ | async as experiences; else addexperience">
-                <div class="d-flex justify-content-between">
-                    <div>
-                        <h3>Your Experiences</h3>
-                    </div>
-                    <div>
-                        <a [routerLink]="['/experience/',id]" class="btn btn-primary">
-                            Manage Experience
-                        </a>
-                    </div>
-                </div>
+            <ng-container *ngIf="experiences$ | async as experiences; else noexperience">
+                <h3>Candidate Experiences</h3>
                 <div *ngFor="let experience of experiences">
                     <hr>
                     <div class="mt-2">
@@ -126,34 +103,16 @@
                     </div>
                 </div>
             </ng-container>
-            <ng-template #addexperience>
-                <div class="d-flex justify-content-between">
-                    <div>
-                        <h3>Your Experiences</h3>
-                    </div>
-                    <div>
-                        <a [routerLink]="['/experiences/',id]" class="btn btn-primary">
-                            Add Expereinces
-                        </a>
-                    </div>
-                </div>
+            <ng-template #noexperience>
+                <h3>Candidate Experiences</h3>
                 <hr>
-                <p class="mt-3">You have not Added any Experiences</p>
+                <p class="mt-3">Candidate has no experiences</p>
             </ng-template>
         </div>
 
         <div class="my-3 border border-dark rounded bg-light p-3">
-            <ng-container *ngIf="qualifications$ | async as qualifications; else addqualification">
-                <div class="d-flex justify-content-between">
-                    <div>
-                        <h3>Your Qualifications</h3>
-                    </div>
-                    <div>
-                        <a [routerLink]="['/qualification/',id]" class="btn btn-primary">
-                            Manage Qualifications
-                        </a>
-                    </div>
-                </div>
+            <ng-container *ngIf="qualifications$ | async as qualifications; else noqualification">
+                <h3>Candidate Qualifications</h3>
                 <div *ngFor="let qualification of qualifications">
                     <hr>
                     <div class="mt-2">
@@ -179,19 +138,15 @@
                     </div>
                 </div>
             </ng-container>
-            <ng-template #addqualification>
+            <ng-template #noqualification>
                 <div class="d-flex justify-content-between">
                     <div>
-                        <h3>Your Qualifications</h3>
+                        <h3>Candidate Qualifications</h3>
                     </div>
-                    <div>
-                        <a [routerLink]="['/qualification/',id]" class="btn btn-primary">
-                            Add Qualifications
-                        </a>
-                    </div>
+
                 </div>
                 <hr>
-                <p class="mt-3">You have not Added any Qualifications</p>
+                <p class="mt-3">Candidate has no Qualifications</p>
             </ng-template>
         </div>
     </div>

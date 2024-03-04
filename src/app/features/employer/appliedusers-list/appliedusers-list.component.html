@@ -18,7 +18,7 @@
                     <td>{{jobapplication.appliedDate | date: 'yyyy-MM-dd'}}</td>
                     <td>{{jobapplication.vacancy.jobTitle}}</td>
                     <td>
-                        <a class="btn btn-light">Candidate Details</a>
+                        <a class="btn btn-light" [routerLink]="['/candidate/', jobapplication.user.id]">Candidate Details</a>
                     </td>
                 </tr>
             </tbody>

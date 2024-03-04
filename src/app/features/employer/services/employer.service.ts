@@ -7,6 +7,9 @@ import { environment } from 'src/environments/environment';
 import { VacancyRequest } from '../models/vacancy-request.model';
 import { VacancyResponse } from '../models/vacancy-response.model';
 import { ApplicationResponse } from '../models/application-response.model';
+import { QualificationResponse } from '../models/qualification-response.model';
+import { ExperienceResponse } from '../models/experience-response.model';
+import { User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -49,5 +52,17 @@ export class EmployerService {
 
   getApplicationsByVacancyId(id: string): Observable<ApplicationResponse[]>{
     return this.http.get<ApplicationResponse[]>(`${environment.employerapiBaseUrl}/api/application/getAllByVacancy/${id}`);
+  }
+
+  getCandidateProfile(userId: string): Observable<User>{
+    return this.http.get<User>(`${environment.jobseekerapiBaseUrl}/api/jobSeeker/getByUserId/${userId}`);
+  }
+
+  getAllQualifications(userId: string): Observable<QualificationResponse[]>{
+    return this.http.get<QualificationResponse[]>(`${environment.jobseekerapiBaseUrl}/api/qualification/GetAllQualificationsByUserId/${userId}`);
+  }
+  
+  getAllExperiences(userId: string): Observable<ExperienceResponse[]>{
+    return this.http.get<ExperienceResponse[]>(`${environment.jobseekerapiBaseUrl}/api/experience/getAllExperiencesByUserId/${userId}`);
   }
 }
