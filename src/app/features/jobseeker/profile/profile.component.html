@@ -1,24 +1,98 @@
 <div class="container">
-    <ng-container *ngIf="profile$ | async as profile; else addProfile">
-        <div class="d-flex justify-content-between mt-3">
-            <div>
-                <h1 class="mt-3">User Profile</h1>
-            </div>
-            <div class="my-auto">
-                <a [routerLink]="['/user/edit']" class="btn btn-primary">
-                    Update User Profile
-                </a>
-            </div>
+    <h1 class="mt-3">User Profile</h1>
+    <div class="container">
+        <div class="my-3 border border-dark rounded bg-light p-3">
+            <ng-container *ngIf="profile$ | async as profile; else addProfile">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h3>Personal Details</h3>
+                    </div>
+                    <div>
+                        <a [routerLink]="['/user/edit']" class="btn btn-primary">
+                            Update Personal Details
+                        </a>
+                    </div>
+                </div>
+                <hr>
+                <div class="mt-2">
+                    <div class="d-flex flex-row">
+                        <div class="col-6">
+                            <span class="fw-bold">First Name: </span>{{profile.firstName}}
+                        </div>
+                        <div class="col-6">
+                            <span class="fw-bold">Last Name: </span>{{profile.lastName}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-2">
+                    <div class="d-flex flex-row">
+                        <div class="col-6">
+                            <span class="fw-bold">Phone Number: </span>{{profile.phone}}
+                        </div>
+                        <div class="col-6">
+                            <span class="fw-bold">Date of Birth: </span>{{profile.dateOfBirth | date: 'yyyy-MM-dd'}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-2">
+                    <div class="d-flex flex-row">
+                        <div class="col-6">
+                            <span class="fw-bold">Total Experience: </span>{{profile.totalExperience}}
+                        </div>
+                        <div class="col-6">
+                            <span class="fw-bold">Expected Salary: </span>{{profile.expectedSalary}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-2">
+                    <div class="d-flex flex-row">
+                        <div class="col-12">
+                            <p class="m-0 fw-bold">Address: </p>
+                            <pre style="white-space: pre-wrap;">{{profile.address}}</pre>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+            <ng-template #addProfile>
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h3>Personal Details</h3>
+                    </div>
+                    <div>
+                        <a [routerLink]="['/user/edit']" class="btn btn-primary">
+                            Add Personal Details
+                        </a>
+                    </div>
+                </div>
+                <hr>
+                <p class="mt-3">You have not Added Your Profile</p>
+            </ng-template>
         </div>
-        <div class="container">
-                <div class="my-3 border border-dark rounded bg-light p-3">
+
+        <div class="my-3 border border-dark rounded bg-light p-3">
+            <ng-container *ngIf="experiences$ | async as experiences; else addexperience">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h3>Your Experiences</h3>
+                    </div>
+                    <div>
+                        <a [routerLink]="['/experience/',id]" class="btn btn-primary">
+                            Manage Experience
+                        </a>
+                    </div>
+                </div>
+                <div *ngFor="let experience of experiences">
+                    <hr>
                     <div class="mt-2">
                         <div class="d-flex flex-row">
                             <div class="col-6">
-                                <span class="fw-bold">First Name: </span>{{profile.firstName}}
+                                <span class="fw-bold">Designation: </span>{{experience.designation}}
                             </div>
                             <div class="col-6">
-                                <span class="fw-bold">Last Name: </span>{{profile.lastName}}
+                                <span class="fw-bold">Company Name: </span>{{experience.companyName}}
                             </div>
                         </div>
                     </div>
@@ -26,21 +100,18 @@
                     <div class="mt-2">
                         <div class="d-flex flex-row">
                             <div class="col-6">
-                                <span class="fw-bold">Phone Number: </span>{{profile.phone}}
+                                <span class="fw-bold">Start Date: </span>{{experience.startYear | date: 'yyyy-MM-dd'}}
                             </div>
                             <div class="col-6">
-                                <span class="fw-bold">Date of Birth: </span>{{profile.dateOfBirth | date: 'yyyy-MM-dd'}}
+                                <span class="fw-bold">End Date: </span>{{experience.endYear| date: 'yyyy-MM-dd'}}
                             </div>
                         </div>
                     </div>
-        
+
                     <div class="mt-2">
                         <div class="d-flex flex-row">
                             <div class="col-6">
-                                <span class="fw-bold">Total Experience: </span>{{profile.totalExperience}}
-                            </div>
-                            <div class="col-6">
-                                <span class="fw-bold">Expected Salary: </span>{{profile.expectedSalary}}
+                                <span class="fw-bold">Company Url: </span>{{experience.companyUrl}}
                             </div>
                         </div>
                     </div>
@@ -49,26 +120,79 @@
                         <div class="d-flex flex-row">
                             <div class="col-12">
                                 <p class="m-0 fw-bold">Address: </p>
-                                <pre style="white-space: pre-wrap;">{{profile.address}}</pre>
+                                <pre style="white-space: pre-wrap;">{{experience.jobDescription}}</pre>
                             </div>
                         </div>
                     </div>
                 </div>
+            </ng-container>
+            <ng-template #addexperience>
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h3>Personal Details</h3>
+                    </div>
+                    <div>
+                        <a [routerLink]="['/experiences/',id]" class="btn btn-primary">
+                            Add Expereinces
+                        </a>
+                    </div>
+                </div>
+                <hr>
+                <p class="mt-3">You have not Added any Experiences</p>
+            </ng-template>
         </div>
-        
-        
-    </ng-container>
-    <ng-template #addProfile>
-        <div class="d-flex justify-content-between mt-3">
-            <div>
-                <h1 class="mt-3">User Profile</h1>
-            </div>
-            <div class="my-auto">
-                <a [routerLink]="['/user/add']" class="btn btn-primary">
-                    Add Profile
-                </a>
-            </div>
+
+        <div class="my-3 border border-dark rounded bg-light p-3">
+            <ng-container *ngIf="qualifications$ | async as qualifications; else addqualification">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h3>Your Qualifications</h3>
+                    </div>
+                    <div>
+                        <a [routerLink]="['/qualification/',id]" class="btn btn-primary">
+                            Manage Qualifications
+                        </a>
+                    </div>
+                </div>
+                <div *ngFor="let qualification of qualifications">
+                    <hr>
+                    <div class="mt-2">
+                        <div class="d-flex flex-row">
+                            <div class="col-6">
+                                <span class="fw-bold">Qualification Name: </span>{{qualification.qualificationName}}
+                            </div>
+                            <div class="col-6">
+                                <span class="fw-bold">University Name: </span>{{qualification.university}}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-2">
+                        <div class="d-flex flex-row">
+                            <div class="col-6">
+                                <span class="fw-bold">Year of Completion: </span>{{qualification.yearsOfCompletion}}
+                            </div>
+                            <div class="col-6">
+                                <span class="fw-bold">Grade or Score: </span>{{qualification.gradeOrScore}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+            <ng-template #addqualification>
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h3>Your Qualifications</h3>
+                    </div>
+                    <div>
+                        <a [routerLink]="['/qualification/',id]" class="btn btn-primary">
+                            Add Qualifications
+                        </a>
+                    </div>
+                </div>
+                <hr>
+                <p class="mt-3">You have not Added any Qualifications/p>
+            </ng-template>
         </div>
-        <p class="mt-3">You have not Added Your Profile</p>
-    </ng-template>
+    </div>
 </div>
