@@ -7,6 +7,7 @@ import { QualificationRequest } from '../models/qualification-request.model';
 import { QualificationResponse } from '../models/qualification-response.model';
 import { ExperienceResponse } from '../models/experience-response.model';
 import { ExperienceRequest } from '../models/experience-request.model';
+import { ApplicationResponse } from '../models/application-response.model';
 
 @Injectable({
   providedIn: 'root'
@@ -65,5 +66,9 @@ export class JobuserService {
 
   deleteExperience(id: string): Observable<ExperienceResponse>{
     return this.http.delete<ExperienceResponse>(`${environment.jobseekerapiBaseUrl}/api/experience/deleteExperience/${id}`);
+  }
+
+  getApplicationsByUserId(userId: string): Observable<ApplicationResponse[]>{
+    return this.http.get<ApplicationResponse[]>(`${environment.employerapiBaseUrl}/api/application/getAllByUser/${userId}`);
   }
 }

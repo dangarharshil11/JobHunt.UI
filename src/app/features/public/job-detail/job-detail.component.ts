@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { PublicService } from '../services/public.service';
 import { VacancyResponse } from '../models/vacancy-response.model';
 import { Organization } from '../models/organization.model';
+import { ApplicationRequest } from '../models/application-request.model';
 
 @Component({
   selector: 'app-job-detail',
@@ -16,8 +17,15 @@ export class JobDetailComponent {
   userId: string | null = null;
   vacancy$?: Observable<VacancyResponse>;
   profile$?: Observable<Organization>;
+  request: ApplicationRequest;
 
-  constructor(private readonly publicService: PublicService, private route: ActivatedRoute, private router: Router){}
+  constructor(private readonly publicService: PublicService, private route: ActivatedRoute, private router: Router){
+    this.request = {
+      appliedDate: new Date(),
+      vacancyId: '',
+      userId: '',
+    }
+  }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe({
@@ -28,18 +36,26 @@ export class JobDetailComponent {
 
     this.userId = localStorage.getItem('user-id');
 
-    if(this.id){
+    if(this.id && this.userId){
       this.vacancy$ = this.publicService.getVacancyById(this.id);
       this.vacancy$.pipe().subscribe({
         next: (response) => {
           this.profile$ = this.publicService.getProfileByName(response.publishedBy);
         }
       })
+      this.request.vacancyId = this.id;
+      this.request.userId = this.userId;
     }
   }
 
-  onApply(vacanyId: string){
-    console.log("applied Successfully");
-    this.router.navigateByUrl('');
+  onApply(){
+    this.publicService.apply(this.request).subscribe({
+      next: (response) => {
+        this.router.navigateByUrl("/applications");
+      },
+      error: (error) => {
+        console.error(error);
+      }
+    })
   }
 }

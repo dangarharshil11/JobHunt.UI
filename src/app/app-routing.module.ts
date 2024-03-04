@@ -23,6 +23,7 @@ import { AddExperienceComponent } from './features/jobseeker/add-experience/add-
 import { EditExperienceComponent } from './features/jobseeker/edit-experience/edit-experience.component';
 import { ExperienceDetailsComponent } from './features/jobseeker/experience-details/experience-details.component';
 import { QualificationDetailsComponent } from './features/jobseeker/qualification-details/qualification-details.component';
+import { ApplicationListComponent } from './features/jobseeker/application-list/application-list.component';
 
 const routes: Routes = [
   // public Routes
@@ -52,6 +53,7 @@ const routes: Routes = [
   {path: "experience/edit/:id", component: EditExperienceComponent},
   {path: "experience/details/:id", component: ExperienceDetailsComponent},
   {path: "experience/:id", component: ExperienceListComponent},
+  {path: "applications", component: ApplicationListComponent},
 ];
 
 @NgModule({

@@ -1,0 +1,45 @@
+<div class="container">
+    <div class="d-flex justify-content-between mt-3">
+        <div>
+            <h1 class="mt-3">Your Job Applications</h1>
+        </div>
+        <div class="my-auto">
+            <a class="btn btn-primary" [routerLink]="['']">
+                Apply for Job
+            </a>
+        </div>
+    </div>
+
+    <ng-container *ngIf="applications$ | async as applications">
+        <table *ngIf="applications.length != 0; else noApplication" class="table table-bordered mt-3">
+            <thead>
+                <tr>
+                    <th>Job Title</th>
+                    <th>Published By</th>
+                    <th>Salary Range</th>
+                    <th>No of Vacancies</th>
+                    <th>Applied Date</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let application of applications">
+                    <td>{{application.vacancy.jobTitle}}</td>
+                    <td>{{application.vacancy.publishedBy}}</td>
+                    <td>{{application.vacancy.minimumSalary}} - {{application.vacancy.maximumSalary}}</td>
+                    <td>{{application.vacancy.noOfVacancies}}</td>
+                    <td>{{application.appliedDate | date: 'yyyy-MM-dd'}}</td>
+                    <td>
+                        <a class="btn btn-light"
+                            [routerLink]="['/job/detail', application.vacancyId]">Details</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </ng-container>
+    <ng-template #noApplication>
+        <p class="mt-2">
+            You have not applied for any Job!
+        </p>
+    </ng-template>
+</div>
