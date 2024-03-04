@@ -18,6 +18,7 @@
                     <th>Organization Name</th>
                     <th>No of Vacancies</th>
                     <th>Salary Range</th>
+                    <th>Applications Recieved</th>
                     <th></th>
                     <th></th>
                 </tr>
@@ -28,6 +29,9 @@
                     <td>{{vacancy.publishedBy}}</td>
                     <td>{{vacancy.noOfVacancies}}</td>
                     <td>{{vacancy.minimumSalary}} - {{vacancy.maximumSalary}}</td>
+                    <td>
+                        <a class="btn btn-light" [routerLink]="['/vacancy/applications', vacancy.id]">Applications</a>
+                    </td>
                     <td>
                         <a class="btn btn-light" [routerLink]="['/vacancy/details', vacancy.id]">Details</a>
                     </td>

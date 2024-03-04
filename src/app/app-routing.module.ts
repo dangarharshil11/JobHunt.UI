@@ -24,6 +24,7 @@ import { EditExperienceComponent } from './features/jobseeker/edit-experience/ed
 import { ExperienceDetailsComponent } from './features/jobseeker/experience-details/experience-details.component';
 import { QualificationDetailsComponent } from './features/jobseeker/qualification-details/qualification-details.component';
 import { ApplicationListComponent } from './features/jobseeker/application-list/application-list.component';
+import { AppliedusersListComponent } from './features/employer/appliedusers-list/appliedusers-list.component';
 
 const routes: Routes = [
   // public Routes
@@ -36,10 +37,11 @@ const routes: Routes = [
   {path: "organization/:email", component: CompanyInfoComponent},
   {path: "profile/add", component: AddCompanyDetailsComponent},
   {path: "profile/edit", component: EditCompanyDetailsComponent},
-  {path: "vacancy", component: VacancyListComponent},
   {path: "vacancy/add", component: AddVacancyComponent},
   {path: "vacancy/details/:id", component: VacancyDetailComponent},
   {path: "vacancy/edit/:id", component: EditVacancyComponent},
+  {path: "vacancy/applications/:id", component: AppliedusersListComponent},
+  {path: "vacancy", component: VacancyListComponent},
 
   // JobSeeker Routes
   {path: "user/add", component: AddProfileComponent},

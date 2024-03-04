@@ -6,6 +6,7 @@ import { Organization } from '../models/organization.model';
 import { environment } from 'src/environments/environment';
 import { VacancyRequest } from '../models/vacancy-request.model';
 import { VacancyResponse } from '../models/vacancy-response.model';
+import { ApplicationResponse } from '../models/application-response.model';
 
 @Injectable({
   providedIn: 'root'
@@ -44,5 +45,9 @@ export class EmployerService {
 
   deleteVacancy(id: string) :Observable<VacancyResponse>{
     return this.http.delete<VacancyResponse>(`${environment.employerapiBaseUrl}/api/vacancy/deleteVacancy/${id}`);
+  }
+
+  getApplicationsByVacancyId(id: string): Observable<ApplicationResponse[]>{
+    return this.http.get<ApplicationResponse[]>(`${environment.employerapiBaseUrl}/api/application/getAllByVacancy/${id}`);
   }
 }
