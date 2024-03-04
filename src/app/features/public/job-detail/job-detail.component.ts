@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
 import { PublicService } from '../services/public.service';
@@ -13,10 +13,11 @@ import { Organization } from '../models/organization.model';
 })
 export class JobDetailComponent {
   id: string | null = null;
+  userId: string | null = null;
   vacancy$?: Observable<VacancyResponse>;
   profile$?: Observable<Organization>;
 
-  constructor(private readonly publicService: PublicService, private route: ActivatedRoute){}
+  constructor(private readonly publicService: PublicService, private route: ActivatedRoute, private router: Router){}
 
   ngOnInit(): void {
     this.route.paramMap.subscribe({
@@ -24,6 +25,8 @@ export class JobDetailComponent {
         this.id = response.get("id");
       }
     });
+
+    this.userId = localStorage.getItem('user-id');
 
     if(this.id){
       this.vacancy$ = this.publicService.getVacancyById(this.id);
@@ -33,5 +36,10 @@ export class JobDetailComponent {
         }
       })
     }
+  }
+
+  onApply(vacanyId: string){
+    console.log("applied Successfully");
+    this.router.navigateByUrl('');
   }
 }
