@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { JobuserService } from '../services/jobuser.service';
 import { User } from '../models/user.model';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-edit-profile',

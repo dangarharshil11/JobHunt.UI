@@ -36,31 +36,40 @@ import { CandidateDetailsComponent } from './features/employer/candidate-details
   declarations: [
     AppComponent,
     NavbarComponent,
+    
+    // Auth Components
     LoginComponent,
     RegisterComponent,
-    AddCompanyDetailsComponent,
+
+    // Employer components
     CompanyInfoComponent,
     EditCompanyDetailsComponent,
+    AddCompanyDetailsComponent,
     VacancyListComponent,
+    VacancyDetailComponent,
     AddVacancyComponent,
     EditVacancyComponent,
+    AppliedusersListComponent,
+    CandidateDetailsComponent,
+
+    // Home Component
     HomeComponent,
-    VacancyDetailComponent,
     JobDetailComponent,
+
+    // JobSeeker Component
     ProfileComponent,
     AddProfileComponent,
     EditProfileComponent,
     QualificationListComponent,
     AddQualificationComponent,
+    QualificationDetailsComponent,
     EditQualificationComponent,
     ExperienceListComponent,
     AddExperienceComponent,
     EditExperienceComponent,
     ExperienceDetailsComponent,
-    QualificationDetailsComponent,
     ApplicationListComponent,
-    AppliedusersListComponent,
-    CandidateDetailsComponent,
+    
   ],
   imports: [
     BrowserModule,

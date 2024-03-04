@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { QualificationResponse } from '../models/qualification-response.model';
 import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
+
+import { QualificationResponse } from '../models/qualification-response.model';
 import { JobuserService } from '../services/jobuser.service';
 
 @Component({

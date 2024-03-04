@@ -32,15 +32,15 @@ const routes: Routes = [
   {path: "", component: HomeComponent},
   {path: "login", component: LoginComponent},
   {path: "register", component: RegisterComponent},
-  {path: "job/detail/:id", component: JobDetailComponent},
+  {path: "job/:id", component: JobDetailComponent},
 
   // Employer Routes
   {path: "organization/:email", component: CompanyInfoComponent},
   {path: "profile/add", component: AddCompanyDetailsComponent},
   {path: "profile/edit", component: EditCompanyDetailsComponent},
   {path: "vacancy/add", component: AddVacancyComponent},
-  {path: "vacancy/details/:id", component: VacancyDetailComponent},
   {path: "vacancy/edit/:id", component: EditVacancyComponent},
+  {path: "vacancy/details/:id", component: VacancyDetailComponent},
   {path: "vacancy/applications/:id", component: AppliedusersListComponent},
   {path: "vacancy", component: VacancyListComponent},
   {path: "candidate/:id", component: CandidateDetailsComponent},

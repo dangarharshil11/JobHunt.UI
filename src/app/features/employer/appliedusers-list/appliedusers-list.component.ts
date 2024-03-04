@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { EmployerService } from '../services/employer.service';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
+
+import { EmployerService } from '../services/employer.service';
 import { ApplicationResponse } from '../models/application-response.model';
 
 @Component({

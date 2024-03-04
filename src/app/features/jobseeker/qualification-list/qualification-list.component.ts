@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+
 import { JobuserService } from '../services/jobuser.service';
 import { QualificationResponse } from '../models/qualification-response.model';
 

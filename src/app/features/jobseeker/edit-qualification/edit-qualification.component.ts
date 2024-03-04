@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { QualificationRequest } from '../models/qualification-request.model';
 import { Subscription } from 'rxjs';
-import { JobuserService } from '../services/jobuser.service';
 import { ActivatedRoute, Router } from '@angular/router';
+
+import { QualificationRequest } from '../models/qualification-request.model';
+import { JobuserService } from '../services/jobuser.service';
 
 @Component({
   selector: 'app-edit-qualification',

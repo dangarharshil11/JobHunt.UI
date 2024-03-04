@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 import { Organization } from '../models/organization.model';
-import { Subscription } from 'rxjs';
-import { ActivatedRoute, Router } from '@angular/router';
 import { EmployerService } from '../services/employer.service';
 
 @Component({

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+
 import { VacancyResponse } from '../models/vacancy-response.model';
 import { PublicService } from '../services/public.service';
 
