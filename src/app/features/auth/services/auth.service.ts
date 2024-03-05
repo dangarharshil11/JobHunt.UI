@@ -8,6 +8,7 @@ import { LoginResponse } from '../models/login-response.model';
 import { environment } from 'src/environments/environment';
 import { User } from '../models/user.model';
 import { RegisterRequest } from '../models/register-request.model';
+import { Response } from '../models/response-model';
 
 @Injectable({
   providedIn: 'root'
@@ -17,8 +18,8 @@ export class AuthService {
 
   constructor(private http: HttpClient, private cookieService: CookieService) { }
 
-  register(request: RegisterRequest): Observable<void>{
-    return this.http.post<void>(`${environment.authapiBaseUrl}/api/auth/register`,{
+  register(request: RegisterRequest): Observable<Response>{
+    return this.http.post<Response>(`${environment.authapiBaseUrl}/api/auth/register`,{
       firstName: request.firstName,
       lastName: request.lastName,
       email: request.email,
@@ -28,11 +29,15 @@ export class AuthService {
     });
   }
 
-  login(request: LoginRequest): Observable<LoginResponse>{
-    return this.http.post<LoginResponse>(`${environment.authapiBaseUrl}/api/auth/login`, {
+  login(request: LoginRequest): Observable<Response>{
+    return this.http.post<Response>(`${environment.authapiBaseUrl}/api/auth/login`, {
       email: request.email,
       password: request.password,
     });
+  }
+
+  forgotpassword(request: LoginRequest): Observable<Response>{
+    return this.http.post<Response>(`${environment.authapiBaseUrl}/api/auth/forgotpassword`, request);
   }
 
   setUser(user: User): void{

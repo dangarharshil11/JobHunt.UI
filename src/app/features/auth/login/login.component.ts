@@ -30,14 +30,16 @@ export class LoginComponent {
     else{
       this.authService.login(this.model).subscribe({
         next: (response) => {
-          this.cookieService.set('Authorization', `Bearer ${response.token}`, undefined, '/', undefined, true, 'Strict');
-  
-          this.authService.setUser({
-            userId: response.userId,
-            fullName: response.fullName,
-            email: response.email,
-            roles: response.roles,
-          }); 
+          this.cookieService.set('Authorization', `Bearer ${response.result?.token}`, undefined, '/', undefined, true, 'Strict');
+          
+          if(response.result){
+            this.authService.setUser({
+              userId: response.result.userId,
+              fullName: response.result.fullName,
+              email: response.result.email,
+              roles: response.result.roles,
+            }); 
+          }
           this.route.navigateByUrl('/');
         },
         error: (error) => {

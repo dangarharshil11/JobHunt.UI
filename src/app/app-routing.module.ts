@@ -27,11 +27,13 @@ import { ApplicationListComponent } from './features/jobseeker/application-list/
 import { AppliedusersListComponent } from './features/employer/appliedusers-list/appliedusers-list.component';
 import { CandidateDetailsComponent } from './features/employer/candidate-details/candidate-details.component';
 import { authGuard } from './features/auth/guard/auth.guard';
+import { ForgotPasswordComponent } from './features/auth/forgot-password/forgot-password.component';
 
 const routes: Routes = [
   // public Routes
   {path: "", component: HomeComponent},
   {path: "login", component: LoginComponent},
+  {path: "forgotpassword", component: ForgotPasswordComponent},
   {path: "register", component: RegisterComponent},
   {path: "job/:id", component: JobDetailComponent, canActivate: [authGuard]},
 

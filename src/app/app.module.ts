@@ -32,6 +32,7 @@ import { ApplicationListComponent } from './features/jobseeker/application-list/
 import { AppliedusersListComponent } from './features/employer/appliedusers-list/appliedusers-list.component';
 import { CandidateDetailsComponent } from './features/employer/candidate-details/candidate-details.component';
 import { AuthInterceptor } from './core/interceptor/auth.interceptor';
+import { ForgotPasswordComponent } from './features/auth/forgot-password/forgot-password.component';
 
 @NgModule({
   declarations: [
@@ -70,6 +71,7 @@ import { AuthInterceptor } from './core/interceptor/auth.interceptor';
     EditExperienceComponent,
     ExperienceDetailsComponent,
     ApplicationListComponent,
+    ForgotPasswordComponent,
     
   ],
   imports: [
