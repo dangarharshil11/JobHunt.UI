@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from "@angular/common/http"
+import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http"
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -31,6 +31,7 @@ import { QualificationDetailsComponent } from './features/jobseeker/qualificatio
 import { ApplicationListComponent } from './features/jobseeker/application-list/application-list.component';
 import { AppliedusersListComponent } from './features/employer/appliedusers-list/appliedusers-list.component';
 import { CandidateDetailsComponent } from './features/employer/candidate-details/candidate-details.component';
+import { AuthInterceptor } from './core/interceptor/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -77,7 +78,13 @@ import { CandidateDetailsComponent } from './features/employer/candidate-details
     FormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
