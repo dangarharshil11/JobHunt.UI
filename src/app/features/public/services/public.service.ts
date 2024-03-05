@@ -28,6 +28,6 @@ export class PublicService {
   }
 
   apply(request: ApplicationRequest): Observable<ApplicationResponse>{
-    return this.http.post<ApplicationResponse>(`${environment.employerapiBaseUrl}/api/application/createApplication`,request);
+    return this.http.post<ApplicationResponse>(`${environment.employerapiBaseUrl}/api/application/createApplication?addAuth=true`,request);
   }
 }

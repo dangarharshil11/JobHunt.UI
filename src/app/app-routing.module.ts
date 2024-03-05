@@ -26,38 +26,39 @@ import { QualificationDetailsComponent } from './features/jobseeker/qualificatio
 import { ApplicationListComponent } from './features/jobseeker/application-list/application-list.component';
 import { AppliedusersListComponent } from './features/employer/appliedusers-list/appliedusers-list.component';
 import { CandidateDetailsComponent } from './features/employer/candidate-details/candidate-details.component';
+import { authGuard } from './features/auth/guard/auth.guard';
 
 const routes: Routes = [
   // public Routes
   {path: "", component: HomeComponent},
   {path: "login", component: LoginComponent},
   {path: "register", component: RegisterComponent},
-  {path: "job/:id", component: JobDetailComponent},
+  {path: "job/:id", component: JobDetailComponent, canActivate: [authGuard]},
 
   // Employer Routes
-  {path: "organization/:email", component: CompanyInfoComponent},
-  {path: "profile/add", component: AddCompanyDetailsComponent},
-  {path: "profile/edit", component: EditCompanyDetailsComponent},
-  {path: "vacancy/add", component: AddVacancyComponent},
-  {path: "vacancy/edit/:id", component: EditVacancyComponent},
-  {path: "vacancy/details/:id", component: VacancyDetailComponent},
-  {path: "vacancy/applications/:id", component: AppliedusersListComponent},
-  {path: "vacancy", component: VacancyListComponent},
-  {path: "candidate/:id", component: CandidateDetailsComponent},
+  {path: "organization/:email", component: CompanyInfoComponent, canActivate: [authGuard]},
+  {path: "profile/add", component: AddCompanyDetailsComponent, canActivate: [authGuard]},
+  {path: "profile/edit", component: EditCompanyDetailsComponent, canActivate: [authGuard]},
+  {path: "vacancy/add", component: AddVacancyComponent, canActivate: [authGuard]},
+  {path: "vacancy/edit/:id", component: EditVacancyComponent, canActivate: [authGuard]},
+  {path: "vacancy/details/:id", component: VacancyDetailComponent, canActivate: [authGuard]},
+  {path: "vacancy/applications/:id", component: AppliedusersListComponent, canActivate: [authGuard]},
+  {path: "vacancy", component: VacancyListComponent, canActivate: [authGuard]},
+  {path: "candidate/:id", component: CandidateDetailsComponent, canActivate: [authGuard]},
 
   // JobSeeker Routes
-  {path: "user/add", component: AddProfileComponent},
-  {path: "user/edit", component: EditProfileComponent},
-  {path: "user/:email", component: ProfileComponent},
-  {path: "qualification/add", component: AddQualificationComponent},
-  {path: "qualification/edit/:id", component: EditQualificationComponent},
-  {path: "qualification/details/:id", component:QualificationDetailsComponent},
-  {path: "qualification/:id", component: QualificationListComponent},
-  {path: "experience/add", component: AddExperienceComponent},
-  {path: "experience/edit/:id", component: EditExperienceComponent},
-  {path: "experience/details/:id", component: ExperienceDetailsComponent},
-  {path: "experience/:id", component: ExperienceListComponent},
-  {path: "applications", component: ApplicationListComponent},
+  {path: "user/add", component: AddProfileComponent, canActivate: [authGuard]},
+  {path: "user/edit", component: EditProfileComponent, canActivate: [authGuard]},
+  {path: "user/:email", component: ProfileComponent, canActivate: [authGuard]},
+  {path: "qualification/add", component: AddQualificationComponent, canActivate: [authGuard]},
+  {path: "qualification/edit/:id", component: EditQualificationComponent, canActivate: [authGuard]},
+  {path: "qualification/details/:id", component:QualificationDetailsComponent, canActivate: [authGuard]},
+  {path: "qualification/:id", component: QualificationListComponent, canActivate: [authGuard]},
+  {path: "experience/add", component: AddExperienceComponent, canActivate: [authGuard]},
+  {path: "experience/edit/:id", component: EditExperienceComponent, canActivate: [authGuard]},
+  {path: "experience/details/:id", component: ExperienceDetailsComponent, canActivate: [authGuard]},
+  {path: "experience/:id", component: ExperienceListComponent, canActivate: [authGuard]},
+  {path: "applications", component: ApplicationListComponent, canActivate: [authGuard]},
 ];
 
 @NgModule({
