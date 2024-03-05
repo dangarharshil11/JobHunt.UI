@@ -2,7 +2,7 @@
     <h1 class="mt-3">User Profile</h1>
     <div class="container">
         <div class="my-3 border border-dark rounded bg-light p-3">
-            <ng-container *ngIf="profile$ | async as profile; else addProfile">
+            <ng-container *ngIf="isProfileVisible && profile; else addProfile">
                 <div class="d-flex justify-content-between">
                     <div>
                         <h3>Personal Details</h3>
@@ -73,7 +73,7 @@
         </div>
 
         <div class="my-3 border border-dark rounded bg-light p-3">
-            <ng-container *ngIf="experiences$ | async as experiences; else addexperience">
+            <ng-container *ngIf="isExperiencesVisible && experiences; else addexperience">
                 <div class="d-flex justify-content-between">
                     <div>
                         <h3>Your Experiences</h3>
@@ -143,7 +143,7 @@
         </div>
 
         <div class="my-3 border border-dark rounded bg-light p-3">
-            <ng-container *ngIf="qualifications$ | async as qualifications; else addqualification">
+            <ng-container *ngIf="isQualificationVisible && qualifications; else addqualification">
                 <div class="d-flex justify-content-between">
                     <div>
                         <h3>Your Qualifications</h3>

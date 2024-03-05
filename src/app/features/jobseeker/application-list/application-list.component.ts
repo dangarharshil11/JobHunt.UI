@@ -10,7 +10,8 @@ import { JobuserService } from '../services/jobuser.service';
   styleUrls: ['./application-list.component.css']
 })
 export class ApplicationListComponent implements OnInit {
-  applications$?: Observable<ApplicationResponse[]>;
+  applications?: ApplicationResponse[];
+  isApplicationVisible: boolean = false;
   userId: string | null = null;
 
   constructor(private jobuserService: JobuserService){}
@@ -18,7 +19,17 @@ export class ApplicationListComponent implements OnInit {
   ngOnInit(): void {
     this.userId = localStorage.getItem('user-id');
     if(this.userId){
-      this.applications$ = this.jobuserService.getApplicationsByUserId(this.userId);
+      this.jobuserService.getApplicationsByUserId(this.userId).subscribe({
+        next: (response) => {
+          if(response.isSuccess && response.result.length > 0){
+            this.isApplicationVisible = true;
+            this.applications = response.result;
+          }
+        },
+        error: (error) => {
+          console.error(error);
+        }
+      });
     }
   }
 }

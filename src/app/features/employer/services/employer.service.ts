@@ -10,6 +10,7 @@ import { ApplicationResponse } from '../models/application-response.model';
 import { QualificationResponse } from '../models/qualification-response.model';
 import { ExperienceResponse } from '../models/experience-response.model';
 import { User } from '../models/user.model';
+import { Response } from '../models/response-model';
 
 @Injectable({
   providedIn: 'root'
@@ -18,16 +19,16 @@ export class EmployerService {
 
   constructor(private http: HttpClient) { }
 
-  getprofile(email: string): Observable<Organization>{
-    return this.http.get<Organization>(`${environment.employerapiBaseUrl}/api/company/${email}`);
+  getprofile(email: string): Observable<Response>{
+    return this.http.get<Response>(`${environment.employerapiBaseUrl}/api/company/${email}`);
   }
 
-  createProfile(request: Organization): Observable<Organization>{
-    return this.http.post<Organization>(`${environment.employerapiBaseUrl}/api/company/addDetails?addAuth=true`,request);
+  createProfile(request: Organization): Observable<Response>{
+    return this.http.post<Response>(`${environment.employerapiBaseUrl}/api/company/addDetails?addAuth=true`,request);
   }
 
-  updateProfile(request: Organization): Observable<Organization>{
-    return this.http.put<Organization>(`${environment.employerapiBaseUrl}/api/company/updateDetails/${request.createdBy}?addAuth=true`,request);
+  updateProfile(request: Organization): Observable<Response>{
+    return this.http.put<Response>(`${environment.employerapiBaseUrl}/api/company/updateDetails/${request.createdBy}?addAuth=true`,request);
   }
 
   getVacancyByName(name: string): Observable<VacancyResponse[]>{

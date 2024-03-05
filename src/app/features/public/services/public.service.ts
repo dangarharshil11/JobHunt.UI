@@ -3,10 +3,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { environment } from 'src/environments/environment';
-import { VacancyResponse } from '../models/vacancy-response.model';
-import { Organization } from '../models/organization.model';
 import { ApplicationRequest } from '../models/application-request.model';
-import { ApplicationResponse } from '../models/application-response.model';
+import { Response } from '../models/response-model';
 
 @Injectable({
   providedIn: 'root'
@@ -15,19 +13,19 @@ export class PublicService {
 
   constructor(private http: HttpClient) { }
 
-  getAllVacancies(): Observable<VacancyResponse[]>{
-    return this.http.get<VacancyResponse[]>(`${environment.employerapiBaseUrl}/api/vacancy/getAllVacancies`);
+  getAllVacancies(): Observable<Response>{
+    return this.http.get<Response>(`${environment.employerapiBaseUrl}/api/vacancy/getAllVacancies`);
   }
 
-  getVacancyById(id: string): Observable<VacancyResponse>{
-    return this.http.get<VacancyResponse>(`${environment.employerapiBaseUrl}/api/vacancy/getVacancyById/${id}`);
+  getVacancyById(id: string): Observable<Response>{
+    return this.http.get<Response>(`${environment.employerapiBaseUrl}/api/vacancy/getVacancyById/${id}`);
   }
 
-  getProfileByName(name: string): Observable<Organization>{
-    return this.http.get<Organization>(`${environment.employerapiBaseUrl}/api/company/getProfileByName/${name}`);
+  getProfileByName(name: string): Observable<Response>{
+    return this.http.get<Response>(`${environment.employerapiBaseUrl}/api/company/getProfileByName/${name}`);
   }
 
-  apply(request: ApplicationRequest): Observable<ApplicationResponse>{
-    return this.http.post<ApplicationResponse>(`${environment.employerapiBaseUrl}/api/application/createApplication?addAuth=true`,request);
+  apply(request: ApplicationRequest): Observable<Response>{
+    return this.http.post<Response>(`${environment.employerapiBaseUrl}/api/application/createApplication?addAuth=true`,request);
   }
 }

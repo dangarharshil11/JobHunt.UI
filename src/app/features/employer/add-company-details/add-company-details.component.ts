@@ -38,7 +38,12 @@ export class AddCompanyDetailsComponent implements OnDestroy{
         this.profile.startYear || this.profile.companyEmail || this.profile.companyPhone || this.profile.noOfEmployees){
           this.addProfileSubscription = this.employerService.createProfile(this.profile).subscribe({
             next: (response) => {
-              this.router.navigateByUrl(`/organization/${this.email}`);
+              if(response.isSuccess){
+                this.router.navigateByUrl(`/organization/${this.email}`);
+              }
+              else{
+                this.error = response.message;
+              }
             },
             error: (error) => {
               console.error(error);

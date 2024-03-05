@@ -10,8 +10,8 @@
         </div>
     </div>
 
-    <ng-container *ngIf="applications$ | async as applications">
-        <table *ngIf="applications.length != 0; else noApplication" class="table table-bordered mt-3">
+    <ng-container *ngIf="isApplicationVisible">
+        <table *ngIf="applications?.length != 0; else noApplication" class="table table-bordered mt-3">
             <thead>
                 <tr>
                     <th>Job Title</th>

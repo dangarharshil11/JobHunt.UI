@@ -11,7 +11,8 @@ import { JobuserService } from '../services/jobuser.service';
   styleUrls: ['./experience-details.component.css']
 })
 export class ExperienceDetailsComponent implements OnInit {
-  experience$?: Observable<ExperienceResponse>;
+  experience?: ExperienceResponse;
+  isExperienceVisible: boolean = false;
   id: string | null = null;
 
   constructor(private jobuserservice: JobuserService, private route: ActivatedRoute){}
@@ -24,7 +25,17 @@ export class ExperienceDetailsComponent implements OnInit {
     });
 
     if(this.id){
-      this.experience$ = this.jobuserservice.getExperienceById(this.id);
+      this.jobuserservice.getExperienceById(this.id).subscribe({
+        next:(response) => {
+          if(response.isSuccess){
+            this.isExperienceVisible = true
+            this.experience = response.result;
+          }
+        },
+        error: (error) => {
+          console.error(error);
+        }
+      });
     }
   }
 }

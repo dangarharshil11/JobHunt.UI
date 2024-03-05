@@ -1,5 +1,5 @@
 <div class="container">
-    <ng-container *ngIf="experience$ | async as experience; else loader">
+    <ng-container *ngIf="isExperienceVisible && experience; else loader">
         <div class="mt-3 d-flex justify-content-between">
             <div>
                 <h3>Experience Details</h3>

@@ -11,14 +11,25 @@ import { ExperienceResponse } from '../models/experience-response.model';
 })
 export class ExperienceListComponent {
   userId: string | null = null;
-  experiences$?: Observable<ExperienceResponse[]>;
+  experiences?: ExperienceResponse[];
+  isExperiencesVisible: boolean = false;
 
   constructor(private jobuserService: JobuserService){}
 
   ngOnInit(): void {
     this.userId = localStorage.getItem('user-id');
     if(this.userId){
-      this.experiences$ = this.jobuserService.getAllExperiences(this.userId);
+      this.jobuserService.getAllExperiences(this.userId).subscribe({
+        next: (response) => {
+          if(response.isSuccess){
+            this.experiences = response.result;
+            this.isExperiencesVisible = true;
+          }
+        },
+        error:(error) => {
+          console.error(error);
+        }
+      });
     }
   }
 }

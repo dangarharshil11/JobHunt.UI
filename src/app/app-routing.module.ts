@@ -35,7 +35,7 @@ const routes: Routes = [
   {path: "login", component: LoginComponent},
   {path: "forgotpassword", component: ForgotPasswordComponent},
   {path: "register", component: RegisterComponent},
-  {path: "job/:id", component: JobDetailComponent, canActivate: [authGuard]},
+  {path: "job/:id", component: JobDetailComponent},
 
   // Employer Routes
   {path: "organization/:email", component: CompanyInfoComponent, canActivate: [authGuard]},

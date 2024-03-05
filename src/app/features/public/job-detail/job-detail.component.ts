@@ -15,8 +15,10 @@ import { ApplicationRequest } from '../models/application-request.model';
 export class JobDetailComponent {
   id: string | null = null;
   userId: string | null = null;
-  vacancy$?: Observable<VacancyResponse>;
-  profile$?: Observable<Organization>;
+  vacancy?: VacancyResponse;
+  isVacancyVisible: boolean = false;
+  profile?: Organization;
+  isProfileVisible: boolean = false;
   request: ApplicationRequest;
 
   constructor(private readonly publicService: PublicService, private route: ActivatedRoute, private router: Router){
@@ -25,27 +27,40 @@ export class JobDetailComponent {
       vacancyId: '',
       userId: '',
     }
+    
   }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe({
       next: (response) => {
         this.id = response.get("id");
+        this.userId = localStorage.getItem('user-id');
       }
     });
 
-    this.userId = localStorage.getItem('user-id');
-
     if(this.id && this.userId){
-      this.vacancy$ = this.publicService.getVacancyById(this.id);
-      this.vacancy$.pipe().subscribe({
+      this.publicService.getVacancyById(this.id).subscribe({
         next: (response) => {
-          this.profile$ = this.publicService.getProfileByName(response.publishedBy);
+          this.isVacancyVisible = true;
+          this.vacancy = response.result
+          if(this.vacancy){
+            this.publicService.getProfileByName(this.vacancy?.publishedBy).subscribe({
+              next: (response) => {
+                this.isProfileVisible = true;
+                this.profile = response.result
+              },
+              error: (error) => {
+                console.error(error);
+              }
+            })
+          }
+        },
+        error: (error) => {
+          console.error(error);
         }
-      })
-      this.request.vacancyId = this.id;
-      this.request.userId = this.userId;
+      });
     }
+    
   }
 
   onApply(){

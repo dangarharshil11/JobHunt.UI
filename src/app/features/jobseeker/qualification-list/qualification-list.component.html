@@ -10,7 +10,7 @@
         </div>
     </div>
 
-    <ng-container *ngIf="qualifications$| async as qualifications">
+    <ng-container *ngIf="isQualificationsVisible && qualifications">
         <table *ngIf="qualifications.length != 0; else noQualifications" class="table table-bordered mt-3">
             <thead>
                 <tr>

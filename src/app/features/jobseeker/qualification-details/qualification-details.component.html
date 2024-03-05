@@ -1,5 +1,5 @@
 <div class="container">
-    <ng-container *ngIf="qualification$ | async as qualification; else loader">
+    <ng-container *ngIf="isQualificationVisible && qualification; else loader">
         <div class="mt-3 d-flex justify-content-between">
             <div>
                 <h3>Qualification Details</h3>

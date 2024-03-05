@@ -37,7 +37,7 @@ export class EditProfileComponent {
     if(this.email){
       this.jobuserService.getProfile(this.email).subscribe({
         next: (response) => {
-          this.model = response;
+          this.model = response.result;
         },
         error: (error) => {
           console.error(error);
@@ -54,7 +54,7 @@ export class EditProfileComponent {
     else{
       this.editProfileSubscription$ = this.jobuserService.editProfile(this.model, this.model.email).subscribe({
         next: (response) =>{
-          this.router.navigateByUrl(`/user/${response.email}`)
+          this.router.navigateByUrl(`/user/${response.result.email}`)
         },
         error: (error) => {
           console.error(error);

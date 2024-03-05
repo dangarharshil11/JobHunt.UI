@@ -43,7 +43,7 @@ export class EditExperienceComponent {
       this.model.userId = this.userId;
       this.jobuserService.getExperienceById(this.id).subscribe({
         next: (response) => {
-          this.model = response;
+          this.model = response.result;
         },
         error: (error) => {
           console.error(error);

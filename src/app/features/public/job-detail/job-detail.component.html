@@ -1,4 +1,4 @@
-<ng-container *ngIf="vacancy$ | async as vacancy; else loader">
+<ng-container *ngIf="isVacancyVisible && vacancy; else loader">
     <div class="container">
         <div class="mt-4">
             <div class="mx-auto my-3 border border-dark rounded bg-light p-3">
@@ -71,7 +71,7 @@
     </div>
 </ng-container>
 
-<ng-container *ngIf="profile$ | async as profile; else loader">
+<ng-container *ngIf="isProfileVisible && profile; else loader">
     <div class="container">
         <div class="my-3">
             <div class="col mx-auto border border-dark rounded bg-light p-3">

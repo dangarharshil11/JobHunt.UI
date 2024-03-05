@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 
 import { Organization } from '../models/organization.model';
 import { EmployerService } from '../services/employer.service';
+import { Response } from '../models/response-model';
 
 @Component({
   selector: 'app-company-info',
@@ -13,7 +14,7 @@ import { EmployerService } from '../services/employer.service';
 export class CompanyInfoComponent {
   profile: Organization;
   email?: string | null = null;
-  profile$?: Observable<Organization>;
+  isProfileVisible : boolean = false;
 
   constructor(private route: ActivatedRoute, private employerService: EmployerService){
     this.profile ={
@@ -36,7 +37,14 @@ export class CompanyInfoComponent {
     });
     if(this.email){ 
       this.profile.createdBy = this.email;   
-      this.profile$ = this.employerService.getprofile(this.email);
+      this.employerService.getprofile(this.email).subscribe({
+        next: (response) => {
+          if(response.result){
+            this.profile = response.result;
+            this.isProfileVisible = true;
+          }
+        }
+      });
     }
   }
 }

@@ -12,9 +12,12 @@ import { ExperienceResponse } from '../models/experience-response.model';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-  profile$?: Observable<User>;
-  qualifications$?: Observable<QualificationResponse[]>;
-  experiences$?: Observable<ExperienceResponse[]>;
+  profile?: User;
+  isProfileVisible: boolean = false;
+  qualifications?: QualificationResponse[];
+  isQualificationVisible: boolean = false;
+  experiences?: ExperienceResponse[];
+  isExperiencesVisible: boolean = false;
   email: string | null = null;
   id: string | null = null;
 
@@ -25,9 +28,41 @@ export class ProfileComponent implements OnInit {
     this.email = localStorage.getItem('user-email');
     this.id = localStorage.getItem('user-id')
     if(this.email && this.id){
-      this.profile$ = this.jobuserService.getProfile(this.email);
-      this.qualifications$ = this.jobuserService.getAllQualifications(this.id);
-      this.experiences$ = this.jobuserService.getAllExperiences(this.id);
+      this.jobuserService.getProfile(this.email).subscribe({
+        next: (response) => {
+          if(response.isSuccess){
+            this.isProfileVisible = true;
+            this.profile = response.result;
+          }
+        },
+        error: (error) =>{
+          console.error(error);
+        }
+      });
+
+      this.jobuserService.getAllQualifications(this.id).subscribe({
+        next: (response) => {
+          if(response.isSuccess){
+            this.isQualificationVisible = true;
+            this.qualifications = response.result;
+          }
+        },
+        error: (error) =>{
+          console.error(error);
+        }
+      });
+
+      this.jobuserService.getAllExperiences(this.id).subscribe({
+        next: (response) => {
+          if(response.isSuccess){
+            this.isExperiencesVisible = true;
+            this.experiences = response.result;
+          }
+        },
+        error: (error) =>{
+          console.error(error);
+        }
+      });
     }
   }
 }

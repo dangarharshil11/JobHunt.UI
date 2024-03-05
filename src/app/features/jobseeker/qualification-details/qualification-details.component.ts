@@ -10,9 +10,11 @@ import { JobuserService } from '../services/jobuser.service';
   templateUrl: './qualification-details.component.html',
   styleUrls: ['./qualification-details.component.css']
 })
+
 export class QualificationDetailsComponent implements OnInit {
-  qualification$?: Observable<QualificationResponse>;
+  qualification?: QualificationResponse;
   id: string | null = null;
+  isQualificationVisible: boolean = false;
 
   constructor(private route: ActivatedRoute, private jobuserService: JobuserService){}
 
@@ -24,7 +26,17 @@ export class QualificationDetailsComponent implements OnInit {
     });
 
     if(this.id){
-      this.qualification$ = this.jobuserService.getQualificationById(this.id);
+      this.jobuserService.getQualificationById(this.id).subscribe({
+        next:(response) => {
+          if(response.isSuccess){
+            this.isQualificationVisible = true;
+            this.qualification = response.result;
+          }
+        },
+        error:(error) => {
+          console.error(error);
+        }
+      });
     }
   }
 }

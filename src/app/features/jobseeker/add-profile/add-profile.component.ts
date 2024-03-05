@@ -49,7 +49,7 @@ export class AddProfileComponent implements OnInit, OnDestroy {
     else{
       this.addProfileSubscription$ = this.jobuserService.addProfile(this.model).subscribe({
         next: (response) =>{
-          this.router.navigateByUrl(`/user/${response.email}`);
+          this.router.navigateByUrl(`/user/${response.result.email}`);
         },
         error: (error) => {
           console.error(error);

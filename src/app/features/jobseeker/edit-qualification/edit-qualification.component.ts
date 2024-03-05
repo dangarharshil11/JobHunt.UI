@@ -40,7 +40,7 @@ export class EditQualificationComponent {
       this.model.userId = this.userId;
       this.jobuserService.getQualificationById(this.id).subscribe({
         next: (response) =>{
-          this.model = response;
+          this.model = response.result;
         },
         error: (error) => {
           console.error(error);

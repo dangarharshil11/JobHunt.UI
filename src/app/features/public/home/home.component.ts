@@ -10,11 +10,22 @@ import { PublicService } from '../services/public.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  vacancies$?: Observable<VacancyResponse[]>;
+  vacancies?: VacancyResponse[];
+  isVacancyVisible: boolean = false;
 
   constructor(private publicService: PublicService){}
 
   ngOnInit(): void {
-    this.vacancies$ = this.publicService.getAllVacancies();
+    this.publicService.getAllVacancies().subscribe({
+      next: (response) => {
+        if(response.isSuccess){
+          this.isVacancyVisible = true;
+          this.vacancies = response.result
+        }
+      },
+      error: (error) =>{
+        console.error(error);
+      }
+    });
   }
 }

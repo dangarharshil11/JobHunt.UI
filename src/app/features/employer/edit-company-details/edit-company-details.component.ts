@@ -35,7 +35,7 @@ export class EditCompanyDetailsComponent implements OnInit, OnDestroy {
     if(this.email){
       this.employerService.getprofile(this.email).subscribe({
         next: (response) => {
-          this.profile = response;
+          this.profile = response.result;
         },
         error: (error) => {
           console.error(error);
@@ -53,7 +53,10 @@ export class EditCompanyDetailsComponent implements OnInit, OnDestroy {
     else{
       this.editProfileSubscription = this.employerService.updateProfile(this.profile).subscribe({
         next: (response) => {
-          this.router.navigateByUrl(`/organization/${response.createdBy}`)
+          if(response.isSuccess){
+            this.router.navigateByUrl(`/organization/${response.result.createdBy}`)
+          }
+          this.error = response.message;
         },
         error: (error) => {
           console.error(error);
