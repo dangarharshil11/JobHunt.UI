@@ -15,6 +15,7 @@ export class EditProfileComponent {
   email: string | null = null;
   id: string | null = null;
   error: string = '';
+  file?: File;
 
   editProfileSubscription$?: Subscription;
 
@@ -53,18 +54,38 @@ export class EditProfileComponent {
         this.error = 'Enter All the details'
     }
     else{
-      this.editProfileSubscription$ = this.jobuserService.editProfile(this.model, this.model.email).subscribe({
-        next: (response) =>{
-          this.router.navigateByUrl(`/user/${response.result.email}`)
-        },
-        error: (error) => {
-          console.error(error);
-        }
-      });
+      if(this.file){
+        this.jobuserService.uploadImage(this.file, this.model.id).subscribe({
+          next: (response) => {
+            if(response.isSuccess){
+              this.model.resumeUrl = response.result;
+              this.editProfileSubscription$ = this.jobuserService.editProfile(this.model, this.model.email).subscribe({
+                next: (response) =>{
+                  this.router.navigateByUrl(`/user/${response.result.email}`);
+                },
+                error: (error) => {
+                  console.error(error);
+                }
+              });
+            }
+          },
+          error: (error) => {
+            console.error(error);
+          }
+        });
+      }
+      else{
+        this.error = "Upload Resume";
+      }
     }
   }
 
   ngOnDestroy(): void {
     this.editProfileSubscription$?.unsubscribe();
+  }
+
+  onFileUploadChange(event: Event) : void{
+    const element = event.currentTarget as HTMLInputElement;
+    this.file = element.files?.[0];
   }
 }

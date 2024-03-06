@@ -59,6 +59,9 @@ export class JobDetailComponent {
           console.error(error);
         }
       });
+
+      this.request.userId = this.userId;
+      this.request.vacancyId = this.id;
     }
     
   }
@@ -66,7 +69,9 @@ export class JobDetailComponent {
   onApply(){
     this.publicService.apply(this.request).subscribe({
       next: (response) => {
-        this.router.navigateByUrl("/applications");
+        if(response.isSuccess){
+          this.router.navigateByUrl("/applications");
+        }
       },
       error: (error) => {
         console.error(error);

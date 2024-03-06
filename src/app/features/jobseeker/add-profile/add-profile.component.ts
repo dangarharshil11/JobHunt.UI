@@ -80,6 +80,7 @@ export class AddProfileComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.addProfileSubscription$?.unsubscribe();
   }
+  
   onFileUploadChange(event: Event) : void{
     const element = event.currentTarget as HTMLInputElement;
     this.file = element.files?.[0];

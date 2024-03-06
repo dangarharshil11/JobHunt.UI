@@ -28,7 +28,7 @@ export class VacancyDetailComponent {
       this.employerService.getVacancyById(this.id).subscribe({
         next: (response) => {
           if(response.isSuccess){
-            this.isVacancyVisible = false;
+            this.isVacancyVisible = true;
             this.vacancy = response.result;
           }
         }
