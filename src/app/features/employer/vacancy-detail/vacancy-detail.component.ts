@@ -12,7 +12,8 @@ import { EmployerService } from '../services/employer.service';
 })
 export class VacancyDetailComponent {
   id: string | null = null;
-  vacancy$?: Observable<VacancyResponse>;
+  vacancy?: VacancyResponse;
+  isVacancyVisible: boolean = false;
 
   constructor(private readonly employerService: EmployerService, private route: ActivatedRoute){}
 
@@ -24,7 +25,14 @@ export class VacancyDetailComponent {
     });
 
     if(this.id){
-      this.vacancy$ = this.employerService.getVacancyById(this.id)
+      this.employerService.getVacancyById(this.id).subscribe({
+        next: (response) => {
+          if(response.isSuccess){
+            this.isVacancyVisible = false;
+            this.vacancy = response.result;
+          }
+        }
+      });
     }
   }
 }

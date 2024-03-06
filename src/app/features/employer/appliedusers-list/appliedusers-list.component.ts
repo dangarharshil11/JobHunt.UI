@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
 
 import { EmployerService } from '../services/employer.service';
 import { ApplicationResponse } from '../models/application-response.model';
@@ -12,7 +11,9 @@ import { ApplicationResponse } from '../models/application-response.model';
 })
 export class AppliedusersListComponent implements OnInit {
   vacancyId: string | null = null;
-  jobapplications$?: Observable<ApplicationResponse[]>
+  jobapplications?: ApplicationResponse[];
+  isjobApplicationsVisible: boolean = false;
+
   constructor(private employerService: EmployerService, private route: ActivatedRoute){}
 
   ngOnInit(): void {
@@ -23,7 +24,17 @@ export class AppliedusersListComponent implements OnInit {
     });
 
     if(this.vacancyId){
-      this.jobapplications$ = this.employerService.getApplicationsByVacancyId(this.vacancyId)
+      this.employerService.getApplicationsByVacancyId(this.vacancyId).subscribe({
+        next: (response) => {
+          if(response.isSuccess){
+            this.isjobApplicationsVisible = true;
+            this.jobapplications = response.result;
+          }
+        },
+        error: (error) => {
+          console.error(error);
+        }
+      });
     }
   }
 }

@@ -13,9 +13,12 @@ import { ExperienceResponse } from '../models/experience-response.model';
   styleUrls: ['./candidate-details.component.css']
 })
 export class CandidateDetailsComponent {
-  profile$?: Observable<User>;
-  qualifications$?: Observable<QualificationResponse[]>;
-  experiences$?: Observable<ExperienceResponse[]>;
+  profile?: User;
+  isProfileVisible: boolean = false;
+  qualifications?: QualificationResponse[];
+  isQualificationVisible: boolean = false;
+  experiences?: ExperienceResponse[];
+  isExperiencesVisible: boolean = false;
   email: string | null = null;
   userId: string | null = null;
 
@@ -29,9 +32,39 @@ export class CandidateDetailsComponent {
       }
     })
     if(this.userId){
-      this.profile$ = this.employerService.getCandidateProfile(this.userId);
-      this.qualifications$ = this.employerService.getAllQualifications(this.userId);
-      this.experiences$ = this.employerService.getAllExperiences(this.userId);
+      this.employerService.getCandidateProfile(this.userId).subscribe({
+        next: (response) => {
+          if(response.isSuccess){
+            this.isProfileVisible = true;
+            this.profile = response.result;
+          }
+        },
+        error: (error) =>{
+          console.error(error);
+        }
+      });
+      this.employerService.getAllQualifications(this.userId).subscribe({
+        next: (response) => {
+          if(response.isSuccess){
+            this.isQualificationVisible = true;
+            this.qualifications = response.result;
+          }
+        },
+        error: (error) =>{
+          console.error(error);
+        }
+      });
+      this.employerService.getAllExperiences(this.userId).subscribe({
+        next: (response) => {
+          if(response.isSuccess){
+            this.isExperiencesVisible = true;
+            this.experiences = response.result;
+          }
+        },
+        error: (error) =>{
+          console.error(error);
+        }
+      });
     }
   }
 }

@@ -15,6 +15,8 @@ export class AddProfileComponent implements OnInit, OnDestroy {
   email: string | null = null;
   id: string | null = null;
   error: string = '';
+  file?: File;
+
 
   addProfileSubscription$?: Subscription;
 
@@ -29,7 +31,9 @@ export class AddProfileComponent implements OnInit, OnDestroy {
       expectedSalary: 0,
       totalExperience: 0,
       dateOfBirth: new Date(),
+      resumeUrl: '',
     }
+
   }
  
   ngOnInit(): void {
@@ -47,18 +51,37 @@ export class AddProfileComponent implements OnInit, OnDestroy {
         this.error = 'Enter All the details'
     }
     else{
-      this.addProfileSubscription$ = this.jobuserService.addProfile(this.model).subscribe({
-        next: (response) =>{
-          this.router.navigateByUrl(`/user/${response.result.email}`);
-        },
-        error: (error) => {
-          console.error(error);
-        }
-      });
+      if(this.file){
+        this.jobuserService.uploadImage(this.file, this.model.id).subscribe({
+          next: (response) => {
+            if(response.isSuccess){
+              this.model.resumeUrl = response.result;
+              this.addProfileSubscription$ = this.jobuserService.addProfile(this.model).subscribe({
+                next: (response) =>{
+                  this.router.navigateByUrl(`/user/${response.result.email}`);
+                },
+                error: (error) => {
+                  console.error(error);
+                }
+              });
+            }
+          },
+          error: (error) => {
+            console.error(error);
+          }
+        });
+      }
+      else{
+        this.error = "Upload Resume";
+      }
     }
   }
 
   ngOnDestroy(): void {
     this.addProfileSubscription$?.unsubscribe();
+  }
+  onFileUploadChange(event: Event) : void{
+    const element = event.currentTarget as HTMLInputElement;
+    this.file = element.files?.[0];
   }
 }

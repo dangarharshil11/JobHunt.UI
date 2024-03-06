@@ -10,8 +10,8 @@
         </div>
     </div>
 
-    <ng-container *ngIf="Vacancies$| async as vacancies">
-        <table *ngIf="vacancies.length != 0; else noVacancies" class="table table-bordered mt-3">
+    <ng-container *ngIf="isVacanciesVisible && Vacancies; else noVacancies">
+        <table class="table table-bordered mt-3">
             <thead>
                 <tr>
                     <th>Job Title</th>
@@ -24,7 +24,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let vacancy of vacancies">
+                <tr *ngFor="let vacancy of Vacancies">
                     <td>{{vacancy.jobTitle}}</td>
                     <td>{{vacancy.publishedBy}}</td>
                     <td>{{vacancy.noOfVacancies}}</td>

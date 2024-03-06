@@ -29,6 +29,7 @@ export class EditProfileComponent {
       expectedSalary: 0,
       totalExperience: 0,
       dateOfBirth: new Date(),
+      resumeUrl: '',
     }
   }
  

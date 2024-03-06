@@ -31,39 +31,39 @@ export class EmployerService {
     return this.http.put<Response>(`${environment.employerapiBaseUrl}/api/company/updateDetails/${request.createdBy}?addAuth=true`,request);
   }
 
-  getVacancyByName(name: string): Observable<VacancyResponse[]>{
-    return this.http.get<VacancyResponse[]>(`${environment.employerapiBaseUrl}/api/vacancy/getByCompany/${name}`);
+  getVacancyByName(name: string): Observable<Response>{
+    return this.http.get<Response>(`${environment.employerapiBaseUrl}/api/vacancy/getByCompany/${name}`);
   }
 
-  getVacancyById(id: string): Observable<VacancyResponse>{
-    return this.http.get<VacancyResponse>(`${environment.employerapiBaseUrl}/api/vacancy/getVacancyById/${id}`);
+  getVacancyById(id: string): Observable<Response>{
+    return this.http.get<Response>(`${environment.employerapiBaseUrl}/api/vacancy/getVacancyById/${id}`);
   }
 
-  createVacancy(request: VacancyRequest): Observable<VacancyResponse>{
-    return this.http.post<VacancyResponse>(`${environment.employerapiBaseUrl}/api/vacancy/addVacancy?addAuth=true`, request);
+  createVacancy(request: VacancyRequest): Observable<Response>{
+    return this.http.post<Response>(`${environment.employerapiBaseUrl}/api/vacancy/addVacancy?addAuth=true`, request);
   }
 
-  updateVacancy(request: VacancyRequest, id: string): Observable<VacancyResponse>{
-    return this.http.put<VacancyResponse>(`${environment.employerapiBaseUrl}/api/vacancy/updateVacancy/${id}?addAuth=true`, request);
+  updateVacancy(request: VacancyRequest, id: string): Observable<Response>{
+    return this.http.put<Response>(`${environment.employerapiBaseUrl}/api/vacancy/updateVacancy/${id}?addAuth=true`, request);
   }
 
-  deleteVacancy(id: string) :Observable<VacancyResponse>{
-    return this.http.delete<VacancyResponse>(`${environment.employerapiBaseUrl}/api/vacancy/deleteVacancy/${id}?addAuth=true`);
+  deleteVacancy(id: string) :Observable<Response>{
+    return this.http.delete<Response>(`${environment.employerapiBaseUrl}/api/vacancy/deleteVacancy/${id}?addAuth=true`);
   }
 
-  getApplicationsByVacancyId(id: string): Observable<ApplicationResponse[]>{
-    return this.http.get<ApplicationResponse[]>(`${environment.employerapiBaseUrl}/api/application/getAllByVacancy/${id}?addAuth=true`);
+  getApplicationsByVacancyId(id: string): Observable<Response>{
+    return this.http.get<Response>(`${environment.employerapiBaseUrl}/api/application/getAllByVacancy/${id}?addAuth=true`);
   }
 
-  getCandidateProfile(userId: string): Observable<User>{
-    return this.http.get<User>(`${environment.jobseekerapiBaseUrl}/api/jobSeeker/getByUserId/${userId}?addAuth=true`);
+  getCandidateProfile(userId: string): Observable<Response>{
+    return this.http.get<Response>(`${environment.jobseekerapiBaseUrl}/api/jobSeeker/getByUserId/${userId}?addAuth=true`);
   }
 
-  getAllQualifications(userId: string): Observable<QualificationResponse[]>{
-    return this.http.get<QualificationResponse[]>(`${environment.jobseekerapiBaseUrl}/api/qualification/GetAllQualificationsByUserId/${userId}?addAuth=true`);
+  getAllQualifications(userId: string): Observable<Response>{
+    return this.http.get<Response>(`${environment.jobseekerapiBaseUrl}/api/qualification/GetAllQualificationsByUserId/${userId}?addAuth=true`);
   }
   
-  getAllExperiences(userId: string): Observable<ExperienceResponse[]>{
-    return this.http.get<ExperienceResponse[]>(`${environment.jobseekerapiBaseUrl}/api/experience/getAllExperiencesByUserId/${userId}?addAuth=true`);
+  getAllExperiences(userId: string): Observable<Response>{
+    return this.http.get<Response>(`${environment.jobseekerapiBaseUrl}/api/experience/getAllExperiencesByUserId/${userId}?addAuth=true`);
   }
 }

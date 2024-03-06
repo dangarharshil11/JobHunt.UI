@@ -8,4 +8,5 @@ export interface User{
     totalExperience: number;
     expectedSalary: number;
     dateOfBirth: Date;
+    resumeUrl: string;
 }

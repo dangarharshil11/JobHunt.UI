@@ -43,7 +43,9 @@ export class EditVacancyComponent implements OnInit, OnDestroy {
     if(this.id){
       this.employerService.getVacancyById(this.id).subscribe({
         next: (response) => {
-          this.model = response;
+          if(response.isSuccess){
+            this.model = response.result;
+          }
         },
         error: (error) => {
           console.error(error);

@@ -10,7 +10,8 @@ import { VacancyResponse } from '../models/vacancy-response.model';
   styleUrls: ['./vacancy-list.component.css']
 })
 export class VacancyListComponent implements OnInit {
-  Vacancies$?: Observable<VacancyResponse[]>;
+  Vacancies?: VacancyResponse[];
+  isVacanciesVisible: boolean = false;
   email: string | null = null;
 
   constructor(private employerService: EmployerService){
@@ -20,7 +21,17 @@ export class VacancyListComponent implements OnInit {
   ngOnInit(): void {
     this.email = localStorage.getItem('user-email');
     if(this.email){
-      this.Vacancies$ = this.employerService.getVacancyByName(this.email);
+      this.employerService.getVacancyByName(this.email).subscribe({
+        next: (response) => {
+          if(response.isSuccess){
+            this.isVacanciesVisible = true;
+            this.Vacancies = response.result;
+          }
+        },
+        error: (error) => {
+          console.error(error);
+        }
+      });
     }
   }
 }

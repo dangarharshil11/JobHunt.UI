@@ -2,8 +2,15 @@
     <h1 class="mt-3">Candidate Profile</h1>
     <div class="container">
         <div class="my-3 border border-dark rounded bg-light p-3">
-            <ng-container *ngIf="profile$ | async as profile; else noProfile">
-                <h3>Personal Details</h3>
+            <ng-container *ngIf="isProfileVisible && profile; else noProfile">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h3>Personal Details</h3>
+                    </div>
+                    <div>
+                        <a href={{profile.resumeUrl}} target="_blank" class="btn btn-dark text-decoration-none fw-bold">Resume</a>
+                    </div>
+                </div>
                 <hr>
                 <div class="mt-2">
                     <div class="d-flex flex-row">
@@ -59,7 +66,7 @@
         </div>
 
         <div class="my-3 border border-dark rounded bg-light p-3">
-            <ng-container *ngIf="experiences$ | async as experiences; else noexperience">
+            <ng-container *ngIf="isExperiencesVisible && experiences;  else noexperience">
                 <h3>Candidate Experiences</h3>
                 <div *ngFor="let experience of experiences">
                     <hr>
@@ -111,7 +118,7 @@
         </div>
 
         <div class="my-3 border border-dark rounded bg-light p-3">
-            <ng-container *ngIf="qualifications$ | async as qualifications; else noqualification">
+            <ng-container *ngIf="isQualificationVisible && qualifications; else noqualification">
                 <h3>Candidate Qualifications</h3>
                 <div *ngFor="let qualification of qualifications">
                     <hr>
