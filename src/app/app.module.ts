@@ -36,6 +36,7 @@ import { AuthInterceptor } from './core/interceptor/auth.interceptor';
 import { ForgotPasswordComponent } from './features/auth/forgot-password/forgot-password.component';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import { TableModule } from 'primeng/table';
 
 @NgModule({
   declarations: [
@@ -83,7 +84,8 @@ import { MessageService } from 'primeng/api';
     FormsModule,
     HttpClientModule,
     ToastModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    TableModule,
   ],
   providers: [
     {

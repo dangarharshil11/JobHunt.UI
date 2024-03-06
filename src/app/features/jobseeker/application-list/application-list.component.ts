@@ -10,11 +10,13 @@ import { JobuserService } from '../services/jobuser.service';
   styleUrls: ['./application-list.component.css']
 })
 export class ApplicationListComponent implements OnInit {
-  applications?: ApplicationResponse[];
+  applications: ApplicationResponse[];
   isApplicationVisible: boolean = false;
   userId: string | null = null;
 
-  constructor(private jobuserService: JobuserService){}
+  constructor(private jobuserService: JobuserService){
+    this.applications = [];
+  }
 
   ngOnInit(): void {
     this.userId = localStorage.getItem('user-id');

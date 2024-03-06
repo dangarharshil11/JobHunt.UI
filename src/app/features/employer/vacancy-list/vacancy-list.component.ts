@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Table } from 'primeng/table';
 
 import { EmployerService } from '../services/employer.service';
 import { VacancyResponse } from '../models/vacancy-response.model';
@@ -10,12 +10,13 @@ import { VacancyResponse } from '../models/vacancy-response.model';
   styleUrls: ['./vacancy-list.component.css']
 })
 export class VacancyListComponent implements OnInit {
-  Vacancies?: VacancyResponse[];
+  Vacancies: VacancyResponse[];
   isVacanciesVisible: boolean = false;
   email: string | null = null;
+  @ViewChild('dt1') dt1: Table | undefined;
 
   constructor(private employerService: EmployerService){
-    
+    this.Vacancies = [];
   }
 
   ngOnInit(): void {
@@ -33,5 +34,12 @@ export class VacancyListComponent implements OnInit {
         }
       });
     }
+  }
+
+  clear(table: Table) {
+        table.clear();
+  }
+  applyFilterGlobal($event: any, stringVal: any) {
+    this.dt1!.filterGlobal(($event.target as HTMLInputElement).value, stringVal);
   }
 }

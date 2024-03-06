@@ -11,36 +11,92 @@
     </div>
 
     <ng-container *ngIf="isVacanciesVisible && Vacancies; else noVacancies">
-        <table class="table table-bordered mt-3">
-            <thead>
-                <tr>
-                    <th>Job Title</th>
-                    <th>Organization Name</th>
-                    <th>No of Vacancies</th>
-                    <th>Salary Range</th>
-                    <th>Applications Recieved</th>
-                    <th></th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let vacancy of Vacancies">
-                    <td>{{vacancy.jobTitle}}</td>
-                    <td>{{vacancy.publishedBy}}</td>
-                    <td>{{vacancy.noOfVacancies}}</td>
-                    <td>{{vacancy.minimumSalary}} - {{vacancy.maximumSalary}}</td>
-                    <td>
-                        <a class="btn btn-light" [routerLink]="['/vacancy/applications', vacancy.id]">Applications</a>
-                    </td>
-                    <td>
-                        <a class="btn btn-light" [routerLink]="['/vacancy/details', vacancy.id]">Details</a>
-                    </td>
-                    <td>
-                        <a class="btn btn-success" [routerLink]="['/vacancy/edit', vacancy.id]">Edit</a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="card mt-3">
+            <p-table
+                #dt1
+                [value]="Vacancies"
+                dataKey="id"
+                [rows]="10"
+                [showCurrentPageReport]="true"
+                [rowsPerPageOptions]="[10, 25, 50]"
+                [paginator]="true"
+                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                [globalFilterFields]="['jobTitle', 'publishedBy']"
+                >s
+                <ng-template pTemplate="caption">
+                    <div class="d-flex justify-content-between">
+                        <button pButton label="Clear" class="btn btn-primary" (click)="clear(dt1)">Clear</button>
+                        <span>
+                            <input pInputText type="text" class="form-control" (input)="applyFilterGlobal($event, 'contains')" placeholder="Filter" />
+                        </span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>
+                            <div class="d-flex align-items-center">
+                                Job Title
+                                <p-columnFilter type="text" field="jobTitle" display="menu"></p-columnFilter>
+                            </div>
+                        </th>
+                        <th>
+                            <div class="d-flex align-items-center">
+                                Organization Name
+                                <p-columnFilter type="text" field="publishedBy" display="menu"></p-columnFilter>
+                            </div>
+                        </th>
+                        
+                        <th>
+                            <div class="d-flex align-items-center">
+                                No of Vacancies
+                                <p-columnFilter type="number" field="noVacancies" display="menu"></p-columnFilter>
+                            </div>
+                        </th>
+                        <th>
+                            <div class="d-flex align-items-center">
+                                Salary Range
+                                <p-columnFilter type="range" field="" display="menu" currency="INR"></p-columnFilter>
+                            </div>
+                        </th>
+        
+                        <th>
+                            <div class="d-flex align-items-center">
+                                Application Recievied
+                            </div>
+                        </th>
+        
+                        <th>
+                            <div class="d-flex align-items-center">
+                                Vacancy Details
+                            </div>
+                        </th>
+        
+                        <th>
+                            <div class="d-flex align-items-center">
+                                Edit Vacancy
+                            </div>
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-vacancy>
+                    <tr>
+                        <td>{{vacancy.jobTitle}}</td>
+                        <td>{{vacancy.publishedBy}}</td>
+                        <td>{{vacancy.noOfVacancies}}</td>
+                        <td>{{vacancy.minimumSalary}} - {{vacancy.maximumSalary}}</td>
+                        <td>
+                            <a class="btn btn-light" [routerLink]="['/vacancy/applications', vacancy.id]">Applications</a>
+                        </td>
+                        <td>
+                            <a class="btn btn-light" [routerLink]="['/vacancy/details', vacancy.id]">Details</a>
+                        </td>
+                        <td>
+                            <a class="btn btn-success" [routerLink]="['/vacancy/edit', vacancy.id]">Edit</a>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
     </ng-container>
     <ng-template #noVacancies>
         <p class="mt-2">
@@ -48,3 +104,4 @@
         </p>
     </ng-template>
 </div>
+

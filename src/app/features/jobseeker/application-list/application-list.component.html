@@ -10,32 +10,39 @@
         </div>
     </div>
 
-    <ng-container *ngIf="isApplicationVisible">
-        <table *ngIf="applications?.length != 0; else noApplication" class="table table-bordered mt-3">
-            <thead>
-                <tr>
-                    <th>Job Title</th>
-                    <th>Published By</th>
-                    <th>Salary Range</th>
-                    <th>No of Vacancies</th>
-                    <th>Applied Date</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let application of applications">
-                    <td>{{application.vacancy.jobTitle}}</td>
-                    <td>{{application.vacancy.publishedBy}}</td>
-                    <td>{{application.vacancy.minimumSalary}} - {{application.vacancy.maximumSalary}}</td>
-                    <td>{{application.vacancy.noOfVacancies}}</td>
-                    <td>{{application.appliedDate | date: 'yyyy-MM-dd'}}</td>
-                    <td>
-                        <a class="btn btn-light"
-                            [routerLink]="['/job/', application.vacancyId]">Details</a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+    <ng-container *ngIf="isApplicationVisible; else noApplication">
+        <div class="card mt-3">
+            <p-table 
+                [value]="applications" [paginator]="true" [rows]="5" [showCurrentPageReport]="true"
+                [tableStyle]="{'min-width': '60rem'}" 
+                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                [rowsPerPageOptions]="[10, 25, 50]" 
+                >
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th pSortableColumn="vacancy.jobTitle" style="width:20%">Job Title <p-sortIcon field="vacancy.jobTitle"></p-sortIcon></th>
+                        <th pSortableColumn="vacancy.publishedBy" style="width:20%">Published By <p-sortIcon field="vacancy.publishedBy"></p-sortIcon></th>
+                        <th pSortableColumn="vacancy.minimumSalary" style="width:20%">Salary Range <p-sortIcon field="vacancy.minimumSalary"></p-sortIcon></th>
+                        <th pSortableColumn="vacancy.noOfVacancies" style="width:15%">No of Vacancies <p-sortIcon field="vacancy.noOfVacancies"></p-sortIcon></th>
+                        <th pSortableColumn="appliedDate" style="width:15%">Applied Date <p-sortIcon field="appliedDate"></p-sortIcon></th>
+                        <th style="width:10%"></th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-application>
+                    <tr>
+                        <td>{{application.vacancy.jobTitle}}</td>
+                        <td>{{application.vacancy.publishedBy}}</td>
+                        <td>{{application.vacancy.minimumSalary}} - {{application.vacancy.maximumSalary}}</td>
+                        <td>{{application.vacancy.noOfVacancies}}</td>
+                        <td>{{application.appliedDate | date: 'yyyy-MM-dd'}}</td>
+                        <td>
+                            <a class="btn btn-light"
+                                [routerLink]="['/job/', application.vacancyId]">Details</a>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
     </ng-container>
     <ng-template #noApplication>
         <p class="mt-2">
@@ -43,3 +50,4 @@
         </p>
     </ng-template>
 </div>
+

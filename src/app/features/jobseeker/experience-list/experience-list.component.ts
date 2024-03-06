@@ -11,10 +11,12 @@ import { ExperienceResponse } from '../models/experience-response.model';
 })
 export class ExperienceListComponent {
   userId: string | null = null;
-  experiences?: ExperienceResponse[];
+  experiences: ExperienceResponse[];
   isExperiencesVisible: boolean = false;
 
-  constructor(private jobuserService: JobuserService){}
+  constructor(private jobuserService: JobuserService){
+    this.experiences = [];
+  }
 
   ngOnInit(): void {
     this.userId = localStorage.getItem('user-id');

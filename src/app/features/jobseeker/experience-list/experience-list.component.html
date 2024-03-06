@@ -11,32 +11,41 @@
     </div>
 
     <ng-container *ngIf="isExperiencesVisible && experiences">
-        <table *ngIf="experiences.length != 0; else noExperiences" class="table table-bordered mt-3">
-            <thead>
-                <tr>
-                    <th>Company Name</th>
-                    <th>Designation</th>
-                    <th>Start Year</th>
-                    <th>End Year</th>
-                    <th></th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let experience of experiences">
-                    <td>{{experience.companyName}}</td>
-                    <td>{{experience.designation}}</td>
-                    <td>{{experience.startYear | date: 'yyyy-MM-dd'}}</td>
-                    <td>{{experience.endYear | date: 'yyyy-MM-dd'}}</td>
-                    <td>
-                        <a class="btn btn-light" [routerLink]="['/experience/details', experience.id]">Details</a>
-                    </td>
-                    <td>
-                        <a class="btn btn-success" [routerLink]="['/experience/edit', experience.id]">Edit</a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="card mt-3">
+            <p-table [value]="experiences" [paginator]="true" [rows]="5" [showCurrentPageReport]="true"
+                [tableStyle]="{'min-width': '60rem'}"
+                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                [rowsPerPageOptions]="[10, 25, 50]">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th pSortableColumn="companyName" style="width:20%">Organization Name <p-sortIcon
+                                field="companyName"></p-sortIcon></th>
+                        <th pSortableColumn="designation" style="width:20%">Designation <p-sortIcon
+                                field="designation"></p-sortIcon></th>
+                        <th pSortableColumn="startYear" style="width:20%">Start Year <p-sortIcon
+                                field="startYear"></p-sortIcon></th>
+                        <th pSortableColumn="endYear" style="width:20%">End Year <p-sortIcon
+                                field="endYear"></p-sortIcon></th>
+                        <th style="width:10%"></th>
+                        <th style="width:10%"></th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-experience>
+                    <tr>
+                        <td>{{experience.companyName}}</td>
+                        <td>{{experience.designation}}</td>
+                        <td>{{experience.startYear | date: 'yyyy-MM-dd'}}</td>
+                        <td>{{experience.endYear | date: 'yyyy-MM-dd'}}</td>
+                        <td>
+                            <a class="btn btn-light" [routerLink]="['/experience/details', experience.id]">Details</a>
+                        </td>
+                        <td>
+                            <a class="btn btn-success" [routerLink]="['/experience/edit', experience.id]">Edit</a>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
     </ng-container>
     <ng-template #noExperiences>
         <p class="mt-2">

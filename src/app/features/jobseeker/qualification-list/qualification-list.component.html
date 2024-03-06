@@ -11,32 +11,37 @@
     </div>
 
     <ng-container *ngIf="isQualificationsVisible && qualifications">
-        <table *ngIf="qualifications.length != 0; else noQualifications" class="table table-bordered mt-3">
-            <thead>
-                <tr>
-                    <th>Qualification Name</th>
-                    <th>University Name</th>
-                    <th>Year of Completion</th>
-                    <th>Grade or Score</th>
-                    <th></th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let qualification of qualifications">
-                    <td>{{qualification.qualificationName}}</td>
-                    <td>{{qualification.university}}</td>
-                    <td>{{qualification.yearsOfCompletion}}</td>
-                    <td>{{qualification.gradeOrScore}}</td>
-                    <td>
-                        <a class="btn btn-light" [routerLink]="['/qualification/details', qualification.id]">Details</a>
-                    </td>
-                    <td>
-                        <a class="btn btn-success" [routerLink]="['/qualification/edit', qualification.id]">Edit</a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="card mt-3">
+            <p-table [value]="qualifications" [paginator]="true" [rows]="5" [showCurrentPageReport]="true"
+                    [tableStyle]="{'min-width': '60rem'}" 
+                    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                    [rowsPerPageOptions]="[10, 25, 50]">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th pSortableColumn="qualificationName" style="width:20%">Qualification Name <p-sortIcon field="qualificationName"></p-sortIcon></th>
+                        <th pSortableColumn="university" style="width:20%">University Name <p-sortIcon field="university"></p-sortIcon></th>
+                        <th pSortableColumn="yearsOfCompletion" style="width:20%">Year of Completion <p-sortIcon field="yearsOfCompletion"></p-sortIcon></th>
+                        <th pSortableColumn="gradeOrScore" style="width:20%">Grade or Score <p-sortIcon field="gradeOrScore"></p-sortIcon></th>
+                        <th style="width:10%"></th>
+                        <th style="width:10%"></th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-qualification>
+                    <tr>
+                        <td>{{qualification.qualificationName}}</td>
+                        <td>{{qualification.university}}</td>
+                        <td>{{qualification.yearsOfCompletion}}</td>
+                        <td>{{qualification.gradeOrScore}}</td>
+                        <td>
+                            <a class="btn btn-light" [routerLink]="['/qualification/details', qualification.id]">Details</a>
+                        </td>
+                        <td>
+                            <a class="btn btn-success" [routerLink]="['/qualification/edit', qualification.id]">Edit</a>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
     </ng-container>
     <ng-template #noQualifications>
         <p class="mt-2">

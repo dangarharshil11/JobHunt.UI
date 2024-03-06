@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
-import { MessageService } from 'primeng/api';
 
 import { LoginRequest } from '../models/login-request.model';
 import { AuthService } from '../services/auth.service';
@@ -16,7 +15,7 @@ export class LoginComponent {
   model: LoginRequest;
   error: string = '';
 
-  constructor(private messageService: MessageService, private authService: AuthService, private cookieService: CookieService, private route: Router, private employerService: EmployerService){
+  constructor( private authService: AuthService, private cookieService: CookieService, private route: Router, private employerService: EmployerService){
     this.model = {
       email: '',
       password: ''
@@ -41,7 +40,6 @@ export class LoginComponent {
               roles: response.result.roles,
             }); 
           }
-          this.show();
           this.route.navigateByUrl('/');
         },
         error: (error) => {
@@ -49,9 +47,5 @@ export class LoginComponent {
         }
       });
     } 
-  }
-
-  show() {
-      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Login Successful!' });
   }
 }
