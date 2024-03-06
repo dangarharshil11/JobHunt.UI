@@ -61,9 +61,30 @@
 
             <div class="mt-3 p-2">
                 <button type="submit" class="btn btn-primary me-2">Edit</button>
-                <a class="btn btn-danger" (click)="onDelete()">Delete</a>
+                <button type="button" class="btn btn-danger" data-bs-toggle="modal"data-bs-target="#confirmDelete">
+                    Delete
+                </button>
             </div>
         </div>
     </form>
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="confirmDelete" tabindex="-1" aria-labelledby="confirmDeleteLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="confirmDeleteLabel">Delete Confirmation</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure?
+            </div>
+            <div class="modal-footer">
+                <button type="button" (click)="onDelete()" class="btn btn-danger" data-bs-dismiss="modal" >Yes, Delete</button>
+                <button type="button" class="btn btn-secondary"
+                    data-bs-dismiss="modal">No</button>
+            </div>
+        </div>
+    </div>
+</div>
