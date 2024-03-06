@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 
 import { EmployerService } from '../services/employer.service';
 import { VacancyRequest } from '../models/vacancy-request.model';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-edit-vacancy',
@@ -18,7 +19,7 @@ export class EditVacancyComponent implements OnInit, OnDestroy {
   
   editVacancySubscription?: Subscription;
 
-  constructor(private employerService: EmployerService, private router: Router, private route: ActivatedRoute){
+  constructor(private employerService: EmployerService, private router: Router, private route: ActivatedRoute, private messageService: MessageService){
     this.model = {
       publishedBy: '',
       publishedDate: new Date(),
@@ -61,6 +62,7 @@ export class EditVacancyComponent implements OnInit, OnDestroy {
       this.model.publishedBy = this.email;
       this.editVacancySubscription = this.employerService.updateVacancy(this.model, this.id).subscribe({
         next: (response) => {
+          this.show('Vacancy Updated Successfully!');
           this.router.navigateByUrl('/vacancy');
         },
         error: (error) => {
@@ -74,6 +76,7 @@ export class EditVacancyComponent implements OnInit, OnDestroy {
     if(this.id){
       this.employerService.deleteVacancy(this.id).subscribe({
         next: (response) => {
+          this.show('Vacancy Deleted Successfully!');
           this.router.navigateByUrl('/vacancy');
         },
         error: (error) => {
@@ -85,5 +88,9 @@ export class EditVacancyComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.editVacancySubscription?.unsubscribe();
+  }
+
+  show(msg:string) {
+    this.messageService.add({ severity: 'success', summary: 'Success', detail: msg });
   }
 }

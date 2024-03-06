@@ -6,6 +6,7 @@ import { PublicService } from '../services/public.service';
 import { VacancyResponse } from '../models/vacancy-response.model';
 import { Organization } from '../models/organization.model';
 import { ApplicationRequest } from '../models/application-request.model';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-job-detail',
@@ -21,7 +22,7 @@ export class JobDetailComponent {
   isProfileVisible: boolean = false;
   request: ApplicationRequest;
 
-  constructor(private readonly publicService: PublicService, private route: ActivatedRoute, private router: Router){
+  constructor(private readonly publicService: PublicService, private route: ActivatedRoute, private router: Router, private messageService: MessageService){
     this.request = {
       appliedDate: new Date(),
       vacancyId: '',
@@ -70,12 +71,20 @@ export class JobDetailComponent {
     this.publicService.apply(this.request).subscribe({
       next: (response) => {
         if(response.isSuccess){
+          this.show("Applied Successfully!");
           this.router.navigateByUrl("/applications");
+        }
+        else{
+          this.show(response.message);
         }
       },
       error: (error) => {
         console.error(error);
       }
     })
+  }
+
+  show(msg: string) {
+    this.messageService.add({ severity: 'success', summary: 'Success', detail: msg });
   }
 }

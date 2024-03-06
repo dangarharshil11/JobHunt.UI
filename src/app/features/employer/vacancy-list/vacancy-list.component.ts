@@ -23,7 +23,7 @@ export class VacancyListComponent implements OnInit {
     if(this.email){
       this.employerService.getVacancyByName(this.email).subscribe({
         next: (response) => {
-          if(response.isSuccess){
+          if(response.isSuccess && response.result?.length > 0){
             this.isVacanciesVisible = true;
             this.Vacancies = response.result;
           }

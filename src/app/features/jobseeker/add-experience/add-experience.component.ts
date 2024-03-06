@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 
 import { ExperienceRequest } from '../models/experience-request.model';
 import { JobuserService } from '../services/jobuser.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-add-experience',
@@ -17,7 +18,7 @@ export class AddExperienceComponent {
 
   addExperienceSubscription$?: Subscription;
 
-  constructor(private jobuserService: JobuserService, private router: Router){
+  constructor(private jobuserService: JobuserService, private router: Router, private messageService: MessageService){
     this.model = {
       userId: '',
       companyName: '',
@@ -44,6 +45,7 @@ export class AddExperienceComponent {
     else{
       this.addExperienceSubscription$ = this.jobuserService.addExperience(this.model).subscribe({
         next: (response) =>{
+          this.show();
           this.router.navigateByUrl(`/experience/${this.id}`);
         },
         error: (error) => {
@@ -55,5 +57,9 @@ export class AddExperienceComponent {
 
   ngOnDestroy(): void {
     this.addExperienceSubscription$?.unsubscribe();
+  }
+
+  show() {
+    this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Experience Added Successfully!' });
   }
 }

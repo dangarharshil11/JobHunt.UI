@@ -27,7 +27,7 @@ export class ExperienceDetailsComponent implements OnInit {
     if(this.id){
       this.jobuserservice.getExperienceById(this.id).subscribe({
         next:(response) => {
-          if(response.isSuccess){
+          if(response.isSuccess && response.result?.length > 0){
             this.isExperienceVisible = true
             this.experience = response.result;
           }

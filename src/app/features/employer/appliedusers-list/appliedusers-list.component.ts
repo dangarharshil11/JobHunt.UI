@@ -26,7 +26,7 @@ export class AppliedusersListComponent implements OnInit {
     if(this.vacancyId){
       this.employerService.getApplicationsByVacancyId(this.vacancyId).subscribe({
         next: (response) => {
-          if(response.isSuccess){
+          if(response.isSuccess && response.result?.length > 0){
             this.isjobApplicationsVisible = true;
             this.jobapplications = response.result;
           }

@@ -1,6 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
 import {  Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { MessageService } from 'primeng/api';
 
 import { Organization } from '../models/organization.model';
 import { EmployerService } from '../services/employer.service';
@@ -17,7 +18,7 @@ export class AddCompanyDetailsComponent implements OnDestroy{
 
   addProfileSubscription?: Subscription;
 
-  constructor(private router: Router, private employerService: EmployerService){
+  constructor(private router: Router, private employerService: EmployerService, private messageService: MessageService){
     this.profile ={
       organization: '',
       organizationType: '',
@@ -39,6 +40,7 @@ export class AddCompanyDetailsComponent implements OnDestroy{
           this.addProfileSubscription = this.employerService.createProfile(this.profile).subscribe({
             next: (response) => {
               if(response.isSuccess){
+                this.show();
                 this.router.navigateByUrl(`/organization/${this.email}`);
               }
               else{
@@ -58,5 +60,9 @@ export class AddCompanyDetailsComponent implements OnDestroy{
 
   ngOnDestroy(): void {
     this.addProfileSubscription?.unsubscribe();
+  }
+
+  show() {
+    this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Organization Information Added Successfully!'});
   }
 }

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 
 import { LoginRequest } from '../models/login-request.model';
 import { AuthService } from '../services/auth.service';
@@ -13,7 +14,7 @@ export class ForgotPasswordComponent {
   error: string ='';
   model: LoginRequest;
 
-  constructor(private authService: AuthService, private router: Router){
+  constructor(private authService: AuthService, private router: Router, private messageService: MessageService){
     this.model = {
       email: '',
       password: '',
@@ -28,6 +29,7 @@ export class ForgotPasswordComponent {
       this.authService.forgotpassword(this.model).subscribe({
         next: (response) => {
           if(response.isSuccess){
+            this.show();
             this.router.navigateByUrl("/login");
           }
           else{
@@ -36,5 +38,9 @@ export class ForgotPasswordComponent {
         }
       });
     }
+  }
+
+  show() {
+    this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Password Reset Successful!' });
   }
 }

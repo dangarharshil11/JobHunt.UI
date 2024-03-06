@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 
 import { ExperienceRequest } from '../models/experience-request.model';
 import { JobuserService } from '../services/jobuser.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-edit-experience',
@@ -18,7 +19,7 @@ export class EditExperienceComponent {
 
   editExperienceSubscription$?: Subscription;
 
-  constructor(private jobuserService: JobuserService, private router: Router, private route: ActivatedRoute){
+  constructor(private jobuserService: JobuserService, private router: Router, private route: ActivatedRoute, private messageService: MessageService){
     this.model = {
       userId: '',
       companyName: '',
@@ -61,6 +62,7 @@ export class EditExperienceComponent {
       if(this.id){
         this.editExperienceSubscription$ = this.jobuserService.editExperience(this.model, this.id).subscribe({
           next: (response) =>{
+            this.show('Experience Updated Successfully!')
             this.router.navigateByUrl(`/experience/${this.id}`);
           },
           error: (error) => {
@@ -75,6 +77,7 @@ export class EditExperienceComponent {
     if(this.id){
       this.jobuserService.deleteExperience(this.id).subscribe({
         next: (response) =>{
+          this.show("Experience Deleted Successfully!")
           this.router.navigateByUrl(`/experience/${this.id}`);
         },
         error: (error) => {
@@ -86,5 +89,9 @@ export class EditExperienceComponent {
 
   ngOnDestroy(): void {
     this.editExperienceSubscription$?.unsubscribe();
+  }
+
+  show(msg:string) {
+    this.messageService.add({ severity: 'success', summary: 'Success', detail: msg });
   }
 }

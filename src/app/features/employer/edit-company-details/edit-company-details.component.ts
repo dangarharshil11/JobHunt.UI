@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 
 import { Organization } from '../models/organization.model';
 import { EmployerService } from '../services/employer.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-edit-company-details',
@@ -17,7 +18,7 @@ export class EditCompanyDetailsComponent implements OnInit, OnDestroy {
 
   editProfileSubscription?: Subscription;
 
-  constructor(private route: ActivatedRoute, private router: Router, private employerService: EmployerService){
+  constructor(private route: ActivatedRoute, private router: Router, private employerService: EmployerService, private messageService: MessageService){
     this.profile ={
       organization: '',
       organizationType: '',
@@ -54,6 +55,7 @@ export class EditCompanyDetailsComponent implements OnInit, OnDestroy {
       this.editProfileSubscription = this.employerService.updateProfile(this.profile).subscribe({
         next: (response) => {
           if(response.isSuccess){
+            this.show();
             this.router.navigateByUrl(`/organization/${response.result.createdBy}`)
           }
           this.error = response.message;
@@ -67,5 +69,9 @@ export class EditCompanyDetailsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.editProfileSubscription?.unsubscribe();
+  }
+
+  show() {
+    this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Organization Information Updated Successfully!' });
   }
 }

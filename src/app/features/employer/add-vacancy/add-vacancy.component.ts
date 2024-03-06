@@ -1,6 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { MessageService } from 'primeng/api';
 
 import { VacancyRequest } from '../models/vacancy-request.model';
 import { EmployerService } from '../services/employer.service';
@@ -17,7 +18,7 @@ export class AddVacancyComponent implements OnDestroy {
 
   addVacancySubscription?: Subscription;
 
-  constructor(private employerService: EmployerService, private router: Router){
+  constructor(private employerService: EmployerService, private router: Router, private messageService: MessageService){
     this.model = {
       publishedBy: '',
       publishedDate: new Date(),
@@ -43,6 +44,7 @@ export class AddVacancyComponent implements OnDestroy {
         this.model.publishedBy = this.email;
         this.addVacancySubscription = this.employerService.createVacancy(this.model).subscribe({
           next: (response) => {
+            this.show();
             this.router.navigateByUrl('/vacancy');
           },
           error: (error) => {
@@ -55,5 +57,9 @@ export class AddVacancyComponent implements OnDestroy {
 
   ngOnDestroy(): void {
     this.addVacancySubscription?.unsubscribe();
+  }
+
+  show() {
+    this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Vacancy Added Successfully!' });
   }
 }

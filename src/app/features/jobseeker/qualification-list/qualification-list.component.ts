@@ -22,7 +22,7 @@ export class QualificationListComponent implements OnInit {
     if(this.userId){
       this.jobuserService.getAllQualifications(this.userId).subscribe({
         next:(response) => {
-          if(response.isSuccess){
+          if(response.isSuccess && response.result?.length > 0){
             this.isQualificationsVisible = true;
             this.qualifications = response.result;
           }

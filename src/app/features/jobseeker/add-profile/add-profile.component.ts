@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 
 import { User } from '../models/user.model';
 import { JobuserService } from '../services/jobuser.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-add-profile',
@@ -20,7 +21,7 @@ export class AddProfileComponent implements OnInit, OnDestroy {
 
   addProfileSubscription$?: Subscription;
 
-  constructor(private jobuserService: JobuserService, private router: Router){
+  constructor(private jobuserService: JobuserService, private router: Router, private messageService: MessageService){
     this.model = {
       id: '',
       firstName: '',
@@ -58,6 +59,7 @@ export class AddProfileComponent implements OnInit, OnDestroy {
               this.model.resumeUrl = response.result;
               this.addProfileSubscription$ = this.jobuserService.addProfile(this.model).subscribe({
                 next: (response) =>{
+                  this.show();
                   this.router.navigateByUrl(`/user/${response.result.email}`);
                 },
                 error: (error) => {
@@ -84,5 +86,9 @@ export class AddProfileComponent implements OnInit, OnDestroy {
   onFileUploadChange(event: Event) : void{
     const element = event.currentTarget as HTMLInputElement;
     this.file = element.files?.[0];
+  }
+
+  show() {
+    this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Profile Added Successfully!' });
   }
 }

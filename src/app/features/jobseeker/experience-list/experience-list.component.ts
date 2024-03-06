@@ -21,7 +21,7 @@ export class ExperienceListComponent {
     if(this.userId){
       this.jobuserService.getAllExperiences(this.userId).subscribe({
         next: (response) => {
-          if(response.isSuccess){
+          if(response.isSuccess && response.result?.length > 0){
             this.experiences = response.result;
             this.isExperiencesVisible = true;
           }

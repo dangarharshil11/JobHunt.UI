@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http"
 
@@ -33,6 +34,8 @@ import { AppliedusersListComponent } from './features/employer/appliedusers-list
 import { CandidateDetailsComponent } from './features/employer/candidate-details/candidate-details.component';
 import { AuthInterceptor } from './core/interceptor/auth.interceptor';
 import { ForgotPasswordComponent } from './features/auth/forgot-password/forgot-password.component';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 @NgModule({
   declarations: [
@@ -78,14 +81,17 @@ import { ForgotPasswordComponent } from './features/auth/forgot-password/forgot-
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ToastModule,
+    BrowserAnimationsModule
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi: true
-    }
+    },
+    MessageService
   ],
   bootstrap: [AppComponent]
 })

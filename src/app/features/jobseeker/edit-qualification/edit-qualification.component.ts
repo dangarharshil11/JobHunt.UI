@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { QualificationRequest } from '../models/qualification-request.model';
 import { JobuserService } from '../services/jobuser.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-edit-qualification',
@@ -18,7 +19,7 @@ export class EditQualificationComponent {
 
   editQualificationSubscription$?: Subscription;
 
-  constructor(private jobuserService: JobuserService, private router: Router, private route: ActivatedRoute){
+  constructor(private jobuserService: JobuserService, private router: Router, private route: ActivatedRoute, private messageService: MessageService){
     this.model = {
       userId: '',
       qualificationName: '',
@@ -57,6 +58,7 @@ export class EditQualificationComponent {
       if(this.id){
         this.editQualificationSubscription$ = this.jobuserService.editQualification(this.model, this.id).subscribe({
           next: (response) =>{
+            this.show('Qualification Updated Successfully!')
             this.router.navigateByUrl(`/qualification/${this.id}`);
           },
           error: (error) => {
@@ -71,6 +73,7 @@ export class EditQualificationComponent {
     if(this.id){
       this.jobuserService.deleteQualification(this.id).subscribe({
         next: (response) => {
+          this.show('Qaulification Deleted Successfully!');
           this.router.navigateByUrl(`/qualification/${this.id}`);
         },
         error: (error) => {
@@ -82,5 +85,9 @@ export class EditQualificationComponent {
 
   ngOnDestroy(): void {
     this.editQualificationSubscription$?.unsubscribe();
+  }
+
+  show(msg: string) {
+    this.messageService.add({ severity: 'success', summary: 'Success', detail: msg });
   }
 }
