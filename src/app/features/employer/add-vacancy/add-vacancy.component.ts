@@ -1,5 +1,6 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { MessageService } from 'primeng/api';
 
@@ -11,14 +12,13 @@ import { EmployerService } from '../services/employer.service';
   templateUrl: './add-vacancy.component.html',
   styleUrls: ['./add-vacancy.component.css']
 })
-export class AddVacancyComponent implements OnDestroy {
+export class AddVacancyComponent implements OnDestroy, OnInit {
   model: VacancyRequest;
-  error: string = '';
   email: string | null = null;
 
   addVacancySubscription?: Subscription;
 
-  constructor(private employerService: EmployerService, private router: Router, private messageService: MessageService){
+  constructor(private employerService: EmployerService, private router: Router, private messageService: MessageService, private fb: FormBuilder) {
     this.model = {
       publishedBy: '',
       publishedDate: new Date(),
@@ -33,27 +33,52 @@ export class AddVacancyComponent implements OnDestroy {
     }
   }
 
-  onFormSubmit(){
+  addVacancyForm = this.fb.group({
+    noOfVacancies: [0, Validators.min(1)],
+    minimumQualification: ['', Validators.required],
+    jobTitle: ['', Validators.required],
+    jobDescription: ['', Validators.minLength(50)],
+    experienceRequired: ['', Validators.required],
+    minimumSalary: [0, Validators.min(1)],
+    maximumSalary: [0, Validators.min(1)],
+  });
+
+  ngOnInit(): void {
     this.email = localStorage.getItem('user-email');
-    if(this.model.experienceRequired == '' || this.model.jobTitle =='' || this.model.noOfVacancies == 0 || this.model.maximumSalary == 0 || 
-    this.model.minimumSalary == 0 || this.model.minimumQualification == '' || this.model.experienceRequired == '' || this.model.jobDescription ==''){
-      this.error = 'Enter all the Details'
+    if (this.email) {
+      this.model.publishedBy = this.email;
     }
-    else{
-      if(this.email){ 
-        this.model.publishedBy = this.email;
-        this.addVacancySubscription = this.employerService.createVacancy(this.model).subscribe({
-          next: (response) => {
-            this.show();
-            this.router.navigateByUrl('/vacancy');
-          },
-          error: (error) => {
-            console.error(error);
-          }
-        });
-      } 
+  }
+
+  onFormSubmit() {
+    this.model = {
+      jobTitle: this.addVacancyForm.get('jobTitle')?.value || '',
+      noOfVacancies: this.addVacancyForm.get('noOfVacancies')?.value || 0,
+      minimumQualification: this.addVacancyForm.get('minimumQualification')?.value || '',
+      jobDescription: this.addVacancyForm.get('jobDescription')?.value || '',
+      experienceRequired: this.addVacancyForm.get('experienceRequired')?.value || '',
+      minimumSalary: this.addVacancyForm.get('minimumSalary')?.value || 1,
+      maximumSalary: this.addVacancyForm.get('maximumSalary')?.value || 1,
+      publishedBy: this.model.publishedBy,
+      lastDate: this.model.lastDate,
+      publishedDate: this.model.publishedDate,
     }
-}
+
+    this.addVacancySubscription = this.employerService.createVacancy(this.model).subscribe({
+      next: (response) => {
+        if (response.isSuccess) {
+          this.show();
+          this.router.navigateByUrl('/vacancy');
+        }
+        else{
+          this.showError(response.message);
+        }
+      },
+      error: (error) => {
+        console.error(error);
+      }
+    });
+  }
 
   ngOnDestroy(): void {
     this.addVacancySubscription?.unsubscribe();
@@ -61,5 +86,9 @@ export class AddVacancyComponent implements OnDestroy {
 
   show() {
     this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Vacancy Added Successfully!' });
+  }
+
+  showError(msg: string) {
+    this.messageService.add({ severity: 'error', summary: 'Error', detail: msg });
   }
 }

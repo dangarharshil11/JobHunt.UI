@@ -1,5 +1,6 @@
-import { Component, OnDestroy } from '@angular/core';
-import {  Router } from '@angular/router';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { MessageService } from 'primeng/api';
 
@@ -11,15 +12,14 @@ import { EmployerService } from '../services/employer.service';
   templateUrl: './add-company-details.component.html',
   styleUrls: ['./add-company-details.component.css']
 })
-export class AddCompanyDetailsComponent implements OnDestroy{
+export class AddCompanyDetailsComponent implements OnDestroy, OnInit {
   profile: Organization;
   email?: string | null = null;
-  error: string = '';
 
   addProfileSubscription?: Subscription;
 
-  constructor(private router: Router, private employerService: EmployerService, private messageService: MessageService){
-    this.profile ={
+  constructor(private router: Router, private employerService: EmployerService, private messageService: MessageService, private fb: FormBuilder) {
+    this.profile = {
       organization: '',
       organizationType: '',
       companyEmail: '',
@@ -30,32 +30,49 @@ export class AddCompanyDetailsComponent implements OnDestroy{
       createdBy: '',
     }
   }
-
-  onFormSubmit(){
+  ngOnInit(): void {
     this.email = localStorage.getItem('user-email');
-    if(this.email){ 
+    if (this.email) {
       this.profile.createdBy = this.email;
-      if(this.profile.organization != '' || this.profile.organizationType != '' || this.profile.about != '' || 
-        this.profile.startYear || this.profile.companyEmail || this.profile.companyPhone || this.profile.noOfEmployees){
-          this.addProfileSubscription = this.employerService.createProfile(this.profile).subscribe({
-            next: (response) => {
-              if(response.isSuccess){
-                this.show();
-                this.router.navigateByUrl(`/organization/${this.email}`);
-              }
-              else{
-                this.error = response.message;
-              }
-            },
-            error: (error) => {
-              console.error(error);
-            }
-        });
-      }
-      else{
-        this.error = ('Please Enter all the Details');
-      }
     }
+  }
+
+  addCompanyForm = this.fb.group({
+    organization: ['', Validators.required],
+    organizationType: ['', Validators.required],
+    companyEmail: ['', Validators.required],
+    companyPhone: ['', Validators.minLength(10)],
+    noOfEmployees: [1, Validators.min(1)],
+    startYear: new FormControl(2024, [Validators.min(1900), Validators.max(2024)]),
+    about: ['', Validators.minLength(50)],
+  });
+
+  onFormSubmit() {
+    this.profile = {
+      organization: this.addCompanyForm.get('organization')?.value || '',
+      organizationType: this.addCompanyForm.get('organizationType')?.value || '',
+      companyEmail: this.addCompanyForm.get('companyEmail')?.value || '',
+      companyPhone: this.addCompanyForm.get('companyPhone')?.value || '',
+      noOfEmployees: this.addCompanyForm.get('noOfEmployees')?.value || 1,
+      startYear: this.addCompanyForm.get('startYear')?.value || 2024,
+      about: this.addCompanyForm.get('about')?.value || '',
+      createdBy: this.profile.createdBy,
+    }
+
+    this.addProfileSubscription = this.employerService.createProfile(this.profile).subscribe({
+      next: (response) => {
+        if (response.isSuccess) {
+          this.show();
+          this.router.navigateByUrl(`/organization/${this.email}`);
+        }
+        else {
+          this.showError(response.message);
+        }
+      },
+      error: (error) => {
+        console.error(error);
+      }
+    });
   }
 
   ngOnDestroy(): void {
@@ -63,6 +80,10 @@ export class AddCompanyDetailsComponent implements OnDestroy{
   }
 
   show() {
-    this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Organization Information Added Successfully!'});
+    this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Organization Information Added Successfully!' });
+  }
+
+  showError(msg: string) {
+    this.messageService.add({ severity: 'error', summary: 'Error', detail: msg });
   }
 }
