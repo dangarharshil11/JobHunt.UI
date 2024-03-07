@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { QualificationRequest } from '../models/qualification-request.model';
 import { JobuserService } from '../services/jobuser.service';
 import { MessageService } from 'primeng/api';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-add-qualification',
@@ -14,11 +15,10 @@ import { MessageService } from 'primeng/api';
 export class AddQualificationComponent implements OnInit, OnDestroy {
   model: QualificationRequest;
   id: string | null = null;
-  error: string = '';
 
   addQualificationSubscription$?: Subscription;
 
-  constructor(private jobuserService: JobuserService, private router: Router, private messageService: MessageService){
+  constructor(private jobuserService: JobuserService, private router: Router, private messageService: MessageService, private fb: FormBuilder){
     this.model = {
       userId: '',
       qualificationName: '',
@@ -27,6 +27,13 @@ export class AddQualificationComponent implements OnInit, OnDestroy {
       gradeOrScore: ''
     }
   }
+
+  addQualificationForm = this.fb.group({
+    qualificationName: ['', Validators.required],
+    yearsOfCompletion: new FormControl(2024, [ Validators.min(1900), Validators.max(2024)]),
+    gradeOrScore: ['', Validators.required],
+    university: ['', Validators.required],
+  })
  
   ngOnInit(): void {
     this.id = localStorage.getItem('user-id');
@@ -36,20 +43,23 @@ export class AddQualificationComponent implements OnInit, OnDestroy {
   }
 
   onFormSubmit(){
-    if(this.model.qualificationName == '' || this.model.university == '' || this.model.yearsOfCompletion == 0 || this.model.gradeOrScore == ''){
-        this.error = 'Enter All the details'
+    this.model = {
+      userId: this.model.userId,
+      qualificationName: this.addQualificationForm.get('qualificationName')?.value || '',
+      yearsOfCompletion: this.addQualificationForm.get('yearsOfCompletion')?.value || 0,
+      gradeOrScore: this.addQualificationForm.get('gradeOrScore')?.value || '',
+      university: this.addQualificationForm.get('university')?.value || '',
     }
-    else{
-      this.addQualificationSubscription$ = this.jobuserService.addQualification(this.model).subscribe({
-        next: (response) =>{
-          this.show();
-          this.router.navigateByUrl(`/qualification/${this.id}`);
-        },
-        error: (error) => {
-          console.error(error);
-        }
-      });
-    }
+    
+    this.addQualificationSubscription$ = this.jobuserService.addQualification(this.model).subscribe({
+      next: (response) =>{
+        this.show();
+        this.router.navigateByUrl(`/qualification/${this.id}`);
+      },
+      error: (error) => {
+        console.error(error);
+      }
+    });
   }
 
   ngOnDestroy(): void {

@@ -42,7 +42,7 @@ export class ProfileComponent implements OnInit {
 
       this.jobuserService.getAllQualifications(this.id).subscribe({
         next: (response) => {
-          if(response.isSuccess){
+          if(response.isSuccess && response.result.length > 0){
             this.isQualificationVisible = true;
             this.qualifications = response.result;
           }
@@ -54,7 +54,7 @@ export class ProfileComponent implements OnInit {
 
       this.jobuserService.getAllExperiences(this.id).subscribe({
         next: (response) => {
-          if(response.isSuccess){
+          if(response.isSuccess && response.result.length > 0){
             this.isExperiencesVisible = true;
             this.experiences = response.result;
           }

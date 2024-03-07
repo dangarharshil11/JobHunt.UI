@@ -21,21 +21,16 @@
             <div class="mt-1">
                 <div class="d-flex flex-row">
                     <div class="col-6 p-2">
-                        <label for="startYear" class="form-label">Start Year</label>
-                        <input type="date" id="startYear" name="startYear" class="form-control"[(ngModel)]="model.startYear"/>
-                    </div>
-                    <div class="col-6 p-2">
-                        <label for="endYear" class="form-label">End Year</label>
-                        <input type="date" id="endYear" name="endYear" class="form-control"[(ngModel)]="model.endYear"/>
-                    </div>
-                </div>
-            </div>
-
-            <div class="mt-1">
-                <div class="d-flex flex-row">
-                    <div class="col-6 p-2">
                         <label for="companyUrl" class="form-label">Company Url</label>
                         <input type="text" id="companyUrl" name="companyUrl" class="form-control"[(ngModel)]="model.companyUrl"/>
+                    </div>
+                    <div class="col-3 p-2">
+                        <label class="form-label d-block">Start Year</label>
+                        <p-calendar type="date" id="startYear" name="startYear" [(ngModel)]="model.startYear" [ngModelOptions]="{standalone: true}"></p-calendar>
+                    </div>
+                    <div class="col-3 p-2">
+                        <label class="form-label d-block">End Year</label>
+                        <p-calendar type="date" id="endYear" name="endYear" [(ngModel)]="model.endYear" [ngModelOptions]="{standalone: true}"></p-calendar>
                     </div>
                 </div>
             </div>

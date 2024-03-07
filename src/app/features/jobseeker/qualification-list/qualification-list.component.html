@@ -10,7 +10,7 @@
         </div>
     </div>
 
-    <ng-container *ngIf="isQualificationsVisible && qualifications">
+    <ng-container *ngIf="isQualificationsVisible && qualifications; else noQualifications">
         <div class="card mt-3">
             <p-table [value]="qualifications" [paginator]="true" [rows]="5" [showCurrentPageReport]="true"
                     [tableStyle]="{'min-width': '60rem'}" 

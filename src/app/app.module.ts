@@ -39,6 +39,8 @@ import { MessageService } from 'primeng/api';
 import { TableModule } from 'primeng/table';
 import { InputTextModule } from 'primeng/inputtext';
 import { DropdownModule } from 'primeng/dropdown';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { CalendarModule } from 'primeng/calendar';
 
 @NgModule({
   declarations: [
@@ -90,7 +92,9 @@ import { DropdownModule } from 'primeng/dropdown';
     TableModule,
     ReactiveFormsModule,
     InputTextModule,
-    DropdownModule
+    InputTextareaModule,
+    DropdownModule,
+    CalendarModule
   ],
   providers: [
     {

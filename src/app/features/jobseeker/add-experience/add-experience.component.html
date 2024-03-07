@@ -1,32 +1,38 @@
 <div class="container">
     <h1 class="mt-3">Add Experience Details</h1>
-    <form #form="ngForm" (ngSubmit)="onFormSubmit()">
-        <ng-container *ngIf="error">
-            <span class="text-danger">{{error}}</span>
-        </ng-container>
+    <form [formGroup]="addExperienceForm" (ngSubmit)="onFormSubmit()">
         <div class="my-2">
             <div class="mt-3">
                 <div class="d-flex flex-row">
                     <div class="col-6 p-2">
                         <label for="designation" class="form-label">Job Designation</label>
-                        <input type="text" id="designation" name="designation" class="form-control"[(ngModel)]="model.designation"/>
+                        <input
+                            pInputText
+                            type="text" 
+                            id="designation" 
+                            name="designation" 
+                            class="form-control w-100"
+                            placeholder="Enter Job Designation"
+                            formControlName="designation"/>
+                        <small class="d-block text-danger"
+                            *ngIf="addExperienceForm.get('designation')?.invalid && addExperienceForm.get('designation')?.dirty">
+                            Job Designation is Required.
+                        </small>
                     </div>
+                    
                     <div class="col-6 p-2">
                         <label for="companyName" class="form-label">Company Name</label>
-                        <input type="text" id="companyName" name="companyName" class="form-control"[(ngModel)]="model.companyName"/>
-                    </div>
-                </div>
-            </div>
-
-            <div class="mt-1">
-                <div class="d-flex flex-row">
-                    <div class="col-6 p-2">
-                        <label for="startYear" class="form-label">Start Year</label>
-                        <input type="date" id="startYear" name="startYear" class="form-control"[(ngModel)]="model.startYear"/>
-                    </div>
-                    <div class="col-6 p-2">
-                        <label for="endYear" class="form-label">End Year</label>
-                        <input type="date" id="endYear" name="endYear" class="form-control"[(ngModel)]="model.endYear"/>
+                        <input 
+                            type="text" 
+                            id="companyName" 
+                            name="companyName" 
+                            class="form-control w-100"
+                            placeholder="Enter Company Name"
+                            formControlName="companyName"/>
+                        <small class="d-block text-danger"
+                            *ngIf="addExperienceForm.get('companyName')?.invalid && addExperienceForm.get('companyName')?.dirty">
+                            Compnay Name is Required.
+                        </small>
                     </div>
                 </div>
             </div>
@@ -35,26 +41,57 @@
                 <div class="d-flex flex-row">
                     <div class="col-6 p-2">
                         <label for="companyUrl" class="form-label">Company Url</label>
-                        <input type="text" id="companyUrl" name="companyUrl" class="form-control"[(ngModel)]="model.companyUrl"/>
+                        <input 
+                            type="text" 
+                            id="companyUrl"
+                            name="companyUrl" 
+                            class="form-control w-100"
+                            placeholder="Enter Compnay Url"
+                            formControlName="companyUrl"/>
+                        <small class="d-block text-danger"
+                            *ngIf="addExperienceForm.get('companyUrl')?.invalid && addExperienceForm.get('companyUrl')?.dirty">
+                            Compnay Url is Required.
+                        </small>
                     </div>
+                    <div class="col-3 p-2">
+                        <label class="form-label d-block">Start Year</label>
+                        <p-calendar type="date" id="startYear" name="startYear" [(ngModel)]="model.startYear" [ngModelOptions]="{standalone: true}"></p-calendar>
+                    </div>
+                    <div class="col-3 p-2">
+                        <label class="form-label d-block">End Year</label>
+                        <p-calendar type="date" id="endYear" name="endYear" [(ngModel)]="model.endYear" [ngModelOptions]="{standalone: true}"></p-calendar>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-1">
+                <div class="d-flex flex-row">
+                    
                 </div>
             </div>
 
             <div class="mt-1 p-2">
                 <label for="jobDescription" class="form-label">Job Description</label>
-                <div class="d-flex flex-row">
+                <div class="d-block">
                     <textarea 
+                        pInputTextarea
                         id="jobDescription" 
                         name="jobDescription" 
                         class="form-control" 
                         style="height: 180px; max-height: 180px;" 
-                        [(ngModel)]="model.jobDescription">
+                        class="form-control w-100"
+                        placeholder="Enter Job Description"
+                        formControlName="jobDescription">
                     </textarea>
+                    <small class="d-block text-danger"
+                        *ngIf="addExperienceForm.get('jobDescription')?.invalid && addExperienceForm.get('jobDescription')?.dirty">
+                        Job Description is Required.
+                    </small>
                 </div>
             </div>
 
             <div class="mt-3 p-2">
-                <button type="submit" class="btn btn-primary">Add Experience</button>
+                <button type="submit" class="btn btn-primary" [disabled]="addExperienceForm.invalid">Add Experience</button>
             </div>
         </div>
     </form>

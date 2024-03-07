@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { ExperienceRequest } from '../models/experience-request.model';
 import { JobuserService } from '../services/jobuser.service';
 import { MessageService } from 'primeng/api';
+import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-add-experience',
@@ -14,11 +15,10 @@ import { MessageService } from 'primeng/api';
 export class AddExperienceComponent {
   model: ExperienceRequest;
   id: string | null = null;
-  error: string = '';
 
   addExperienceSubscription$?: Subscription;
 
-  constructor(private jobuserService: JobuserService, private router: Router, private messageService: MessageService){
+  constructor(private jobuserService: JobuserService, private router: Router, private messageService: MessageService, private fb: FormBuilder){
     this.model = {
       userId: '',
       companyName: '',
@@ -29,6 +29,13 @@ export class AddExperienceComponent {
       jobDescription: '',
     }
   }
+
+  addExperienceForm = this.fb.group({
+    designation: ['', Validators.required],
+    companyName: ['', Validators.required],
+    companyUrl: ['', Validators.required],
+    jobDescription: ['', Validators.required],
+  });
  
   ngOnInit(): void {
     this.id = localStorage.getItem('user-id');
@@ -38,21 +45,25 @@ export class AddExperienceComponent {
   }
 
   onFormSubmit(){
-    if(this.model.companyName == '' || this.model.startYear == new Date() || this.model.endYear == new Date() ||
-      this.model.designation == '' || this.model.companyUrl == '' || this.model.jobDescription == ''){
-        this.error = 'Enter All the details'
+    this.model = {
+      userId: this.model.userId,
+      companyName: this.addExperienceForm.get('companyName')?.value || '',
+      startYear: this.model.startYear,
+      endYear: this.model.endYear,
+      designation: this.addExperienceForm.get('designation')?.value || '',
+      companyUrl: this.addExperienceForm.get('companyUrl')?.value || '',
+      jobDescription: this.addExperienceForm.get('jobDescription')?.value || '',
     }
-    else{
-      this.addExperienceSubscription$ = this.jobuserService.addExperience(this.model).subscribe({
-        next: (response) =>{
-          this.show();
-          this.router.navigateByUrl(`/experience/${this.id}`);
-        },
-        error: (error) => {
-          console.error(error);
-        }
-      });
-    }
+
+    this.addExperienceSubscription$ = this.jobuserService.addExperience(this.model).subscribe({
+      next: (response) =>{
+        this.show();
+        this.router.navigateByUrl(`/experience/${this.id}`);
+      },
+      error: (error) => {
+        console.error(error);
+      }
+    });
   }
 
   ngOnDestroy(): void {

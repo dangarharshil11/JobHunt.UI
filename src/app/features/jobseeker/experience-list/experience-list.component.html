@@ -10,7 +10,7 @@
         </div>
     </div>
 
-    <ng-container *ngIf="isExperiencesVisible && experiences">
+    <ng-container *ngIf="isExperiencesVisible && experiences; else noExperiences">
         <div class="card mt-3">
             <p-table [value]="experiences" [paginator]="true" [rows]="5" [showCurrentPageReport]="true"
                 [tableStyle]="{'min-width': '60rem'}"

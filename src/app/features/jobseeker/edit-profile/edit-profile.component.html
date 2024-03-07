@@ -25,8 +25,8 @@
                         <input type="string" id="phone" name="phone" class="form-control"[(ngModel)]="model.phone"/>
                     </div>
                     <div class="col-6 p-2">
-                        <label for="dateOfBirth" class="form-label">Date of Birth</label>
-                        <input type="date" id="dateOfBirth" name="dateOfBirth" class="form-control"[(ngModel)]="model.dateOfBirth"/>
+                        <label class="form-label d-block">Date of Birth</label>
+                        <p-calendar type="date" id="dateOfBirth" name="dateOfBirth" [(ngModel)]="model.dateOfBirth" [ngModelOptions]="{standalone: true}"></p-calendar>
                     </div>
                 </div>
             </div>
