@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { FormBuilder, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 
 import { LoginRequest } from '../models/login-request.model';
@@ -14,7 +15,12 @@ export class ForgotPasswordComponent {
   error: string ='';
   model: LoginRequest;
 
-  constructor(private authService: AuthService, private router: Router, private messageService: MessageService){
+  forgotPasswordForm = this.fb.group({
+    email: ['', Validators.required],
+    password: ['', Validators.required]
+  })
+
+  constructor(private authService: AuthService, private router: Router, private messageService: MessageService, private fb: FormBuilder){
     this.model = {
       email: '',
       password: '',
@@ -22,10 +28,12 @@ export class ForgotPasswordComponent {
   }
 
   onSubmit(){
-    if(this.model?.email == '' || this.model.password == ''){
-      this.error = "Please Enter Email and Password";
-    }
-    else{
+    this.model = {
+      email: this.forgotPasswordForm.get('email')?.value || '',
+      password: this.forgotPasswordForm.get('password')?.value || '',
+    };
+
+    if(this.model?.email != '' && this.model.password != ''){
       this.authService.forgotpassword(this.model).subscribe({
         next: (response) => {
           if(response.isSuccess){
@@ -33,6 +41,7 @@ export class ForgotPasswordComponent {
             this.router.navigateByUrl("/login");
           }
           else{
+            this.showerror();
             this.error = response.message;
           }
         }
@@ -42,5 +51,9 @@ export class ForgotPasswordComponent {
 
   show() {
     this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Password Reset Successful!' });
+  }
+  
+  showerror(){
+    this.messageService.add({ severity: 'error', summary: 'Invalid Email', detail: 'User do not Exist Please Register!' });
   }
 }

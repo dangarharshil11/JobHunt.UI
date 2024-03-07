@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { FormBuilder, Validators } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
 
 import { LoginRequest } from '../models/login-request.model';
 import { AuthService } from '../services/auth.service';
-import { EmployerService } from '../../employer/services/employer.service';
 
 @Component({
   selector: 'app-login',
@@ -12,22 +12,26 @@ import { EmployerService } from '../../employer/services/employer.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  model: LoginRequest;
-  error: string = '';
+  model: LoginRequest = {
+    email: '',
+    password: ''
+  };
 
-  constructor( private authService: AuthService, private cookieService: CookieService, private route: Router, private employerService: EmployerService){
-    this.model = {
-      email: '',
-      password: ''
-    };
+  loginForm = this.fb.group({
+    email: ['', Validators.required],
+    password: ['', Validators.required]
+  })
+
+  constructor( private authService: AuthService, private cookieService: CookieService, private route: Router, private fb: FormBuilder){
   }
 
   onFormSubmit(): void{
-    this.error = ''
-    if(this.model.email.trim() == '' ||  this.model.password.trim() == ''){
-      this.error = ('Please Enter all the Details');
-    }
-    else{
+    this.model = {
+      email: this.loginForm.get('email')?.value || '',
+      password: this.loginForm.get('password')?.value || '',
+    };
+
+    if(this.model.email != '' && this.model.password != ''){
       this.authService.login(this.model).subscribe({
         next: (response) => {
           this.cookieService.set('Authorization', `Bearer ${response.result?.token}`, undefined, '/', undefined, true, 'Strict');
@@ -46,6 +50,6 @@ export class LoginComponent {
           console.error(error);
         }
       });
-    } 
+    }
   }
 }

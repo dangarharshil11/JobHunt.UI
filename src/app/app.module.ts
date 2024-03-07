@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http"
 
 import { AppRoutingModule } from './app-routing.module';
@@ -37,6 +37,8 @@ import { ForgotPasswordComponent } from './features/auth/forgot-password/forgot-
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { TableModule } from 'primeng/table';
+import { InputTextModule } from 'primeng/inputtext';
+import { DropdownModule } from 'primeng/dropdown';
 
 @NgModule({
   declarations: [
@@ -86,6 +88,9 @@ import { TableModule } from 'primeng/table';
     ToastModule,
     BrowserAnimationsModule,
     TableModule,
+    ReactiveFormsModule,
+    InputTextModule,
+    DropdownModule
   ],
   providers: [
     {
