@@ -3,9 +3,10 @@
     <form [formGroup]="addVacancyForm" (ngSubmit)="onFormSubmit()">
         <div class="mt-2 mb-5">
             <div class="mt-3 p-2">
-                <label for="jobTitle" class="form-label">Job Title</label>
+                <label for="jobTitle" class="form-label">Job Title *</label>
                 <input 
                     type="text" 
+                    pInputText
                     id="jobTitle" 
                     name="jobTitle" 
                     class="form-control w-100"
@@ -20,9 +21,10 @@
             <div class="mt-3">
                 <div class="d-flex flex-row">
                     <div class="col-6 p-2">
-                        <label for="noOfVacancies" class="form-label">No of Vacancies</label>
+                        <label for="noOfVacancies" class="form-label">No of Vacancies *</label>
                         <input 
                             type="number" 
+                            pInputText
                             id="noOfVacancies" 
                             name="noOfVacancies" 
                             class="form-control w-100"
@@ -43,9 +45,10 @@
             <div class="mt-3">
                 <div class="d-flex flex-row">
                     <div class="col-6 p-2">
-                        <label for="maximumSalary" class="form-label">Maximum Salary</label>
+                        <label for="maximumSalary" class="form-label">Maximum Salary *</label>
                         <input 
                             type="number" 
+                            pInputText
                             id="maximumSalary"
                             name="maximumSalary" 
                             class="form-control w-100"
@@ -57,8 +60,9 @@
                         </small>
                     </div>
                     <div class="col-6 p-2">
-                        <label for="minimumSalary" class="form-label">Minimum Salary</label>
+                        <label for="minimumSalary" class="form-label">Minimum Salary *</label>
                         <input 
+                            pInputText
                             type="number" 
                             id="minimumSalary" 
                             name="minimumSalary" 
@@ -74,9 +78,10 @@
             </div>
 
             <div class="mt-3 p-2">
-                <label for="minimumQualification" class="form-label">Minimum Qualification</label>
+                <label for="minimumQualification" class="form-label">Minimum Qualification *</label>
                 <input 
                     type="text" 
+                    pInputText
                     id="minimumQualification"
                     name="minimumQualification" 
                     class="form-control w-100"
@@ -89,9 +94,10 @@
             </div>
 
             <div class="mt-3 p-2">
-                <label for="experienceRequired" class="form-label">Experience Required</label>
+                <label for="experienceRequired" class="form-label">Experience Required *</label>
                 <input 
                     type="text" 
+                    pInputText
                     id="experienceRequired"
                     name="experienceRequired" 
                     class="form-control w-100"
@@ -104,7 +110,7 @@
             </div>
 
             <div class="mt-3 p-2">
-                <label for="jobDescription" class="form-label">Job Description</label>
+                <label for="jobDescription" class="form-label">Job Description *</label>
                 <div class="d-block flex-row">
                     <textarea 
                         pInputTextarea

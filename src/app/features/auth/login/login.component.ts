@@ -44,6 +44,7 @@ export class LoginComponent {
               roles: response.result.roles,
             }); 
           }
+          console.log(response)
           this.route.navigateByUrl('/');
         },
         error: (error) => {

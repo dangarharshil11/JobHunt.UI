@@ -8,11 +8,11 @@
             <div class="mt-3">
                 <div class="d-flex flex-row">
                     <div class="col-6 p-2">
-                        <label for="designation" class="form-label">Job Designation</label>
+                        <label for="designation" class="form-label">Job Designation *</label>
                         <input type="text" id="designation" name="designation" class="form-control"[(ngModel)]="model.designation"/>
                     </div>
                     <div class="col-6 p-2">
-                        <label for="companyName" class="form-label">Company Name</label>
+                        <label for="companyName" class="form-label">Company Name *</label>
                         <input type="text" id="companyName" name="companyName" class="form-control"[(ngModel)]="model.companyName"/>
                     </div>
                 </div>
@@ -21,22 +21,22 @@
             <div class="mt-1">
                 <div class="d-flex flex-row">
                     <div class="col-6 p-2">
-                        <label for="companyUrl" class="form-label">Company Url</label>
+                        <label for="companyUrl" class="form-label">Company Url *</label>
                         <input type="text" id="companyUrl" name="companyUrl" class="form-control"[(ngModel)]="model.companyUrl"/>
                     </div>
                     <div class="col-3 p-2">
-                        <label class="form-label d-block">Start Year</label>
+                        <label class="form-label d-block">Start Year *</label>
                         <p-calendar type="date" id="startYear" name="startYear" [(ngModel)]="model.startYear" [ngModelOptions]="{standalone: true}"></p-calendar>
                     </div>
                     <div class="col-3 p-2">
-                        <label class="form-label d-block">End Year</label>
+                        <label class="form-label d-block">End Year *</label>
                         <p-calendar type="date" id="endYear" name="endYear" [(ngModel)]="model.endYear" [ngModelOptions]="{standalone: true}"></p-calendar>
                     </div>
                 </div>
             </div>
 
             <div class="mt-1 p-2">
-                <label for="jobDescription" class="form-label">Job Description</label>
+                <label for="jobDescription" class="form-label">Job Description *</label>
                 <div class="d-flex flex-row">
                     <textarea 
                         id="jobDescription" 

@@ -4,7 +4,6 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 
 import { LoginRequest } from '../models/login-request.model';
-import { LoginResponse } from '../models/login-response.model';
 import { environment } from 'src/environments/environment';
 import { User } from '../models/user.model';
 import { RegisterRequest } from '../models/register-request.model';
