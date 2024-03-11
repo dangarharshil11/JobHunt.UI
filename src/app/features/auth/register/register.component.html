@@ -15,7 +15,7 @@
                         formControlName="firstName" />
                     <small 
                         class="d-block text-danger" 
-                        *ngIf="registerForm.get('firstName')?.invalid && registerForm.get('firstName')?.dirty">
+                        *ngIf="(registerForm.get('firstName')?.invalid && registerForm.get('firstName')?.dirty) || (registerForm.get('firstName')?.invalid && registerForm.touched)">
                             First Name is Required
                     </small>
                 </div>
@@ -32,7 +32,7 @@
                         formControlName="lastName" />
                     <small 
                         class="d-block text-danger" 
-                        *ngIf="registerForm.get('lastName')?.invalid && registerForm.get('lastName')?.dirty">
+                        *ngIf="(registerForm.get('lastName')?.invalid && registerForm.get('lastName')?.dirty) || (registerForm.get('lastName')?.invalid && registerForm.touched)">
                             Last Name is Required
                     </small>
                 </div>
@@ -49,7 +49,7 @@
                         formControlName="email" />
                     <small 
                         class="d-block text-danger" 
-                        *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.dirty">
+                        *ngIf="(registerForm.get('email')?.invalid && registerForm.get('email')?.dirty) || (registerForm.get('email')?.invalid && registerForm.touched)">
                             Email Address is Required
                     </small>
                 </div>
@@ -66,7 +66,7 @@
                         formControlName="phoneNumber" />
                     <small 
                         class="d-block text-danger" 
-                        *ngIf="registerForm.get('phoneNumber')?.invalid && registerForm.get('phoneNumber')?.dirty">
+                        *ngIf="(registerForm.get('phoneNumber')?.invalid && registerForm.get('phoneNumber')?.dirty) || (registerForm.get('phoneNumber')?.invalid && registerForm.touched)">
                             Phone Number should be of 10 digit
                     </small>
                 </div>
@@ -83,7 +83,7 @@
                         formControlName="password" />
                     <small 
                         class="d-block text-danger" 
-                        *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.dirty">
+                        *ngIf="(registerForm.get('password')?.invalid && registerForm.get('password')?.dirty) || (registerForm.get('password')?.invalid && registerForm.touched)">
                             Password should be atleast 6 chracters long
                     </small>
                 </div>
@@ -93,13 +93,13 @@
                     <p-dropdown formControlName="selectedRole" [options]="roles" placeholder="Select a Role"></p-dropdown>
                     <small 
                         class="d-block text-danger" 
-                        *ngIf="registerForm.get('selectedRole')?.invalid && registerForm.get('selectedRole')?.dirty">
+                        *ngIf="(registerForm.get('selectedRole')?.invalid && registerForm.get('selectedRole')?.dirty) || (registerForm.get('selectedRole')?.invalid && registerForm.touched)">
                             Please Select a Role
                     </small>
                 </div>
 
                 <div class="mt-3">
-                    <button class="btn btn-primary" type="submit" [disabled]="registerForm.invalid">Register</button>
+                    <button class="btn btn-primary" type="submit">Register</button>
                 </div>
             </form>
         </div>
