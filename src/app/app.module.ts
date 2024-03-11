@@ -7,14 +7,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http"
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './core/components/navbar/navbar.component';
-import { AddCompanyDetailsComponent } from './features/employer/add-company-details/add-company-details.component';
-import { CompanyInfoComponent } from './features/employer/company-info/company-info.component';
-import { EditCompanyDetailsComponent } from './features/employer/edit-company-details/edit-company-details.component';
-import { VacancyListComponent } from './features/employer/vacancy-list/vacancy-list.component';
-import { AddVacancyComponent } from './features/employer/add-vacancy/add-vacancy.component';
-import { EditVacancyComponent } from './features/employer/edit-vacancy/edit-vacancy.component';
 import { HomeComponent } from './features/public/home/home.component';
-import { VacancyDetailComponent } from './features/employer/vacancy-detail/vacancy-detail.component';
 import { JobDetailComponent } from './features/public/job-detail/job-detail.component';
 import { ProfileComponent } from './features/jobseeker/profile/profile.component';
 import { AddProfileComponent } from './features/jobseeker/add-profile/add-profile.component';
@@ -28,8 +21,6 @@ import { EditExperienceComponent } from './features/jobseeker/edit-experience/ed
 import { ExperienceDetailsComponent } from './features/jobseeker/experience-details/experience-details.component';
 import { QualificationDetailsComponent } from './features/jobseeker/qualification-details/qualification-details.component';
 import { ApplicationListComponent } from './features/jobseeker/application-list/application-list.component';
-import { AppliedusersListComponent } from './features/employer/appliedusers-list/appliedusers-list.component';
-import { CandidateDetailsComponent } from './features/employer/candidate-details/candidate-details.component';
 import { AuthInterceptor } from './core/interceptor/auth.interceptor';
 
 import { ToastModule } from 'primeng/toast';
@@ -44,17 +35,6 @@ import { CalendarModule } from 'primeng/calendar';
   declarations: [
     AppComponent,
     NavbarComponent,
-
-    // Employer components
-    CompanyInfoComponent,
-    EditCompanyDetailsComponent,
-    AddCompanyDetailsComponent,
-    VacancyListComponent,
-    VacancyDetailComponent,
-    AddVacancyComponent,
-    EditVacancyComponent,
-    AppliedusersListComponent,
-    CandidateDetailsComponent,
 
     // Home Component
     HomeComponent,

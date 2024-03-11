@@ -1,14 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { CompanyInfoComponent } from './features/employer/company-info/company-info.component';
-import { AddCompanyDetailsComponent } from './features/employer/add-company-details/add-company-details.component';
-import { EditCompanyDetailsComponent } from './features/employer/edit-company-details/edit-company-details.component';
-import { VacancyListComponent } from './features/employer/vacancy-list/vacancy-list.component';
-import { AddVacancyComponent } from './features/employer/add-vacancy/add-vacancy.component';
-import { EditVacancyComponent } from './features/employer/edit-vacancy/edit-vacancy.component';
 import { HomeComponent } from './features/public/home/home.component';
-import { VacancyDetailComponent } from './features/employer/vacancy-detail/vacancy-detail.component';
 import { JobDetailComponent } from './features/public/job-detail/job-detail.component';
 import { ProfileComponent } from './features/jobseeker/profile/profile.component';
 import { AddProfileComponent } from './features/jobseeker/add-profile/add-profile.component';
@@ -22,8 +15,6 @@ import { EditExperienceComponent } from './features/jobseeker/edit-experience/ed
 import { ExperienceDetailsComponent } from './features/jobseeker/experience-details/experience-details.component';
 import { QualificationDetailsComponent } from './features/jobseeker/qualification-details/qualification-details.component';
 import { ApplicationListComponent } from './features/jobseeker/application-list/application-list.component';
-import { AppliedusersListComponent } from './features/employer/appliedusers-list/appliedusers-list.component';
-import { CandidateDetailsComponent } from './features/employer/candidate-details/candidate-details.component';
 import { authGuard } from './features/auth/guard/auth.guard';
 
 const routes: Routes = [
@@ -33,17 +24,11 @@ const routes: Routes = [
 
   // Auth Routes
   { path: 'auth', loadChildren: () => import('./features/auth/auth-module.module').then(m => m.AuthModuleModule) },
-
+  
   // Employer Routes
-  {path: "profile/add", component: AddCompanyDetailsComponent, canActivate: [authGuard]},
-  {path: "profile/edit", component: EditCompanyDetailsComponent, canActivate: [authGuard]},
-  {path: "profile/:email", component: CompanyInfoComponent, canActivate: [authGuard]},
-  {path: "vacancy/add", component: AddVacancyComponent, canActivate: [authGuard]},
-  {path: "vacancy/edit/:id", component: EditVacancyComponent, canActivate: [authGuard]},
-  {path: "vacancy/details/:id", component: VacancyDetailComponent, canActivate: [authGuard]},
-  {path: "vacancy/applications/:id", component: AppliedusersListComponent, canActivate: [authGuard]},
-  {path: "vacancy", component: VacancyListComponent, canActivate: [authGuard]},
-  {path: "candidate/:id", component: CandidateDetailsComponent, canActivate: [authGuard]},
+  { path: 'profile', loadChildren: () => import('./features/employer/profile-module.module').then(m => m.ProfileModuleModule) },
+  { path: 'vacancy', loadChildren: () => import('./features/employer/vacancy-module.module').then(m => m.VacancyModuleModule) },
+  
 
   // JobSeeker Routes
   {path: "user/add", component: AddProfileComponent, canActivate: [authGuard]},

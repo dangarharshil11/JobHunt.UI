@@ -56,9 +56,11 @@ export class EditCompanyDetailsComponent implements OnInit, OnDestroy {
         next: (response) => {
           if(response.isSuccess){
             this.show();
-            this.router.navigateByUrl(`/organization/${response.result.createdBy}`)
+            this.router.navigateByUrl(`/profile/${response.result.createdBy}`)
           }
-          this.error = response.message;
+          else{
+            this.error = response.message;
+          }
         },
         error: (error) => {
           console.error(error);
