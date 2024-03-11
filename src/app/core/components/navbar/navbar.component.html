@@ -31,15 +31,15 @@
                 <li><a class="dropdown-item" [routerLink]="['/qualification', user.userId]">Qualification</a></li>
                 <li><a class="dropdown-item" [routerLink]="['/experience', user.userId]">Experiences</a></li>
                 <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" [routerLink]="['/applications']">Job Applications</a></li>
+                <li><a class="dropdown-item" [routerLink]="['/user/applications']">Job Applications</a></li>
               </ul>
             </li>
           </ng-container>
         </ul>
         <div class="d-flex">
           <ng-container *ngIf="user == undefined; else showLogout">
-            <a [routerLink]="['/login']" class="btn btn-light border me-2">Login</a>
-            <a [routerLink]="['/register']" class="btn btn-primary">Register</a>
+            <a [routerLink]="['/auth/login']" class="btn btn-light border me-2">Login</a>
+            <a [routerLink]="['/auth/register']" class="btn btn-primary">Register</a>
           </ng-container>
           <ng-template #showLogout>
             <div class="d-flex align-items-center">

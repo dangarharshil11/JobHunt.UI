@@ -16,6 +16,7 @@ import { MessageService } from 'primeng/api';
 export class JobDetailComponent {
   id: string | null = null;
   userId: string | null = null;
+  userRoles?: string[] = [];
   vacancy?: VacancyResponse;
   isVacancyVisible: boolean = false;
   profile?: Organization;
@@ -36,10 +37,11 @@ export class JobDetailComponent {
       next: (response) => {
         this.id = response.get("id");
         this.userId = localStorage.getItem('user-id');
+        this.userRoles = localStorage.getItem('user-roles')?.split(',');
       }
     });
 
-    if(this.id && this.userId){
+    if(this.id){
       this.publicService.getVacancyById(this.id).subscribe({
         next: (response) => {
           this.isVacancyVisible = true;
@@ -61,30 +63,40 @@ export class JobDetailComponent {
         }
       });
 
-      this.request.userId = this.userId;
       this.request.vacancyId = this.id;
     }
-    
+    if(this.userId){
+      this.request.userId = this.userId;
+    }
   }
 
   onApply(){
-    this.publicService.apply(this.request).subscribe({
-      next: (response) => {
-        if(response.isSuccess){
-          this.show("Applied Successfully!");
-          this.router.navigateByUrl("/applications");
+    if(this.userRoles?.includes("JobSeeker")){
+      this.publicService.apply(this.request).subscribe({
+        next: (response) => {
+          if(response.isSuccess){
+            this.show("Applied Successfully!");
+            this.router.navigateByUrl("/applications");
+          }
+          else{
+            this.error(response.message);
+          }
+        },
+        error: (error) => {
+          console.error(error);
         }
-        else{
-          this.show(response.message);
-        }
-      },
-      error: (error) => {
-        console.error(error);
-      }
-    })
+      });
+    }
+    else{
+      this.error("You Must Login as a JobSeeker to apply for any vacancy");
+    }
   }
 
   show(msg: string) {
     this.messageService.add({ severity: 'success', summary: 'Success', detail: msg });
+  }
+
+  error(msg: string) {
+    this.messageService.add({ severity: 'error', summary: 'Error', detail: msg });
   }
 }
