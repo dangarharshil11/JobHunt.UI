@@ -29,9 +29,9 @@ export class RegisterComponent {
   registerForm = this.fb.group({
     firstName: ['', Validators.required],
     lastName: ['', Validators.required],
-    phoneNumber: ['', Validators.minLength(10)],
+    phoneNumber: new FormControl('', [ Validators.minLength(10), Validators.required ]),
     email: ['', Validators.required],
-    password: ['', Validators.minLength(6)],
+    password: new FormControl('', [ Validators.minLength(6), Validators.required ]),
     selectedRole: ['', Validators.required]
   })
 
@@ -45,20 +45,25 @@ export class RegisterComponent {
       password: this.registerForm.get('password')?.value || '',
     };
     
-    this.authService.register(this.model).subscribe({
-      next: (response) => { 
-        if(response.isSuccess){
-          this.show();
-          this.route.navigateByUrl('/auth/login');
+    if (!this.registerForm.valid) {
+      this.registerForm.markAllAsTouched();
+    }
+    else {
+      this.authService.register(this.model).subscribe({
+        next: (response) => { 
+          if(response.isSuccess){
+            this.show();
+            this.route.navigateByUrl('/login');
+          }
+          else{
+            this.showError(response.message);
+          }
+        },
+        error: (error) => {
+          console.error(error);
         }
-        else{
-          this.showError(response.message);
-        }
-      },
-      error: (error) => {
-        console.error(error);
-      }
-    });
+      });
+    }
   }
 
   show() {
