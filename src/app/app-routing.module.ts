@@ -6,8 +6,8 @@ import { JobDetailComponent } from './features/public/job-detail/job-detail.comp
 
 const routes: Routes = [
   // public Routes
-  {path: "", component: HomeComponent},
-  {path: "job/:id", component: JobDetailComponent},
+  { path: "", component: HomeComponent },
+  { path: "job/:id", component: JobDetailComponent },
 
   // Auth Routes
   { path: 'auth', loadChildren: () => import('./features/auth/auth-module.module').then(m => m.AuthModuleModule) },
