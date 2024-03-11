@@ -15,7 +15,7 @@ export class RegisterComponent {
   model: RegisterRequest;
   roles = ['JobSeeker', 'Employer']
 
-  constructor(private authService: AuthService, private route: Router, private messageService: MessageService, private fb: FormBuilder) {
+  constructor(private authService: AuthService,private route: Router, private messageService: MessageService, private fb: FormBuilder){
     this.model = {
       firstName: '',
       lastName: '',
@@ -29,13 +29,13 @@ export class RegisterComponent {
   registerForm = this.fb.group({
     firstName: ['', Validators.required],
     lastName: ['', Validators.required],
-    phoneNumber: new FormControl('', [ Validators.minLength(10), Validators.required ]),
+    phoneNumber: ['', Validators.minLength(10)],
     email: ['', Validators.required],
-    password: new FormControl('', [ Validators.minLength(10), Validators.required ]),
+    password: ['', Validators.minLength(6)],
     selectedRole: ['', Validators.required]
   })
 
-  onFormSubmit(): void {
+  onFormSubmit(): void{ 
     this.model = {
       firstName: this.registerForm.get('firstName')?.value || '',
       lastName: this.registerForm.get('lastName')?.value || '',
@@ -44,28 +44,21 @@ export class RegisterComponent {
       role: this.registerForm.get('selectedRole')?.value || '',
       password: this.registerForm.get('password')?.value || '',
     };
-
-    if (!this.registerForm.valid) {
-      this.registerForm.markAllAsTouched();
-    }
-    else {
-      console.log("Register")
-      // this.authService.register(this.model).subscribe({
-      //   next: (response) => { 
-      //     if(response.isSuccess){
-      //       this.show();
-      //       this.route.navigateByUrl('/login');
-      //     }
-      //     else{
-      //       this.showError(response.message);
-      //     }
-      //   },
-      //   error: (error) => {
-      //     console.error(error);
-      //   }
-      // });
-    }
-
+    
+    this.authService.register(this.model).subscribe({
+      next: (response) => { 
+        if(response.isSuccess){
+          this.show();
+          this.route.navigateByUrl('/login');
+        }
+        else{
+          this.showError(response.message);
+        }
+      },
+      error: (error) => {
+        console.error(error);
+      }
+    });
   }
 
   show() {
