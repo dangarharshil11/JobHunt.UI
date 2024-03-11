@@ -7,8 +7,6 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http"
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './core/components/navbar/navbar.component';
-import { LoginComponent } from './features/auth/login/login.component';
-import { RegisterComponent } from './features/auth/register/register.component';
 import { AddCompanyDetailsComponent } from './features/employer/add-company-details/add-company-details.component';
 import { CompanyInfoComponent } from './features/employer/company-info/company-info.component';
 import { EditCompanyDetailsComponent } from './features/employer/edit-company-details/edit-company-details.component';
@@ -33,7 +31,7 @@ import { ApplicationListComponent } from './features/jobseeker/application-list/
 import { AppliedusersListComponent } from './features/employer/appliedusers-list/appliedusers-list.component';
 import { CandidateDetailsComponent } from './features/employer/candidate-details/candidate-details.component';
 import { AuthInterceptor } from './core/interceptor/auth.interceptor';
-import { ForgotPasswordComponent } from './features/auth/forgot-password/forgot-password.component';
+
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { TableModule } from 'primeng/table';
@@ -46,10 +44,6 @@ import { CalendarModule } from 'primeng/calendar';
   declarations: [
     AppComponent,
     NavbarComponent,
-    
-    // Auth Components
-    LoginComponent,
-    RegisterComponent,
 
     // Employer components
     CompanyInfoComponent,
@@ -78,9 +72,7 @@ import { CalendarModule } from 'primeng/calendar';
     AddExperienceComponent,
     EditExperienceComponent,
     ExperienceDetailsComponent,
-    ApplicationListComponent,
-    ForgotPasswordComponent,
-    
+    ApplicationListComponent,    
   ],
   imports: [
     BrowserModule,

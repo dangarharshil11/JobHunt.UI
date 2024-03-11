@@ -23,7 +23,7 @@ export const authGuard: CanActivateFn = (route, state) => {
 
     if(expDate < currentTime){
       authService.logout();
-      return router.createUrlTree(['/login'], { queryParams: {returnUrl: state.url} });
+      return router.createUrlTree(['/auth/login'], { queryParams: {returnUrl: state.url} });
     }
     else{
       if(user.roles.includes("Employer") || user.roles.includes("JobSeeker")){
@@ -35,6 +35,6 @@ export const authGuard: CanActivateFn = (route, state) => {
   }
   else{
     authService.logout();
-    return router.createUrlTree(['/login'], { queryParams: {returnUrl: state.url} });
+    return router.createUrlTree(['/auth/login'], { queryParams: {returnUrl: state.url} });
   }
 };

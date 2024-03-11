@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { LoginComponent } from './features/auth/login/login.component';
-import { RegisterComponent } from './features/auth/register/register.component';
 import { CompanyInfoComponent } from './features/employer/company-info/company-info.component';
 import { AddCompanyDetailsComponent } from './features/employer/add-company-details/add-company-details.component';
 import { EditCompanyDetailsComponent } from './features/employer/edit-company-details/edit-company-details.component';
@@ -27,15 +25,14 @@ import { ApplicationListComponent } from './features/jobseeker/application-list/
 import { AppliedusersListComponent } from './features/employer/appliedusers-list/appliedusers-list.component';
 import { CandidateDetailsComponent } from './features/employer/candidate-details/candidate-details.component';
 import { authGuard } from './features/auth/guard/auth.guard';
-import { ForgotPasswordComponent } from './features/auth/forgot-password/forgot-password.component';
 
 const routes: Routes = [
   // public Routes
   {path: "", component: HomeComponent},
-  {path: "login", component: LoginComponent},
-  {path: "forgotpassword", component: ForgotPasswordComponent},
-  {path: "register", component: RegisterComponent},
   {path: "job/:id", component: JobDetailComponent},
+
+  // Auth Routes
+  { path: 'auth', loadChildren: () => import('./features/auth/auth-module.module').then(m => m.AuthModuleModule) },
 
   // Employer Routes
   {path: "profile/add", component: AddCompanyDetailsComponent, canActivate: [authGuard]},

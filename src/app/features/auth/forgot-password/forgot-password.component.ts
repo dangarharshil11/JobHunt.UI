@@ -38,7 +38,7 @@ export class ForgotPasswordComponent {
         next: (response) => {
           if(response.isSuccess){
             this.show();
-            this.router.navigateByUrl("/login");
+            this.router.navigateByUrl("/auth/login");
           }
           else{
             this.showerror();
