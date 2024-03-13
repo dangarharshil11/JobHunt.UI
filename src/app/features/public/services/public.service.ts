@@ -18,7 +18,7 @@ export class PublicService {
   }
 
   getVacancyById(id: string): Observable<Response>{
-    return this.http.get<Response>(`${environment.employerapiBaseUrl}/api/vacancy/getVacancyById/${id}`);
+    return this.http.get<Response>(`${environment.employerapiBaseUrl}/api/vacancy/getVacancyById/${id}?addAuth=true`);
   }
 
   getProfileByName(name: string): Observable<Response>{

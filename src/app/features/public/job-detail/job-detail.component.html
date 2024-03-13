@@ -6,11 +6,12 @@
                     <div>
                         <h3>Job Title: {{vacancy.jobTitle}}</h3>
                     </div>
-                    <div>
-                        <button *ngIf="this.userId" type="button" class="btn btn-primary" data-bs-toggle="modal"
+                    <div *ngIf="this.userId">
+                        <button *ngIf="!vacancy.applied" type="button" class="btn btn-primary" data-bs-toggle="modal"
                             data-bs-target="#confirmApply">
                             Apply
                         </button>
+                        <button *ngIf="vacancy.applied" type="button" class="btn btn-primary" disabled #applied>Already Applied</button>
                     </div>
                 </div>
 

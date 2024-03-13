@@ -10,4 +10,5 @@ export interface VacancyResponse{
     lastDate: Date;
     minimumSalary: number;
     maximumSalary: number;
+    applied?: boolean;
 }
