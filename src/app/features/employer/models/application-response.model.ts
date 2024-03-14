@@ -8,4 +8,5 @@ export interface ApplicationResponse{
     user: User;
     userId: string;
     appliedDate: Date;
+    applicationStatus: string;
 }

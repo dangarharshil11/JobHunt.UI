@@ -66,4 +66,12 @@ export class EmployerService {
   getAllExperiences(userId: string): Observable<Response>{
     return this.http.get<Response>(`${environment.jobseekerapiBaseUrl}/api/experience/getAllExperiencesByUserId/${userId}?addAuth=true`);
   }
+
+  processApplication(status: string, id: string): Observable<Response>{
+    var request = {
+      status: status,
+      id: id
+    }
+    return this.http.post<Response>(`${environment.employerapiBaseUrl}/api/application/processApplication?addAuth=true`, request);
+  }
 }

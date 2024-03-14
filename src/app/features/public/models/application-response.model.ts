@@ -6,4 +6,5 @@ export interface ApplicationResponse{
     vacancy: VacancyResponse;
     userId: string;
     appliedDate: Date;
+    applicationStatus: string;
 }

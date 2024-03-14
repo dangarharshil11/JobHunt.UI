@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { MessageService } from 'primeng/api';
 
 import { EmployerService } from '../services/employer.service';
 import { ApplicationResponse } from '../models/application-response.model';
@@ -14,7 +15,7 @@ export class AppliedusersListComponent implements OnInit {
   jobapplications?: ApplicationResponse[];
   isjobApplicationsVisible: boolean = false;
 
-  constructor(private employerService: EmployerService, private route: ActivatedRoute){}
+  constructor(private employerService: EmployerService, private route: ActivatedRoute, private messageService: MessageService){}
 
   ngOnInit(): void {
     this.route.paramMap.subscribe({
@@ -36,5 +37,34 @@ export class AppliedusersListComponent implements OnInit {
         }
       });
     }
+  }
+
+  onClick(status: string, jobapplication: ApplicationResponse){
+    this.employerService.processApplication(status, jobapplication.id).subscribe({
+      next: (response) => {
+        if(response.isSuccess){
+          jobapplication.applicationStatus = status
+          if(status == "ACCEPTED"){
+            this.show("Job Application Accepted!");
+          }
+          else{
+            this.error("Job Application Rejected!");
+          }
+        }
+        else{
+          this.error(response.message);
+        }
+      },
+      error: (error) => {
+        console.error(error);
+      }
+    })
+  }
+
+  show(msg:string) {
+    this.messageService.add({ severity: 'success', summary: 'Success', detail: msg });
+  }
+  error(msg:string) {
+    this.messageService.add({ severity: 'error', summary: 'Rejected', detail: msg });
   }
 }
