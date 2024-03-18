@@ -5,12 +5,8 @@ import { Observable } from 'rxjs';
 import { Organization } from '../models/organization.model';
 import { environment } from 'src/environments/environment';
 import { VacancyRequest } from '../models/vacancy-request.model';
-import { VacancyResponse } from '../models/vacancy-response.model';
-import { ApplicationResponse } from '../models/application-response.model';
-import { QualificationResponse } from '../models/qualification-response.model';
-import { ExperienceResponse } from '../models/experience-response.model';
-import { User } from '../models/user.model';
 import { Response } from '../models/response-model';
+import { SP_VacancyRequestDto } from '../models/SP_VacancyRequest.model';
 
 @Injectable({
   providedIn: 'root'
@@ -73,5 +69,9 @@ export class EmployerService {
       id: id
     }
     return this.http.post<Response>(`${environment.employerapiBaseUrl}/api/application/processApplication?addAuth=true`, request);
+  }
+
+  paginationEndpoint(request: SP_VacancyRequestDto): Observable<Response>{
+    return this.http.post<Response>(`${environment.employerapiBaseUrl}/api/application/paginationEndpoint?addAuth=true`,request);
   }
 }
