@@ -4,7 +4,7 @@
             <span class="col-3 me-2">
                 <input pInputText type="text" placeholder="Filter By Organization or JobTitle" #filter class="form-control">
             </span>
-            <button class="btn btn-primary" type="button" (input)="filterResults(filter.value)">Search</button>
+            <button class="btn btn-primary" type="button" (click)="filterResults(filter.value)">Search</button>
         </div>
 
         <div class="row align-items-stretch">

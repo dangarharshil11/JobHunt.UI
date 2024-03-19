@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { EmployerService } from '../services/employer.service';
 import { VacancyRequest } from '../models/vacancy-request.model';
 import { MessageService } from 'primeng/api';
+import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-edit-vacancy',
@@ -13,13 +14,12 @@ import { MessageService } from 'primeng/api';
 })
 export class EditVacancyComponent implements OnInit, OnDestroy {
   model: VacancyRequest;
-  error: string = '';
   email: string | null = null;
   id: string | null = null;
   
   editVacancySubscription?: Subscription;
 
-  constructor(private employerService: EmployerService, private router: Router, private route: ActivatedRoute, private messageService: MessageService){
+   constructor(private employerService: EmployerService, private router: Router, private route: ActivatedRoute, private messageService: MessageService, private fb: FormBuilder){
     this.model = {
       publishedBy: '',
       publishedDate: new Date(),
@@ -34,6 +34,16 @@ export class EditVacancyComponent implements OnInit, OnDestroy {
     }
   }
 
+  editVacancyForm = this.fb.group({
+    noOfVacancies: [0, Validators.min(1)],
+    minimumQualification: ['', Validators.required],
+    jobTitle: ['', Validators.required],
+    jobDescription: ['', Validators.minLength(50)],
+    experienceRequired: ['', Validators.required],
+    minimumSalary: [0, Validators.min(1)],
+    maximumSalary: [0, Validators.min(1)],
+  });
+
   ngOnInit(): void {
     this.route.paramMap.subscribe({
       next: (response) => {
@@ -46,6 +56,15 @@ export class EditVacancyComponent implements OnInit, OnDestroy {
         next: (response) => {
           if(response.isSuccess){
             this.model = response.result;
+            this.editVacancyForm.setValue({
+              noOfVacancies: this.model.noOfVacancies,
+              minimumQualification: this.model.minimumQualification,
+              jobTitle: this.model.jobTitle,
+              jobDescription: this.model.jobDescription,
+              experienceRequired: this.model.experienceRequired,
+              minimumSalary: this.model.minimumSalary,
+              maximumSalary: this.model.maximumSalary
+            })
           }
         },
         error: (error) => {
@@ -53,17 +72,33 @@ export class EditVacancyComponent implements OnInit, OnDestroy {
         }
       })
     }
-    
   }
 
   onFormSubmit(){
+    this.model = {
+      jobTitle: this.editVacancyForm.get('jobTitle')?.value || this.model.jobTitle,
+      noOfVacancies: this.editVacancyForm.get('noOfVacancies')?.value || this.model.noOfVacancies,
+      minimumQualification: this.editVacancyForm.get('minimumQualification')?.value || this.model.minimumQualification,
+      jobDescription: this.editVacancyForm.get('jobDescription')?.value || this.model.jobDescription,
+      experienceRequired: this.editVacancyForm.get('experienceRequired')?.value || this.model.experienceRequired,
+      minimumSalary: this.editVacancyForm.get('minimumSalary')?.value || this.model.minimumSalary,
+      maximumSalary: this.editVacancyForm.get('maximumSalary')?.value || this.model.maximumSalary,
+      publishedBy: this.model.publishedBy,
+      lastDate: this.model.lastDate,
+      publishedDate: this.model.publishedDate,
+    }
     this.email = localStorage.getItem('user-email');
     if(this.email && this.id){ 
       this.model.publishedBy = this.email;
       this.editVacancySubscription = this.employerService.updateVacancy(this.model, this.id).subscribe({
         next: (response) => {
-          this.show('Vacancy Updated Successfully!');
-          this.router.navigateByUrl('/vacancy');
+          if(response.isSuccess){
+            this.show(response.message);
+            this.router.navigateByUrl('/vacancy');
+          }
+          else{
+            this.error(response.message);
+          }
         },
         error: (error) => {
           console.error(error);
@@ -76,8 +111,13 @@ export class EditVacancyComponent implements OnInit, OnDestroy {
     if(this.id){
       this.employerService.deleteVacancy(this.id).subscribe({
         next: (response) => {
-          this.show('Vacancy Deleted Successfully!');
-          this.router.navigateByUrl('/vacancy');
+          if(response.isSuccess){
+            this.show(response.message);
+            this.router.navigateByUrl('/vacancy');
+          }
+          else{
+            this.error(response.message);
+          }
         },
         error: (error) => {
           console.error(error);
@@ -92,5 +132,9 @@ export class EditVacancyComponent implements OnInit, OnDestroy {
 
   show(msg:string) {
     this.messageService.add({ severity: 'success', summary: 'Success', detail: msg });
+  }
+  
+  error(msg:string){
+    this.messageService.add({ severity: 'error', summary: 'Error', detail: msg });
   }
 }
