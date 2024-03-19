@@ -40,7 +40,7 @@ export class AddProfileComponent implements OnInit, OnDestroy {
   addProfileForm = this.fb.group({
     firstName: ['', Validators.required],
     lastName: ['', Validators.required],
-    phone: ['', Validators.minLength(10)],
+    phone: new FormControl('', [Validators.minLength(10), Validators.required]),
     address: ['', Validators.required],
     expectedSalary: [0, Validators.required],
     totalExperience: [0, Validators.required],

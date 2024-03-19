@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs';
 import { EmployerService } from '../services/employer.service';
 import { VacancyRequest } from '../models/vacancy-request.model';
 import { MessageService } from 'primeng/api';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-edit-vacancy',
@@ -38,10 +38,10 @@ export class EditVacancyComponent implements OnInit, OnDestroy {
     noOfVacancies: [0, Validators.min(1)],
     minimumQualification: ['', Validators.required],
     jobTitle: ['', Validators.required],
-    jobDescription: ['', Validators.minLength(50)],
+    jobDescription: new FormControl('', [Validators.minLength(50), Validators.required]),
     experienceRequired: ['', Validators.required],
-    minimumSalary: [0, Validators.min(1)],
-    maximumSalary: [0, Validators.min(1)],
+    minimumSalary: [new FormControl(0, [Validators.min(1), Validators.required])],
+    maximumSalary: [new FormControl(0, [Validators.min(1), Validators.required])],
   });
 
   ngOnInit(): void {
