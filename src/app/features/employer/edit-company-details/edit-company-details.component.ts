@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs';
 import { Organization } from '../models/organization.model';
 import { EmployerService } from '../services/employer.service';
 import { MessageService } from 'primeng/api';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-edit-company-details',

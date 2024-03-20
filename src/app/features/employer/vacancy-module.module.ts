@@ -14,6 +14,7 @@ import { CalendarModule } from 'primeng/calendar';
 import { TableModule } from 'primeng/table';
 import { AppliedusersListComponent } from './appliedusers-list/appliedusers-list.component';
 import { CandidateDetailsComponent } from './candidate-details/candidate-details.component';
+import { AccordionModule } from 'primeng/accordion';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import { CandidateDetailsComponent } from './candidate-details/candidate-details
     DropdownModule,
     InputTextareaModule,
     CalendarModule,
-    TableModule
+    TableModule,
+    AccordionModule
   ]
 })
 export class VacancyModuleModule { }
