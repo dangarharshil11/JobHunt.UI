@@ -1,160 +1,165 @@
 <div class="container">
-    <h1 class="mt-3">Candidate Profile</h1>
+    <div class="d-flex justify-content-between">
+        <div>
+            <h1 class="mt-3">Candidate Profile</h1>
+        </div>
+        <div class="my-auto">
+            <button class="btn btn-secondary" [routerLink]="['/vacancy']">Back to Vacancy List</button>
+        </div>
+    </div>
     <div class="container">
-        <div class="my-3 border border-dark rounded bg-light p-3">
-            <ng-container *ngIf="isProfileVisible && profile; else noProfile">
-                <div class="d-flex justify-content-between">
-                    <div>
-                        <h3>Personal Details</h3>
-                    </div>
-                    <div>
-                        <a href={{profile.resumeUrl}} target="_blank" class="btn btn-dark text-decoration-none fw-bold">Resume</a>
-                    </div>
-                </div>
-                <hr>
-                <div class="mt-2">
-                    <div class="d-flex flex-row">
-                        <div class="col-6">
-                            <span class="fw-bold">First Name: </span>{{profile.firstName}}
-                        </div>
-                        <div class="col-6">
-                            <span class="fw-bold">Last Name: </span>{{profile.lastName}}
-                        </div>
-                    </div>
-                </div>
-
-                <div class="mt-2">
-                    <div class="d-flex flex-row">
-                        <div class="col-6">
-                            <span class="fw-bold">Phone Number: </span>{{profile.phone}}
-                        </div>
-                        <div class="col-6">
-                            <span class="fw-bold">Date of Birth: </span>{{profile.dateOfBirth | date: 'yyyy-MM-dd'}}
-                        </div>
-                    </div>
-                </div>
-
-                <div class="mt-2">
-                    <div class="d-flex flex-row">
-                        <div class="col-6">
-                            <span class="fw-bold">Total Experience: </span>{{profile.totalExperience}}
-                        </div>
-                        <div class="col-6">
-                            <span class="fw-bold">Expected Salary: </span>{{profile.expectedSalary}}
-                        </div>
-                    </div>
-                </div>
-
-                <div class="mt-2">
-                    <div class="d-flex flex-row">
-                        <div class="col-12">
-                            <p class="m-0 fw-bold">Address: </p>
-                            <pre style="white-space: pre-wrap;">{{profile.address}}</pre>
-                        </div>
-                    </div>
-                </div>
-            </ng-container>
-            <ng-template #noProfile>
-                <div class="d-flex justify-content-between">
-                    <div>
-                        <h3>Personal Details</h3>
-                    </div>
-                </div>
-                <hr>
-                <p class="mt-3">Candidate has no Personal Details</p>
-            </ng-template>
-        </div>
-
-        <div class="my-3 border border-dark rounded bg-light p-3">
-            <ng-container *ngIf="isExperiencesVisible && experiences;  else noexperience">
-                <h3>Candidate Experiences</h3>
-                <div *ngFor="let experience of experiences">
-                    <hr>
-                    <div class="mt-2">
-                        <div class="d-flex flex-row">
-                            <div class="col-6">
-                                <span class="fw-bold">Designation: </span>{{experience.designation}}
-                            </div>
-                            <div class="col-6">
-                                <span class="fw-bold">Company Name: </span>{{experience.companyName}}
+        <p-accordion [activeIndex]="0">
+            <div class="border border-dark rounded bg-light">
+                <p-accordionTab header="Personal Details" headerStyleClass="text-decoration-none text-black h4 m-0">
+                    <ng-container *ngIf="isProfileVisible && profile">
+                        <div class="mt-2">
+                            <div class="d-flex flex-row">
+                                <div class="col-6">
+                                    <span class="fw-bold">First Name: </span>{{profile.firstName}}
+                                </div>
+                                <div class="col-6">
+                                    <span class="fw-bold">Last Name: </span>{{profile.lastName}}
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="mt-2">
-                        <div class="d-flex flex-row">
-                            <div class="col-6">
-                                <span class="fw-bold">Start Date: </span>{{experience.startYear | date: 'yyyy-MM-dd'}}
-                            </div>
-                            <div class="col-6">
-                                <span class="fw-bold">End Date: </span>{{experience.endYear| date: 'yyyy-MM-dd'}}
+                        <div class="mt-2">
+                            <div class="d-flex flex-row">
+                                <div class="col-6">
+                                    <span class="fw-bold">Phone Number: </span>{{profile.phone}}
+                                </div>
+                                <div class="col-6">
+                                    <span class="fw-bold">Date of Birth: </span>{{profile.dateOfBirth | date:
+                                    'yyyy-MM-dd'}}
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="mt-2">
-                        <div class="d-flex flex-row">
-                            <div class="col-6">
-                                <span class="fw-bold">Company Url: </span>{{experience.companyUrl}}
+                        <div class="mt-2">
+                            <div class="d-flex flex-row">
+                                <div class="col-6">
+                                    <span class="fw-bold">Total Experience: </span>{{profile.totalExperience}}
+                                </div>
+                                <div class="col-6">
+                                    <span class="fw-bold">Expected Salary: </span>{{profile.expectedSalary}}
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="mt-2">
-                        <div class="d-flex flex-row">
-                            <div class="col-12">
-                                <p class="m-0 fw-bold">Address: </p>
-                                <pre style="white-space: pre-wrap;">{{experience.jobDescription}}</pre>
+                        <div class="mt-2">
+                            <div class="d-flex flex-row">
+                                <div class="col-6">
+                                    <span class="fw-bold">Resume Url: </span><a href={{profile.resumeUrl}}
+                                        target="_blank" class="text-decoration-none fw-bold">Resume</a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </ng-container>
-            <ng-template #noexperience>
-                <h3>Candidate Experiences</h3>
-                <hr>
-                <p class="mt-3">Candidate has no experiences</p>
-            </ng-template>
-        </div>
 
-        <div class="my-3 border border-dark rounded bg-light p-3">
-            <ng-container *ngIf="isQualificationVisible && qualifications; else noqualification">
-                <h3>Candidate Qualifications</h3>
-                <div *ngFor="let qualification of qualifications">
-                    <hr>
-                    <div class="mt-2">
-                        <div class="d-flex flex-row">
-                            <div class="col-6">
-                                <span class="fw-bold">Qualification Name: </span>{{qualification.qualificationName}}
-                            </div>
-                            <div class="col-6">
-                                <span class="fw-bold">University Name: </span>{{qualification.university}}
+                        <div class="mt-2">
+                            <div class="d-flex flex-row">
+                                <div class="col-12">
+                                    <p class="m-0 fw-bold">Address: </p>
+                                    <pre style="white-space: pre-wrap;">{{profile.address}}</pre>
+                                </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="mt-2">
-                        <div class="d-flex flex-row">
-                            <div class="col-6">
-                                <span class="fw-bold">Year of Completion: </span>{{qualification.yearsOfCompletion}}
-                            </div>
-                            <div class="col-6">
-                                <span class="fw-bold">Grade or Score: </span>{{qualification.gradeOrScore}}
+                    </ng-container>
+                    <ng-template *ngIf="isProfileVisible || profile!=undefined" pTemplate="content">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <h3>Personal Details</h3>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </ng-container>
-            <ng-template #noqualification>
-                <div class="d-flex justify-content-between">
-                    <div>
-                        <h3>Candidate Qualifications</h3>
-                    </div>
+                        <hr>
+                        <p class="mt-3">Candidate has no Personal Details</p>
+                    </ng-template>
+                </p-accordionTab>
+            </div>
+            <div class="my-3 border border-dark rounded bg-light">
+                <p-accordionTab header="Candidate Experiences" headerStyleClass="text-decoration-none text-black h4 m-0">
+                    <ng-container *ngIf="isExperiencesVisible && experiences">
+                        <div *ngFor="let experience of experiences">
+                            <div class="mt-2">
+                                <div class="d-flex flex-row">
+                                    <div class="col-6">
+                                        <span class="fw-bold">Designation: </span>{{experience.designation}}
+                                    </div>
+                                    <div class="col-6">
+                                        <span class="fw-bold">Company Name: </span>{{experience.companyName}}
+                                    </div>
+                                </div>
+                            </div>
 
-                </div>
-                <hr>
-                <p class="mt-3">Candidate has no Qualifications</p>
-            </ng-template>
-        </div>
+                            <div class="mt-2">
+                                <div class="d-flex flex-row">
+                                    <div class="col-6">
+                                        <span class="fw-bold">Start Date: </span>{{experience.startYear | date:
+                                        'yyyy-MM-dd'}}
+                                    </div>
+                                    <div class="col-6">
+                                        <span class="fw-bold">End Date: </span>{{experience.endYear| date:
+                                        'yyyy-MM-dd'}}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-2">
+                                <div class="d-flex flex-row">
+                                    <div class="col-6">
+                                        <span class="fw-bold">Company Url: </span>{{experience.companyUrl}}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-2">
+                                <div class="d-flex flex-row">
+                                    <div class="col-12">
+                                        <p class="m-0 fw-bold">Address: </p>
+                                        <pre style="white-space: pre-wrap;">{{experience.jobDescription}}</pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
+                    <ng-template *ngIf="isExperiencesVisible || experiences == []" pTemplate="content">
+                        <p class="mt-3">Candidate has no experiences</p>
+                    </ng-template>
+                </p-accordionTab>
+            </div>
+            <div class="my-3 border border-dark rounded bg-light">
+            <p-accordionTab header="Candidate Qualifications"  headerStyleClass="text-decoration-none text-black h4 m-0">
+                    <ng-container *ngIf="isQualificationVisible && qualifications">
+                        <div *ngFor="let qualification of qualifications">
+                            <div class="mt-2">
+                                <div class="d-flex flex-row">
+                                    <div class="col-6">
+                                        <span class="fw-bold">Qualification Name:
+                                        </span>{{qualification.qualificationName}}
+                                    </div>
+                                    <div class="col-6">
+                                        <span class="fw-bold">University Name: </span>{{qualification.university}}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-2">
+                                <div class="d-flex flex-row">
+                                    <div class="col-6">
+                                        <span class="fw-bold">Year of Completion:
+                                        </span>{{qualification.yearsOfCompletion}}
+                                    </div>
+                                    <div class="col-6">
+                                        <span class="fw-bold">Grade or Score: </span>{{qualification.gradeOrScore}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
+                    <ng-template *ngIf="isQualificationVisible || qualifications == []" pTemplate="content">
+                        <p class="mt-3">Candidate has no Qualifications</p>
+                    </ng-template>
+                </p-accordionTab>
+            </div>
+        </p-accordion>
     </div>
 </div>

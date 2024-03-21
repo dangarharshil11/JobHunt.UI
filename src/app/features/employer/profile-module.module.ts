@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import { AccordionModule } from 'primeng/accordion';
 
 import { ProfileModuleRoutingModule } from './profile-module-routing.module';
 import { CompanyInfoComponent } from './company-info/company-info.component';
@@ -25,6 +26,7 @@ import { AddCompanyDetailsComponent } from './add-company-details/add-company-de
     InputTextModule,
     DropdownModule,
     InputTextareaModule,
+    AccordionModule,
   ]
 })
 export class ProfileModuleModule { }

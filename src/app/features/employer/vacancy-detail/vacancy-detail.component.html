@@ -1,5 +1,13 @@
 <ng-container *ngIf="isVacancyVisible && vacancy; else loader">
     <div class="container">
+        <div class="d-flex justify-content-between mt-3">
+            <div>
+                <h1>Vacancy Details</h1>
+            </div>
+            <div class="my-auto">
+                <button class="btn btn-secondary" [routerLink]="['/vacancy']">Back to Vacancy List</button>
+            </div>
+        </div>
         <div class="mt-4">
             <div class="mx-auto my-3 border border-dark rounded bg-light p-3">
                 <h1>Job Title: {{vacancy.jobTitle}}</h1>

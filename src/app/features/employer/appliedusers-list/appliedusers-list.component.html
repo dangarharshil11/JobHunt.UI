@@ -1,27 +1,27 @@
 <div class="container">
-    <h1 class="mt-3">Candidate List</h1>
+    <div class="d-flex justify-content-between">
+        <div>
+            <h1 class="mt-3">Candidate List</h1>
+        </div>
+        <div class="my-auto">
+            <button class="btn btn-secondary" [routerLink]="['/vacancy']">Back to Vacancy List</button>
+        </div>
+    </div>
     <p-accordion [activeIndex]="0">
-        <p-accordionTab>
-            <ng-template pTemplate="header">
-                <div class="d-flex ms-auto">
-                    <span>
-                        <input pInputText type="text" #filter class="form-control" placeholder="Filter" />
-                    </span>
-                    <button class="btn btn-primary ms-2" type="button"
-                        (click)="applyFilterGlobal(filter.value)">Search</button>
-                </div>
-            </ng-template>
+        <p-accordionTab header="Advance Searching" headerStyleClass="text-decoration-none text-black">
             <ng-template pTemplate="content">
                 <tr class="text-center border-bottom">
                     <th style="width:15%">
                         <input pInputText type="text" #filterName class="form-control" placeholder="Filter By Name" />
                     </th>
                     <th style="width:20%">
-                        <input pInputText type="text" #filterEmail class="form-control ms-2" placeholder="Filter By Email" />
+                        <input pInputText type="text" #filterEmail class="form-control ms-2"
+                            placeholder="Filter By Email" />
                     </th>
                     <th style="width:15%"></th>
                     <th style="width:15%">
-                        <input pInputText type="text" #filterFromDate class="form-control mb-2" placeholder="From Date" />
+                        <input pInputText type="text" #filterFromDate class="form-control mb-2"
+                            placeholder="From Date" />
                         <input pInputText type="text" #filterToDate class="form-control" placeholder="To Date" />
                     </th>
                     <th style="width:20%">
@@ -41,6 +41,12 @@
         </p-accordionTab>
     </p-accordion>
     <div class="card mt-3">
+        <div class="d-flex justify-content-between bg-light p-2 border-bottom">
+            <button class="btn btn-primary ms-2" type="button" (click)="applyFilterGlobal(filter.value)">Search</button>
+            <span>
+                <input pInputText type="text" #filter class="form-control" placeholder="Search" />
+            </span>
+        </div>
         <p-table #dt1 [value]="this.jobapplications" [lazy]="true" (onLazyLoad)="loadCustomers($event)"
             [tableStyle]="{'min-width': '60rem'}" [paginator]="true" [rows]="2" [totalRecords]="totalRecords"
             [showCurrentPageReport]="true"

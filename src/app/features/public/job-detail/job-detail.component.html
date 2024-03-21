@@ -1,84 +1,84 @@
-<ng-container *ngIf="isVacancyVisible && vacancy; else loader">
-    <div class="container">
-        <div class="mt-4">
-            <div class="mx-auto my-3 border border-dark rounded bg-light p-3">
-                <div class="d-flex justify-content-between">
-                    <div>
-                        <h3>Job Title: {{vacancy.jobTitle}}</h3>
-                    </div>
-                    <div *ngIf="this.userId">
-                        <button *ngIf="!vacancy.applied" type="button" class="btn btn-primary" data-bs-toggle="modal"
-                            data-bs-target="#confirmApply">
-                            Apply
-                        </button>
-                        <button *ngIf="vacancy.applied" type="button" class="btn btn-primary" disabled #applied>Already Applied</button>
-                    </div>
-                </div>
-
-                <hr>
-                <div class="d-flex justify-content-between">
-                    <span>Posted on: {{vacancy.publishedDate | date: 'yyyy-MM-dd'}}</span>
-                    <span>Last Date to Apply: {{vacancy.lastDate | date: 'yyyy-MM-dd'}}</span>
-                </div>
-
-                <div class="mt-1 p-2">
-                    Organization Name: {{vacancy.publishedBy}}
-                </div>
-
-                <div class="mt-1 p-2">
-                    Minimum Qualification Required: {{vacancy.minimumQualification}}
-                </div>
-
-                <div class="mt-1 p-2">
-                    Minimum Experience Required: {{vacancy.experienceRequired}}
-                </div>
-
-                <div class="mt-1">
-                    <div class="d-flex flex-row">
-                        <div class="col-6 p-2">
-                            No of Vacancies: {{vacancy.noOfVacancies}}
-                        </div>
-                        <div class="col-6 p-2">
-                            Salary Range: {{vacancy.minimumSalary}} - {{vacancy.maximumSalary}}
-                        </div>
-                    </div>
-                </div>
-
-                <div class="mt-1 p-2">
-                    <p class="fw-bold">Job Description:</p>
-                    <pre style="white-space: pre-wrap;">{{vacancy.jobDescription}}</pre>
-                </div>
-            </div>
-        </div>
+<div class="container">
+    <div class="d-flex justify-content-end mt-3">
+        <button class="btn btn-secondary" [routerLink]="['']">Back to Home Page</button>
     </div>
-    <!-- Modal -->
-    <div class="modal fade" id="confirmApply" tabindex="-1" aria-labelledby="confirmApplyLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="confirmApplyLabel">Confirmation</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    Are you sure?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" (click)="onApply()" class="btn btn-success"  data-bs-dismiss="modal" >Yes, Apply</button>
-                    <button type="button" class="btn btn-secondary"
-                        data-bs-dismiss="modal">No</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</ng-container>
+    <p-accordion [activeIndex]="0">
+        <div class="mx-auto my-3">
+            <p-accordionTab header="Vacancy Details" headerStyleClass="text-black text-decoration-none h3">
+                <ng-container *ngIf="isVacancyVisible && vacancy; else loader">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <h3>Job Title: {{vacancy.jobTitle}}</h3>
+                            </div>
+                            <div *ngIf="this.userId">
+                                <button *ngIf="!vacancy.applied" type="button" class="btn btn-primary"
+                                    data-bs-toggle="modal" data-bs-target="#confirmApply">
+                                    Apply
+                                </button>
+                                <button *ngIf="vacancy.applied" type="button" class="btn btn-primary" disabled
+                                    #applied>Already Applied</button>
+                            </div>
+                        </div>
 
-<ng-container *ngIf="isProfileVisible && profile; else loader">
-    <div class="container">
-        <div class="my-3">
-            <div class="col mx-auto border border-dark rounded bg-light p-3">
-                <h3>Organization Information</h3>
-                <hr>
-                <div class="mt-3">
+                        <hr>
+                        <div class="d-flex justify-content-between">
+                            <span>Posted on: {{vacancy.publishedDate | date: 'yyyy-MM-dd'}}</span>
+                            <span>Last Date to Apply: {{vacancy.lastDate | date: 'yyyy-MM-dd'}}</span>
+                        </div>
+                        <hr>
+
+                        <div class="mt-1 p-2">
+                            Organization Name: {{vacancy.publishedBy}}
+                        </div>
+
+                        <div class="mt-1 p-2">
+                            Minimum Qualification Required: {{vacancy.minimumQualification}}
+                        </div>
+
+                        <div class="mt-1 p-2">
+                            Minimum Experience Required: {{vacancy.experienceRequired}}
+                        </div>
+
+                        <div class="mt-1">
+                            <div class="d-flex flex-row">
+                                <div class="col-6 p-2">
+                                    No of Vacancies: {{vacancy.noOfVacancies}}
+                                </div>
+                                <div class="col-6 p-2">
+                                    Salary Range: {{vacancy.minimumSalary}} - {{vacancy.maximumSalary}}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-1 p-2">
+                            <p class="fw-bold">Job Description:</p>
+                            <pre style="white-space: pre-wrap;">{{vacancy.jobDescription}}</pre>
+                        </div>
+                    <!-- Modal -->
+                    <div class="modal fade" id="confirmApply" tabindex="-1" aria-labelledby="confirmApplyLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="confirmApplyLabel">Confirmation</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    Are you sure?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" (click)="onApply()" class="btn btn-success"
+                                        data-bs-dismiss="modal">Yes, Apply</button>
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+            </p-accordionTab>
+            <p-accordionTab header="Organization Information" headerStyleClass="text-black h3 text-decoration-none">
+                <ng-container *ngIf="isProfileVisible && profile; else loader">
                     <div class="mt-1">
                         <div class="d-flex flex-row">
                             <div class="col-6 p-2">
@@ -118,12 +118,12 @@
                             </div>
                         </div>
                     </div>
-
-                </div>
-            </div>
+                </ng-container>
+            </p-accordionTab>
         </div>
-    </div>
-</ng-container>
+    </p-accordion>
+
+</div>
 
 <ng-template #loader>
     <div class="text-center mt-5">
