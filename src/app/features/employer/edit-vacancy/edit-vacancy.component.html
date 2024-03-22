@@ -48,8 +48,12 @@
                             type="date" 
                             id="lastDate" 
                             name="lastDate" 
-                            [(ngModel)]="model.lastDate" 
-                            [ngModelOptions]="{standalone: true}"></p-calendar>
+                            formControlName="lastDate">
+                        </p-calendar>
+                        <small class="d-block text-danger"
+                            *ngIf="editVacancyForm.get('lastDate')?.invalid && editVacancyForm.get('lastDate')?.dirty">
+                            Enter Last Date of applying for this vacancy
+                        </small>
                     </div>
                 </div>
             </div>

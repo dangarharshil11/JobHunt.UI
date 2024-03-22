@@ -32,8 +32,8 @@ export class HomeComponent implements OnInit {
   }
 
   filterResults(text: string) {
+    this.vacancies = this.allvacancies;
     if (!text) {
-      this.vacancies = this.allvacancies;
       return;
     }
     

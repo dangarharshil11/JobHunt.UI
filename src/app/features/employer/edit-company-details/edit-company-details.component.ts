@@ -71,7 +71,6 @@ export class EditCompanyDetailsComponent implements OnInit, OnDestroy {
   }
 
   onFormSubmit() {
-    console.log(this.editCompanyForm.value);
     this.profile = {
       organization: this.editCompanyForm.get('organization')?.value || this.profile.organization,
       organizationType: this.editCompanyForm.get('organizationType')?.value || this.profile.organizationType,

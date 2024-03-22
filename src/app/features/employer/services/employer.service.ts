@@ -20,11 +20,11 @@ export class EmployerService {
   }
 
   createProfile(request: Organization): Observable<Response>{
-    return this.http.post<Response>(`${environment.employerapiBaseUrl}/api/company/addDetails?addAuth=true`,request);
+    return this.http.post<Response>(`${environment.employerapiBaseUrl}/api/company/companyDetails?addAuth=true`,request);
   }
 
   updateProfile(request: Organization): Observable<Response>{
-    return this.http.put<Response>(`${environment.employerapiBaseUrl}/api/company/updateDetails/${request.createdBy}?addAuth=true`,request);
+    return this.http.put<Response>(`${environment.employerapiBaseUrl}/api/company/companyDetails?addAuth=true`,request);
   }
 
   getVacancyByName(name: string): Observable<Response>{
@@ -40,11 +40,11 @@ export class EmployerService {
   }
 
   updateVacancy(request: VacancyRequest, id: string): Observable<Response>{
-    return this.http.put<Response>(`${environment.employerapiBaseUrl}/api/vacancy/updateVacancy/${id}?addAuth=true`, request);
+    return this.http.put<Response>(`${environment.employerapiBaseUrl}/api/vacancy/vacancy/${id}?addAuth=true`, request);
   }
 
   deleteVacancy(id: string) :Observable<Response>{
-    return this.http.delete<Response>(`${environment.employerapiBaseUrl}/api/vacancy/deleteVacancy/${id}?addAuth=true`);
+    return this.http.delete<Response>(`${environment.employerapiBaseUrl}/api/vacancy/vacancy/${id}?addAuth=true`);
   }
 
   getApplicationsByVacancyId(id: string): Observable<Response>{

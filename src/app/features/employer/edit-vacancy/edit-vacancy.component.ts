@@ -42,6 +42,7 @@ export class EditVacancyComponent implements OnInit, OnDestroy {
     experienceRequired: ['', Validators.required],
     minimumSalary: [new FormControl(0, [Validators.min(1), Validators.required])],
     maximumSalary: [new FormControl(0, [Validators.min(1), Validators.required])],
+    lastDate: [new Date(), Validators.required]
   });
 
   ngOnInit(): void {
@@ -63,7 +64,8 @@ export class EditVacancyComponent implements OnInit, OnDestroy {
               jobDescription: this.model.jobDescription,
               experienceRequired: this.model.experienceRequired,
               minimumSalary: this.model.minimumSalary,
-              maximumSalary: this.model.maximumSalary
+              maximumSalary: this.model.maximumSalary,
+              lastDate: this.model.lastDate
             })
           }
         },
@@ -84,7 +86,7 @@ export class EditVacancyComponent implements OnInit, OnDestroy {
       minimumSalary: this.editVacancyForm.get('minimumSalary')?.value || this.model.minimumSalary,
       maximumSalary: this.editVacancyForm.get('maximumSalary')?.value || this.model.maximumSalary,
       publishedBy: this.model.publishedBy,
-      lastDate: this.model.lastDate,
+      lastDate: this.editVacancyForm.get('lastDate')?.value || new Date(Date.now()+(15*24*60*60*1000)),
       publishedDate: this.model.publishedDate,
     }
     this.email = localStorage.getItem('user-email');

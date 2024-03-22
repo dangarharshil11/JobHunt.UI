@@ -28,4 +28,8 @@ export class PublicService {
   apply(request: ApplicationRequest): Observable<Response>{
     return this.http.post<Response>(`${environment.employerapiBaseUrl}/api/application/createApplication?addAuth=true`,request);
   }
+
+  getUserDetails(userId: string): Observable<Response>{
+    return this.http.get<Response>(`${environment.employerapiBaseUrl}/api/jobSeeker/getByUserId/${userId}?addAuth=true`);
+  }
 }

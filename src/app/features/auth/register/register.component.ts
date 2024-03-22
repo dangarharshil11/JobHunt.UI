@@ -53,7 +53,7 @@ export class RegisterComponent {
         next: (response) => { 
           if(response.isSuccess){
             this.show();
-            this.route.navigateByUrl('/login');
+            this.route.navigateByUrl('/auth/login');
           }
           else{
             this.showError(response.message);

@@ -5,9 +5,7 @@ import { Observable } from 'rxjs';
 import { User } from '../models/user.model';
 import { environment } from 'src/environments/environment';
 import { QualificationRequest } from '../models/qualification-request.model';
-import { ExperienceResponse } from '../models/experience-response.model';
 import { ExperienceRequest } from '../models/experience-request.model';
-import { ApplicationResponse } from '../models/application-response.model';
 import { Response } from '../models/response-model';
 
 @Injectable({
@@ -22,7 +20,7 @@ export class JobuserService {
   }
 
   addProfile(request: User): Observable<Response>{
-    return this.http.post<Response>(`${environment.jobseekerapiBaseUrl}/api/jobSeeker/addProfile?addAuth=true`,request);
+    return this.http.post<Response>(`${environment.jobseekerapiBaseUrl}/api/jobSeeker/profile?addAuth=true`,request);
   }
 
   uploadImage(file: File, fileName: string): Observable<Response>{
@@ -33,8 +31,8 @@ export class JobuserService {
     return this.http.post<Response>(`${environment.jobseekerapiBaseUrl}/api/jobSeeker/uploadResume?addAuth=true`, formData);
   }
 
-  editProfile(request: User, email: string): Observable<Response>{
-    return this.http.put<Response>(`${environment.jobseekerapiBaseUrl}/api/jobSeeker/updateProfile/${email}?addAuth=true`, request)
+  editProfile(request: User): Observable<Response>{
+    return this.http.put<Response>(`${environment.jobseekerapiBaseUrl}/api/jobSeeker/profile?addAuth=true`, request)
   } 
 
   getAllQualifications(userId: string): Observable<Response>{
@@ -50,11 +48,11 @@ export class JobuserService {
   }
 
   editQualification(request: QualificationRequest, id: string): Observable<Response>{
-    return this.http.put<Response>(`${environment.jobseekerapiBaseUrl}/api/qualification/updateQualification/${id}?addAuth=true`,request);
+    return this.http.put<Response>(`${environment.jobseekerapiBaseUrl}/api/qualification/qualification/${id}?addAuth=true`,request);
   }
 
   deleteQualification(id: string): Observable<Response>{
-    return this.http.delete<Response>(`${environment.jobseekerapiBaseUrl}/api/qualification/deleteQualification/${id}?addAuth=true`);
+    return this.http.delete<Response>(`${environment.jobseekerapiBaseUrl}/api/qualification/qualification/${id}?addAuth=true`);
   }
 
   getAllExperiences(userId: string): Observable<Response>{
@@ -70,11 +68,11 @@ export class JobuserService {
   }
 
   editExperience(request: ExperienceRequest, id: string): Observable<Response>{
-    return this.http.put<Response>(`${environment.jobseekerapiBaseUrl}/api/experience/updateExperience/${id}?addAuth=true`,request)
+    return this.http.put<Response>(`${environment.jobseekerapiBaseUrl}/api/experience/experience/${id}?addAuth=true`,request)
   }
 
   deleteExperience(id: string): Observable<Response>{
-    return this.http.delete<Response>(`${environment.jobseekerapiBaseUrl}/api/experience/deleteExperience/${id}?addAuth=true`);
+    return this.http.delete<Response>(`${environment.jobseekerapiBaseUrl}/api/experience/experience/${id}?addAuth=true`);
   }
 
   getApplicationsByUserId(userId: string): Observable<Response>{

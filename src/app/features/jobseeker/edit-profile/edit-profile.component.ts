@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { JobuserService } from '../services/jobuser.service';
 import { User } from '../models/user.model';
 import { MessageService } from 'primeng/api';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-edit-profile',
@@ -90,7 +90,7 @@ export class EditProfileComponent {
         next: (response) => {
           if (response.isSuccess) {
             this.model.resumeUrl = response.result;
-            this.editProfileSubscription$ = this.jobuserService.editProfile(this.model, this.model.email).subscribe({
+            this.editProfileSubscription$ = this.jobuserService.editProfile(this.model).subscribe({
               next: (response) => {
                 if (response.isSuccess) {
                   this.show(response.message);
@@ -115,7 +115,7 @@ export class EditProfileComponent {
       });
     }
     else {
-      this.editProfileSubscription$ = this.jobuserService.editProfile(this.model, this.model.email).subscribe({
+      this.editProfileSubscription$ = this.jobuserService.editProfile(this.model).subscribe({
         next: (response) => {
           if (response.isSuccess) {
             this.show(response.message);

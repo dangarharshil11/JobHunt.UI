@@ -41,6 +41,7 @@ export class AddVacancyComponent implements OnDestroy, OnInit {
     experienceRequired: ['', Validators.required],
     minimumSalary: [0, Validators.min(1)],
     maximumSalary: [0, Validators.min(1)],
+    lastDate: [new Date(), Validators.required]
   });
 
   ngOnInit(): void {
@@ -60,7 +61,7 @@ export class AddVacancyComponent implements OnDestroy, OnInit {
       minimumSalary: this.addVacancyForm.get('minimumSalary')?.value || 1,
       maximumSalary: this.addVacancyForm.get('maximumSalary')?.value || 1,
       publishedBy: this.model.publishedBy,
-      lastDate: this.model.lastDate,
+      lastDate: this.addVacancyForm.get('lastDate')?.value || new Date(Date.now()+(15*24*60*60*1000)),
       publishedDate: this.model.publishedDate,
     }
 

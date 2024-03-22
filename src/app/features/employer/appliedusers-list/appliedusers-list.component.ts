@@ -72,7 +72,7 @@ export class AppliedusersListComponent implements AfterContentChecked {
     this.getData(this.request);
   }
 
-  applyfilter(name: string, email: string, toDate: string, fromDate: string, status: string) {
+  applyfilter(name: string, email: string, fromDate: string, toDate: string, status: string) {
     this.request.fullName = name;
     this.request.email = email;
     this.request.toDate = toDate;

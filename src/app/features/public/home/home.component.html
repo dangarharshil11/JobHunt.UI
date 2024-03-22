@@ -2,9 +2,8 @@
     <div class="my-2">
         <div class="d-flex justify-content-end my-3">
             <span class="col-3 me-2">
-                <input pInputText type="text" placeholder="Search By Organization or JobTitle" #filter class="form-control">
+                <input pInputText type="text" placeholder="Search By Organization or JobTitle" #filter class="form-control" (input)="filterResults(filter.value)">
             </span>
-            <button class="btn btn-primary" type="button" (click)="filterResults(filter.value)">Search</button>
         </div>
 
         <div class="row align-items-stretch">

@@ -27,7 +27,7 @@
                     <div class="d-flex justify-content-between">
                         <button pButton label="Clear" class="btn btn-primary" (click)="clear(dt1)"></button>
                         <span>
-                            <input pInputText type="text" class="form-control" (input)="applyFilterGlobal($event, 'contains')" placeholder="Filter" />
+                            <input pInputText type="text" class="form-control" (input)="applyFilterGlobal($event, 'contains')" placeholder="Search" />
                         </span>
                     </div>
                 </ng-template>
@@ -49,13 +49,11 @@
                         <th>
                             <div class="d-flex align-items-center">
                                 No of Vacancies
-                                <p-columnFilter type="number" field="noVacancies" display="menu"></p-columnFilter>
                             </div>
                         </th>
                         <th>
                             <div class="d-flex align-items-center">
                                 Salary Range
-                                <p-columnFilter type="range" field="" display="menu" currency="INR"></p-columnFilter>
                             </div>
                         </th>
         

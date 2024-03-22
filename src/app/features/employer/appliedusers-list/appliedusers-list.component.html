@@ -11,7 +11,7 @@
         <p-accordionTab header="Advance Searching" headerStyleClass="text-decoration-none text-black">
             <ng-template pTemplate="content">
                 <tr class="text-center border-bottom">
-                    <th style="width:15%">
+                    <th style="width:17%">
                         <input pInputText type="text" #filterName class="form-control" placeholder="Filter By Name" />
                     </th>
                     <th style="width:20%">
@@ -24,7 +24,7 @@
                             placeholder="From Date" />
                         <input pInputText type="text" #filterToDate class="form-control" placeholder="To Date" />
                     </th>
-                    <th style="width:20%">
+                    <th style="width:18%">
                         <select #filterStatus class="form-control ms-2">
                             <option value="" selected>All Applications</option>
                             <option value="ACCEPTED">ACCEPTED Applications</option>
@@ -54,7 +54,7 @@
             [rowsPerPageOptions]="[1, 2, 10, 25, 50]">
             <ng-template pTemplate="header">
                 <tr class="text-center">
-                    <th pSortableColumn="FullName" style="width:15%">
+                    <th pSortableColumn="FullName" style="width:17%">
                         Candidate Name <p-sortIcon field="FullName"></p-sortIcon>
                     </th>
                     <th pSortableColumn="Email" style="width:20%">
@@ -64,7 +64,7 @@
                     <th pSortableColumn="AppliedDate" style="width:15%">
                         Applied Date <p-sortIcon field="AppliedDate"></p-sortIcon>
                     </th>
-                    <th pSortableColumn="ApplicationStatus" style="width:20%">
+                    <th pSortableColumn="ApplicationStatus" style="width:18%">
                         Application Status <p-sortIcon field="ApplicationStatus"></p-sortIcon>
                     </th>
                     <th style="width:15%"></th>

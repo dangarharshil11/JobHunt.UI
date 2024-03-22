@@ -63,7 +63,7 @@ export class AddCompanyDetailsComponent implements OnDestroy, OnInit {
       next: (response) => {
         if (response.isSuccess) {
           this.show();
-          this.router.navigateByUrl(`/organization/${this.email}`);
+          this.router.navigateByUrl(`/profile/${this.email}`);
         }
         else {
           this.showError(response.message);

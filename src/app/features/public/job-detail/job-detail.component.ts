@@ -23,13 +23,13 @@ export class JobDetailComponent {
   isProfileVisible: boolean = false;
   request: ApplicationRequest;
 
-  constructor(private readonly publicService: PublicService, private route: ActivatedRoute, private router: Router, private messageService: MessageService){
+  constructor(private readonly publicService: PublicService, private route: ActivatedRoute, private router: Router, private messageService: MessageService) {
     this.request = {
       appliedDate: new Date(),
       vacancyId: '',
       userId: '',
     }
-    
+
   }
 
   ngOnInit(): void {
@@ -41,12 +41,12 @@ export class JobDetailComponent {
       }
     });
 
-    if(this.id){
+    if (this.id) {
       this.publicService.getVacancyById(this.id).subscribe({
         next: (response) => {
           this.isVacancyVisible = true;
           this.vacancy = response.result
-          if(this.vacancy){
+          if (this.vacancy) {
             this.publicService.getProfileByName(this.vacancy?.publishedBy).subscribe({
               next: (response) => {
                 this.isProfileVisible = true;
@@ -65,29 +65,42 @@ export class JobDetailComponent {
 
       this.request.vacancyId = this.id;
     }
-    if(this.userId){
+    if (this.userId) {
       this.request.userId = this.userId;
     }
   }
 
-  onApply(){
-    if(this.userRoles?.includes("JobSeeker")){
-      this.publicService.apply(this.request).subscribe({
+  onApply() {
+    if (this.userRoles?.includes("JobSeeker")) {
+      this.publicService.getUserDetails(this.request.userId).subscribe({
         next: (response) => {
-          if(response.isSuccess){
-            this.show("Applied Successfully!");
-            this.router.navigateByUrl("/applications");
+          if (response.isSuccess) {
+            this.publicService.apply(this.request).subscribe({
+              next: (response) => {
+                if (response.isSuccess) {
+                  this.show("Applied Successfully!");
+                  this.router.navigateByUrl("/applications");
+                }
+                else {
+                  this.error(response.message);
+                }
+              },
+              error: (error) => {
+                console.error(error);
+              }
+            });
           }
           else{
-            this.error(response.message);
+            this.error("Please Add your Profile Before Applying")
           }
         },
         error: (error) => {
           console.error(error);
         }
-      });
+      })
+
     }
-    else{
+    else {
       this.error("You Must Login as a JobSeeker to apply for any vacancy");
     }
   }
