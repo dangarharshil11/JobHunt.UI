@@ -81,6 +81,13 @@
                 <ng-container *ngIf="isProfileVisible && profile; else loader">
                     <div class="mt-1">
                         <div class="d-flex flex-row">
+                            <div class="col-3 p-2">
+                                <img [src]="profile.imageUrl" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-1">
+                        <div class="d-flex flex-row">
                             <div class="col-6 p-2">
                                 Organization Name: {{profile.organization}}
                             </div>

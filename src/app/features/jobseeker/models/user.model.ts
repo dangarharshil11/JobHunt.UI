@@ -9,4 +9,5 @@ export interface User{
     expectedSalary: number;
     dateOfBirth: Date;
     resumeUrl: string;
+    imageUrl: string;
 }

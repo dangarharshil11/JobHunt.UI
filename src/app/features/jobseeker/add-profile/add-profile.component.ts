@@ -16,8 +16,10 @@ export class AddProfileComponent implements OnInit, OnDestroy {
   model: User;
   email: string | null = null;
   id: string | null = null;
-  file?: File;
+  resumeFile?: File;
+  imageFile?: File;
   resumeFlag: boolean = false;
+  imageFlag: boolean = false;
   dateFlag: boolean = false;
 
   addProfileSubscription$?: Subscription;
@@ -34,6 +36,7 @@ export class AddProfileComponent implements OnInit, OnDestroy {
       totalExperience: 0,
       dateOfBirth: new Date(),
       resumeUrl: '',
+      imageUrl: '',
     }
   }
 
@@ -67,28 +70,26 @@ export class AddProfileComponent implements OnInit, OnDestroy {
       totalExperience: this.addProfileForm.get('totalExperience')?.value || 0,
       dateOfBirth: this.model.dateOfBirth,
       resumeUrl: this.model.resumeUrl,
+      imageUrl: this.model.imageUrl,
     }
 
-    if (!this.file) {
-      this.resumeFlag = true;
-    }
-    else if(this.model.dateOfBirth.getTime() == new Date().getTime()){
+    if (this.model.dateOfBirth.getTime() == new Date().getTime()) {
       this.dateFlag = true;
     }
-    else {
-      this.jobuserService.uploadImage(this.file, this.model.id).subscribe({
+    this.uploadResume();
+  }
+
+  uploadResume(): void{
+    if(this.resumeFile){
+      this.resumeFlag = false;
+      this.jobuserService.uploadResume(this.resumeFile, this.model.id).subscribe({
         next: (response) => {
           if (response.isSuccess) {
             this.model.resumeUrl = response.result;
-            this.addProfileSubscription$ = this.jobuserService.addProfile(this.model).subscribe({
-              next: (response) => {
-                this.show();
-                this.router.navigateByUrl(`/user/${response.result.email}`);
-              },
-              error: (error) => {
-                console.error(error);
-              }
-            });
+            this.uploadImage();
+          }
+          else {
+            this.error(response.message);
           }
         },
         error: (error) => {
@@ -96,6 +97,51 @@ export class AddProfileComponent implements OnInit, OnDestroy {
         }
       });
     }
+    else{
+      this.resumeFlag = true;
+    }
+  }
+
+  uploadImage(): void{
+    if (this.imageFile) {
+      this.imageFlag = false;
+      this.jobuserService.uploadImage(this.imageFile, this.model.id).subscribe({
+        next: (response) => {
+          if (response.isSuccess) {
+            this.model.imageUrl = response.result;
+            this.addProfile();
+          }
+          else {
+            this.error(response.message);
+          }
+        },
+        error: (error) => {
+          console.error(error);
+        }
+      });
+    }
+    else{
+      this.imageFlag = true;
+    }
+  }
+
+  addProfile(): void{
+    console.log(this.model);
+    this.addProfileSubscription$ = this.jobuserService.addProfile(this.model).subscribe({
+      next: (response) => {
+        console.log(response);
+        if(response.isSuccess){
+          this.show();
+          this.router.navigateByUrl(`/user/${response.result.email}`);
+        }
+        else{
+          this.error(response.message);
+        }
+      },
+      error: (error) => {
+        console.error(error);
+      }
+    });
   }
 
   ngOnDestroy(): void {
@@ -104,12 +150,19 @@ export class AddProfileComponent implements OnInit, OnDestroy {
 
   onFileUploadChange(event: Event): void {
     const element = event.currentTarget as HTMLInputElement;
-    this.file = element.files?.[0];
+    this.resumeFile = element.files?.[0];
+  }
+
+  onImageFileUploadChange(event: Event): void {
+    const element = event.currentTarget as HTMLInputElement;
+    this.imageFile = element.files?.[0];
   }
 
   show() {
     this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Profile Added Successfully!' });
   }
 
-
+  error(msg: string) {
+    this.messageService.add({ severity: 'error', summary: 'Error', detail: msg });
+  }
 }

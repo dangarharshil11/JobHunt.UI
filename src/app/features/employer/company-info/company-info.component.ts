@@ -26,6 +26,7 @@ export class CompanyInfoComponent {
       startYear: 0,
       about: '',
       createdBy: '',
+      imageUrl: ''
     }
   }
 

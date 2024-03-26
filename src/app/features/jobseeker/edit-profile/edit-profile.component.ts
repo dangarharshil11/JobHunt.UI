@@ -16,7 +16,8 @@ export class EditProfileComponent {
   model: User;
   email: string | null = null;
   id: string | null = null;
-  file?: File;
+  resumeFile?: File;
+  imageFile?: File;
 
   editProfileSubscription$?: Subscription;
 
@@ -32,6 +33,7 @@ export class EditProfileComponent {
       totalExperience: 0,
       dateOfBirth: new Date(),
       resumeUrl: '',
+      imageUrl: ''
     }
   }
 
@@ -83,27 +85,17 @@ export class EditProfileComponent {
       totalExperience: this.editProfileForm.get('totalExperience')?.value || this.model.totalExperience,
       dateOfBirth: this.model.dateOfBirth,
       resumeUrl: this.model.resumeUrl,
+      imageUrl: this.model.imageUrl
     }
+    this.uploadResume();
+  }
 
-    if (this.file) {
-      this.jobuserService.uploadImage(this.file, this.model.id).subscribe({
+  uploadResume(): void{
+    if(this.resumeFile){
+      this.jobuserService.uploadResume(this.resumeFile, this.model.id).subscribe({
         next: (response) => {
           if (response.isSuccess) {
             this.model.resumeUrl = response.result;
-            this.editProfileSubscription$ = this.jobuserService.editProfile(this.model).subscribe({
-              next: (response) => {
-                if (response.isSuccess) {
-                  this.show(response.message);
-                  this.router.navigateByUrl(`/user/${response.result.email}`);
-                }
-                else {
-                  this.error(response.message);
-                }
-              },
-              error: (error) => {
-                console.error(error);
-              }
-            });
           }
           else {
             this.error(response.message);
@@ -114,12 +106,15 @@ export class EditProfileComponent {
         }
       });
     }
-    else {
-      this.editProfileSubscription$ = this.jobuserService.editProfile(this.model).subscribe({
+    this.uploadImage();
+  }
+
+  uploadImage(): void{
+    if (this.imageFile) {
+      this.jobuserService.uploadImage(this.imageFile, this.model.id).subscribe({
         next: (response) => {
           if (response.isSuccess) {
-            this.show(response.message);
-            this.router.navigateByUrl(`/user/${response.result.email}`);
+            this.model.resumeUrl = response.result;
           }
           else {
             this.error(response.message);
@@ -130,6 +125,24 @@ export class EditProfileComponent {
         }
       });
     }
+    this.updateProfile();
+  }
+
+  updateProfile(): void{
+    this.editProfileSubscription$ = this.jobuserService.editProfile(this.model).subscribe({
+      next: (response) => {
+        if (response.isSuccess) {
+          this.show(response.message);
+          this.router.navigateByUrl(`/user/${response.result.email}`);
+        }
+        else {
+          this.error(response.message);
+        }
+      },
+      error: (error) => {
+        console.error(error);
+      }
+    });
   }
 
   ngOnDestroy(): void {
@@ -138,7 +151,12 @@ export class EditProfileComponent {
 
   onFileUploadChange(event: Event): void {
     const element = event.currentTarget as HTMLInputElement;
-    this.file = element.files?.[0];
+    this.resumeFile = element.files?.[0];
+  }
+
+  onImageFileUploadChange(event: Event): void {
+    const element = event.currentTarget as HTMLInputElement;
+    this.imageFile = element.files?.[0];
   }
 
   show(msg: string) {

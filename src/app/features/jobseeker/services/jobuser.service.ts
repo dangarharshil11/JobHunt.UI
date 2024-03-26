@@ -28,6 +28,14 @@ export class JobuserService {
     formData.append('file', file);
     formData.append('fileName', fileName)
 
+    return this.http.post<Response>(`${environment.jobseekerapiBaseUrl}/api/jobSeeker/uploadImage?addAuth=true`, formData);
+  }
+
+  uploadResume(file: File, fileName: string): Observable<Response>{
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('fileName', fileName)
+
     return this.http.post<Response>(`${environment.jobseekerapiBaseUrl}/api/jobSeeker/uploadResume?addAuth=true`, formData);
   }
 

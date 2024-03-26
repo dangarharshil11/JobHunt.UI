@@ -15,6 +15,9 @@ import { EmployerService } from '../services/employer.service';
 export class AddCompanyDetailsComponent implements OnDestroy, OnInit {
   profile: Organization;
   email?: string | null = null;
+  file?: File;
+  imageFlag: boolean = false;
+  userId: string | null = null;
 
   addProfileSubscription?: Subscription;
 
@@ -28,6 +31,7 @@ export class AddCompanyDetailsComponent implements OnDestroy, OnInit {
       startYear: 0,
       about: '',
       createdBy: '',
+      imageUrl: ''
     }
   }
   ngOnInit(): void {
@@ -57,6 +61,42 @@ export class AddCompanyDetailsComponent implements OnDestroy, OnInit {
       startYear: this.addCompanyForm.get('startYear')?.value || 2024,
       about: this.addCompanyForm.get('about')?.value || '',
       createdBy: this.profile.createdBy,
+      imageUrl: this.profile.imageUrl
+    }
+
+    if (!this.file) {
+      this.imageFlag = true;
+    }
+    else {
+      if(localStorage.getItem('user-id')){
+        this.userId = localStorage.getItem('user-id');
+      }
+      if(this.userId != null){
+      this.employerService.uploadImage(this.file, this.userId).subscribe({
+        next: (response) => {
+          if (response.isSuccess) {
+            this.profile.imageUrl = response.result;
+            this.addProfileSubscription = this.employerService.createProfile(this.profile).subscribe({
+              next: (response) => {
+                if (response.isSuccess) {
+                  this.show();
+                  this.router.navigateByUrl(`/profile/${this.email}`);
+                }
+                else {
+                  this.showError(response.message);
+                }
+              },
+              error: (error) => {
+                console.error(error);
+              }
+            });
+          }
+        },
+        error: (error) => {
+          console.error(error);
+        }
+      });
+    }
     }
 
     this.addProfileSubscription = this.employerService.createProfile(this.profile).subscribe({
@@ -73,6 +113,11 @@ export class AddCompanyDetailsComponent implements OnDestroy, OnInit {
         console.error(error);
       }
     });
+  }
+
+  onFileUploadChange(event: Event): void {
+    const element = event.currentTarget as HTMLInputElement;
+    this.file = element.files?.[0];
   }
 
   ngOnDestroy(): void {

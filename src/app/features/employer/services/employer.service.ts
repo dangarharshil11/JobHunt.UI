@@ -74,4 +74,12 @@ export class EmployerService {
   paginationEndpoint(request: SP_VacancyRequestDto): Observable<Response>{
     return this.http.post<Response>(`${environment.employerapiBaseUrl}/api/application/paginationEndpoint?addAuth=true`,request);
   }
+
+  uploadImage(file: File, fileName: string): Observable<Response>{
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('fileName', fileName)
+
+    return this.http.post<Response>(`${environment.jobseekerapiBaseUrl}/api/company/uploadImage?addAuth=true`, formData);
+  }
 }

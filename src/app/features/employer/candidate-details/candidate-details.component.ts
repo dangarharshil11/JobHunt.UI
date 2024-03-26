@@ -34,7 +34,7 @@ export class CandidateDetailsComponent {
     if(this.userId){
       this.employerService.getCandidateProfile(this.userId).subscribe({
         next: (response) => {
-          if(response.isSuccess){
+          if(response.isSuccess && response.result){
             this.isProfileVisible = true;
             this.profile = response.result;
           }
@@ -45,7 +45,7 @@ export class CandidateDetailsComponent {
       });
       this.employerService.getAllQualifications(this.userId).subscribe({
         next: (response) => {
-          if(response.isSuccess){
+          if(response.isSuccess && response.result.length > 0){
             this.isQualificationVisible = true;
             this.qualifications = response.result;
           }
@@ -56,7 +56,7 @@ export class CandidateDetailsComponent {
       });
       this.employerService.getAllExperiences(this.userId).subscribe({
         next: (response) => {
-          if(response.isSuccess){
+          if(response.isSuccess && response.result.length > 0){
             this.isExperiencesVisible = true;
             this.experiences = response.result;
           }

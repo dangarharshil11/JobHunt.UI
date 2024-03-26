@@ -7,4 +7,5 @@ export interface Organization{
     startYear: number
     about: string
     createdBy: string
+    imageUrl: string
 }

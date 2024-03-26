@@ -103,9 +103,15 @@
                 </div>
             </div>
 
-            <div class="mt-3 p-2">
-                <label for="totalExperience" class="form-label">Upload Resume</label>
-                <input type="file" class="form-control" (change)="onFileUploadChange($event)"/>
+            <div class="mt-3 d-flex flex-row">
+                <div class="col-6 p-2">
+                    <label for="UploadResume" class="form-label">Upload Resume</label>
+                    <input type="file" class="form-control" (change)="onFileUploadChange($event)"/>
+                </div>
+                <div class="col-6 p-2">
+                    <label for="UploadImage" class="form-label">Upload Image</label>
+                    <input type="file" class="form-control" (change)="onImageFileUploadChange($event)"/>
+                </div>
             </div>
 
             <div class="mt-3 p-2">

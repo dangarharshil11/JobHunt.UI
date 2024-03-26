@@ -15,7 +15,9 @@ import { FormBuilder, FormControl, Validators } from '@angular/forms';
 export class EditCompanyDetailsComponent implements OnInit, OnDestroy {
   profile: Organization;
   email?: string | null = null;
-  
+  file?: File;
+  userId: string | null = null;
+
   editProfileSubscription?: Subscription;
 
   constructor(private route: ActivatedRoute, private router: Router, private employerService: EmployerService, private messageService: MessageService, private fb: FormBuilder, private changeDetector: ChangeDetectorRef) {
@@ -28,6 +30,7 @@ export class EditCompanyDetailsComponent implements OnInit, OnDestroy {
       startYear: 0,
       about: '',
       createdBy: '',
+      imageUrl: ''
     }
   }
 
@@ -80,22 +83,64 @@ export class EditCompanyDetailsComponent implements OnInit, OnDestroy {
       startYear: this.editCompanyForm.get('startYear')?.value || this.profile.startYear,
       about: this.editCompanyForm.get('about')?.value || this.profile.about,
       createdBy: this.profile.createdBy,
+      imageUrl: this.profile.imageUrl
     }
 
-    this.editProfileSubscription = this.employerService.updateProfile(this.profile).subscribe({
-      next: (response) => {
-        if (response.isSuccess) {
-          this.show();
-          this.router.navigateByUrl(`/profile/${response.result.createdBy}`)
-        }
-        else {
-          this.error(response.message);
-        }
-      },
-      error: (error) => {
-        console.error(error);
+    if (localStorage.getItem('user-id')) {
+      this.userId = localStorage.getItem('user-id');
+    }
+    if (this.userId != null) {
+      if (this.file) {
+        this.employerService.uploadImage(this.file, this.userId).subscribe({
+          next: (response) => {
+            if (response.isSuccess) {
+              this.profile.imageUrl = response.result;
+              this.editProfileSubscription = this.employerService.updateProfile(this.profile).subscribe({
+                next: (response) => {
+                  if (response.isSuccess) {
+                    this.show();
+                    this.router.navigateByUrl(`/profile/${response.result.createdBy}`)
+                  }
+                  else {
+                    this.error(response.message);
+                  }
+                },
+                error: (error) => {
+                  console.error(error);
+                }
+              });
+            }
+            else {
+              this.error(response.message);
+            }
+          },
+          error: (error) => {
+            console.error(error);
+          }
+        });
       }
-    });
+      else {
+        this.editProfileSubscription = this.employerService.updateProfile(this.profile).subscribe({
+          next: (response) => {
+            if (response.isSuccess) {
+              this.show();
+              this.router.navigateByUrl(`/profile/${response.result.createdBy}`)
+            }
+            else {
+              this.error(response.message);
+            }
+          },
+          error: (error) => {
+            console.error(error);
+          }
+        });
+      }
+    }
+  }
+
+  onFileUploadChange(event: Event): void {
+    const element = event.currentTarget as HTMLInputElement;
+    this.file = element.files?.[0];
   }
 
   ngOnDestroy(): void {

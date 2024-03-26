@@ -11,52 +11,57 @@
             </div>
         </div>
         <div class="container">
-                <div class="my-3 border border-dark rounded bg-light p-3">
-                    <div class="mt-1">
-                        <div class="d-flex flex-row">
-                            <div class="col-6 p-2">
-                                <span class="fw-bold">Organization Name: </span>{{profile.organization}}
-                            </div>
-                            <div class="col-6 p-2">
-                                <span class="fw-bold">Organization Type: </span>{{profile.organizationType}}
+            <div class="my-3 border border-dark rounded bg-light p-3">
+                <div class="d-flex flex-row">
+                    <div class="col-3">
+                        <img [src]='profile.imageUrl' alt="" width="80%" height="80%">
+                    </div>
+                    <div class="col-9">
+                        <div class="mt-1">
+                            <div class="d-flex flex-row">
+                                <div class="col-6 p-2">
+                                    <span class="fw-bold">Organization Name: </span>{{profile.organization}}
+                                </div>
+                                <div class="col-6 p-2">
+                                    <span class="fw-bold">Organization Type: </span>{{profile.organizationType}}
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="mt-1">
-                        <div class="d-flex flex-row">
-                            <div class="col-6 p-2">
-                                <span class="fw-bold">Company Email: </span>{{profile.companyEmail}}
-                            </div>
-                            <div class="col-6 p-2">
-                                <span class="fw-bold">Company Phone: </span>{{profile.companyPhone}}
-                            </div>
-                        </div>
-                    </div>
-        
-                    <div class="mt-1">
-                        <div class="d-flex flex-row">
-                            <div class="col-6 p-2">
-                                <span class="fw-bold">Start Year: </span>{{profile.startYear}}
-                            </div>
-                            <div class="col-6 p-2">
-                                <span class="fw-bold">Total No Of Employees: </span>{{profile.noOfEmployees}}
+                        <div class="mt-1">
+                            <div class="d-flex flex-row">
+                                <div class="col-6 p-2">
+                                    <span class="fw-bold">Company Email: </span>{{profile.companyEmail}}
+                                </div>
+                                <div class="col-6 p-2">
+                                    <span class="fw-bold">Company Phone: </span>{{profile.companyPhone}}
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="mt-1">
-                        <div class="d-flex flex-row">
-                            <div class="col-12 p-2">
-                                <p class="fw-bold">Organization Description</p>
-                                <div style="white-space: pre-wrap;">{{profile.about}}</div>
+                        <div class="mt-1">
+                            <div class="d-flex flex-row">
+                                <div class="col-6 p-2">
+                                    <span class="fw-bold">Start Year: </span>{{profile.startYear}}
+                                </div>
+                                <div class="col-6 p-2">
+                                    <span class="fw-bold">Total No Of Employees: </span>{{profile.noOfEmployees}}
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div class="mt-1">
+                    <div class="d-flex flex-row">
+                        <div class="col-12 p-2">
+                            <p class="fw-bold">Organization Description</p>
+                            <div style="white-space: pre-wrap;">{{profile.about}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        
-        
+
     </ng-container>
     <ng-template #addProfile>
         <div class="d-flex justify-content-between mt-3">

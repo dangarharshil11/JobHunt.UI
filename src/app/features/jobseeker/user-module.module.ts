@@ -6,6 +6,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { CalendarModule } from 'primeng/calendar';
 import { TableModule } from 'primeng/table';
+import { AccordionModule } from 'primeng/accordion';
 
 import { UserModuleRoutingModule } from './user-module-routing.module';
 import { ProfileComponent } from './profile/profile.component';
@@ -30,7 +31,8 @@ import { ApplicationListComponent } from './application-list/application-list.co
     DropdownModule,
     InputTextareaModule,
     CalendarModule,
-    TableModule
+    TableModule,
+    AccordionModule
   ]
 })
 export class UserModuleModule { }
