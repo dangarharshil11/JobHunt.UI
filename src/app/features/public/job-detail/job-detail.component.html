@@ -22,37 +22,37 @@
 
                         <hr>
                         <div class="d-flex justify-content-between">
-                            <span>Posted on: {{vacancy.publishedDate | date: 'yyyy-MM-dd'}}</span>
-                            <span>Last Date to Apply: {{vacancy.lastDate | date: 'yyyy-MM-dd'}}</span>
+                            <span class="fw-bold">Posted on: {{vacancy.publishedDate | date: 'yyyy-MM-dd'}}</span>
+                            <span class="fw-bold">Last Date to Apply: {{vacancy.lastDate | date: 'yyyy-MM-dd'}}</span>
                         </div>
                         <hr>
 
                         <div class="mt-1 p-2">
-                            Organization Name: {{vacancy.publishedBy}}
+                            <span class="fw-bold"> Name: </span>{{vacancy.publishedBy}}
                         </div>
 
                         <div class="mt-1 p-2">
-                            Minimum Qualification Required: {{vacancy.minimumQualification}}
+                            <span class="fw-bold">Minimum Qualification Required: </span>{{vacancy.minimumQualification}}
                         </div>
 
                         <div class="mt-1 p-2">
-                            Minimum Experience Required: {{vacancy.experienceRequired}}
+                            <span class="fw-bold">Minimum Experience Required: </span>{{vacancy.experienceRequired}}
                         </div>
 
                         <div class="mt-1">
                             <div class="d-flex flex-row">
                                 <div class="col-6 p-2">
-                                    No of Vacancies: {{vacancy.noOfVacancies}}
+                                    <span class="fw-bold">No of Vacancies: </span>{{vacancy.noOfVacancies}}
                                 </div>
                                 <div class="col-6 p-2">
-                                    Salary Range: {{vacancy.minimumSalary}} - {{vacancy.maximumSalary}}
+                                    <span class="fw-bold">Salary Range: </span>{{vacancy.minimumSalary}} - {{vacancy.maximumSalary}}
                                 </div>
                             </div>
                         </div>
 
                         <div class="mt-1 p-2">
                             <p class="fw-bold">Job Description:</p>
-                            <pre style="white-space: pre-wrap;">{{vacancy.jobDescription}}</pre>
+                            <p style="white-space: pre-wrap;">{{vacancy.jobDescription}}</p>
                         </div>
                     <!-- Modal -->
                     <div class="modal fade" id="confirmApply" tabindex="-1" aria-labelledby="confirmApplyLabel"
@@ -79,41 +79,40 @@
             </p-accordionTab>
             <p-accordionTab header="Organization Information" headerStyleClass="text-black h3 text-decoration-none">
                 <ng-container *ngIf="isProfileVisible && profile; else loader">
-                    <div class="mt-1">
-                        <div class="d-flex flex-row">
-                            <div class="col-3 p-2">
-                                <img [src]="profile.imageUrl" alt="">
-                            </div>
+                    <div class="row">
+                        <div class="col-3">
+                            <img [src]='profile.imageUrl' alt="" width="80%" height="80%">
                         </div>
-                    </div>
-                    <div class="mt-1">
-                        <div class="d-flex flex-row">
-                            <div class="col-6 p-2">
-                                Organization Name: {{profile.organization}}
+                        <div class="col-9">
+                            <div class="mt-1">
+                                <div class="d-flex flex-row">
+                                    <div class="col-6 p-2">
+                                        <span class="fw-bold">Organization Name:</span> {{profile.organization}}
+                                    </div>
+                                    <div class="col-6 p-2">
+                                        <span class="fw-bold">Organization Type: </span>{{profile.organizationType}}
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-6 p-2">
-                                Organization Type: {{profile.organizationType}}
+                            <div class="mt-1">
+                                <div class="d-flex flex-row">
+                                    <div class="col-6 p-2">
+                                        <span class="fw-bold">Company Email: </span>{{profile.companyEmail}}
+                                    </div>
+                                    <div class="col-6 p-2">
+                                        <span class="fw-bold">Company Phone: </span>{{profile.companyPhone}}
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="mt-1">
-                        <div class="d-flex flex-row">
-                            <div class="col-6 p-2">
-                                Company Email: {{profile.companyEmail}}
-                            </div>
-                            <div class="col-6 p-2">
-                                Company Phone: {{profile.companyPhone}}
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="mt-1">
-                        <div class="d-flex flex-row">
-                            <div class="col-6 p-2">
-                                Start Year: {{profile.startYear}}
-                            </div>
-                            <div class="col-6 p-2">
-                                Total No Of Employees: {{profile.noOfEmployees}}
+                            <div class="mt-1">
+                                <div class="d-flex flex-row">
+                                    <div class="col-6 p-2">
+                                        <span class="fw-bold">Start Year: </span>{{profile.startYear}}
+                                    </div>
+                                    <div class="col-6 p-2">
+                                        <span class="fw-bold">Total No Of Employees: </span>{{profile.noOfEmployees}}
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -121,7 +120,7 @@
                         <div class="d-flex flex-row">
                             <div class="col-12 p-2">
                                 <p class="fw-bold">Job Description:</p>
-                                <pre style="white-space: pre-wrap;">{{profile.about}}</pre>
+                                <p style="white-space: pre-wrap;">{{profile.about}}</p>
                             </div>
                         </div>
                     </div>

@@ -2,7 +2,8 @@
     <div class="my-2">
         <div class="d-flex justify-content-end my-3">
             <span class="col-3 me-2">
-                <input pInputText type="text" placeholder="Search By Organization or JobTitle" #filter class="form-control" (input)="filterResults(filter.value)">
+                <input pInputText type="text" placeholder="Search By Organization or JobTitle" #filter
+                    class="form-control" (input)="filterResults(filter.value)">
             </span>
         </div>
 
@@ -14,7 +15,8 @@
                             <h5 class="card-title">{{vacancy.jobTitle}}</h5>
                             <div class="card-text">Organization Name: {{vacancy.publishedBy}}</div>
                             <div class="card-text">No of Vacancies: {{vacancy.noOfVacancies}}</div>
-                            <div class="card-text">Salary Range: {{vacancy.minimumSalary}} - {{vacancy.maximumSalary}}</div>
+                            <div class="card-text">Salary Range: {{vacancy.minimumSalary}} - {{vacancy.maximumSalary}}
+                            </div>
                             <span class="d-flex align-items-end mt-3" style="flex: 1">
                                 <a [routerLink]="['/job', vacancy.id]" class="btn btn-primary">Read More</a>
                             </span>
@@ -22,6 +24,8 @@
                     </div>
                 </div>
             </ng-container>
+            
+        <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows" [totalRecords]="totalRecords" [rowsPerPageOptions]="[2, 3, 5, 10]"></p-paginator>
         </div>
     </div>
 </div>

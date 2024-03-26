@@ -80,7 +80,7 @@ export class JobDetailComponent {
               next: (response) => {
                 if (response.isSuccess) {
                   this.show("Applied Successfully!");
-                  this.router.navigateByUrl("/applications");
+                  this.router.navigateByUrl("/user/applications");
                 }
                 else {
                   this.error(response.message);

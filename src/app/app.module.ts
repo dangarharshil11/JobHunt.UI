@@ -19,6 +19,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { CalendarModule } from 'primeng/calendar';
 import { AccordionModule } from 'primeng/accordion';
+import { PaginatorModule } from 'primeng/paginator';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { AccordionModule } from 'primeng/accordion';
     InputTextareaModule,
     DropdownModule,
     CalendarModule,
-    AccordionModule
+    AccordionModule,
+    PaginatorModule
   ],
   providers: [
     {
