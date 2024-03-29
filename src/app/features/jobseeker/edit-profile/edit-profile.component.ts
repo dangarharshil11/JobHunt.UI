@@ -96,6 +96,7 @@ export class EditProfileComponent {
         next: (response) => {
           if (response.isSuccess) {
             this.model.resumeUrl = response.result;
+            this.uploadImage();
           }
           else {
             this.error(response.message);
@@ -106,7 +107,9 @@ export class EditProfileComponent {
         }
       });
     }
-    this.uploadImage();
+    else{
+      this.uploadImage();
+    }
   }
 
   uploadImage(): void{
@@ -114,7 +117,8 @@ export class EditProfileComponent {
       this.jobuserService.uploadImage(this.imageFile, this.model.id).subscribe({
         next: (response) => {
           if (response.isSuccess) {
-            this.model.resumeUrl = response.result;
+            this.model.imageUrl = response.result;
+            this.updateProfile();
           }
           else {
             this.error(response.message);
@@ -125,7 +129,9 @@ export class EditProfileComponent {
         }
       });
     }
-    this.updateProfile();
+    else{
+      this.updateProfile();
+    }
   }
 
   updateProfile(): void{

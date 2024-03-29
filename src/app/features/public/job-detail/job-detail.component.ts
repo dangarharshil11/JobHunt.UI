@@ -51,7 +51,6 @@ export class JobDetailComponent {
               next: (response) => {
                 this.isProfileVisible = true;
                 this.profile = response.result
-                console.log(response.result);
               },
               error: (error) => {
                 console.error(error);

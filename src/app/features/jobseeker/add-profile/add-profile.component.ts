@@ -73,7 +73,7 @@ export class AddProfileComponent implements OnInit, OnDestroy {
       imageUrl: this.model.imageUrl,
     }
 
-    if (this.model.dateOfBirth.getTime() == new Date().getTime()) {
+    if (!this.model.dateOfBirth) {
       this.dateFlag = true;
     }
     this.uploadResume();

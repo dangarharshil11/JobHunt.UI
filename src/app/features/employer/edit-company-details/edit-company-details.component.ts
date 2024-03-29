@@ -95,20 +95,7 @@ export class EditCompanyDetailsComponent implements OnInit, OnDestroy {
           next: (response) => {
             if (response.isSuccess) {
               this.profile.imageUrl = response.result;
-              this.editProfileSubscription = this.employerService.updateProfile(this.profile).subscribe({
-                next: (response) => {
-                  if (response.isSuccess) {
-                    this.show();
-                    this.router.navigateByUrl(`/profile/${response.result.createdBy}`)
-                  }
-                  else {
-                    this.error(response.message);
-                  }
-                },
-                error: (error) => {
-                  console.error(error);
-                }
-              });
+              this.updateProfile();
             }
             else {
               this.error(response.message);
@@ -120,22 +107,26 @@ export class EditCompanyDetailsComponent implements OnInit, OnDestroy {
         });
       }
       else {
-        this.editProfileSubscription = this.employerService.updateProfile(this.profile).subscribe({
-          next: (response) => {
-            if (response.isSuccess) {
-              this.show();
-              this.router.navigateByUrl(`/profile/${response.result.createdBy}`)
-            }
-            else {
-              this.error(response.message);
-            }
-          },
-          error: (error) => {
-            console.error(error);
-          }
-        });
+        this.updateProfile();
       }
     }
+  }
+
+  updateProfile(){
+    this.editProfileSubscription = this.employerService.updateProfile(this.profile).subscribe({
+      next: (response) => {
+        if (response.isSuccess) {
+          this.show();
+          this.router.navigateByUrl(`/profile/${response.result.createdBy}`)
+        }
+        else {
+          this.error(response.message);
+        }
+      },
+      error: (error) => {
+        console.error(error);
+      }
+    });
   }
 
   onFileUploadChange(event: Event): void {
