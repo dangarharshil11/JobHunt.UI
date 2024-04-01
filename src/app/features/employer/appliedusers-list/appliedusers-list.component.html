@@ -75,7 +75,7 @@
                     <td class="text-center">{{jobapplication.user.firstName + " " + jobapplication.user.lastName}}</td>
                     <td class="text-center">{{jobapplication.user.email}}</td>
                     <td class="text-center"><a href={{jobapplication.user.resumeUrl}} class="text-decoration-none"
-                            target="_blank">Resume</a></td>
+                            target="_blank" rel="noopener noreferrer">Resume</a></td>
                     <td class="text-center">{{jobapplication.appliedDate | date: 'yyyy-MM-dd'}}</td>
                     <td class="fw-bold text-center">
                         {{jobapplication.applicationStatus}}

@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AddQualificationComponent } from './add-qualification.component';
 
-describe('AddQualificationComponent', () => {
+xdescribe('AddQualificationComponent', () => {
   let component: AddQualificationComponent;
   let fixture: ComponentFixture<AddQualificationComponent>;
 

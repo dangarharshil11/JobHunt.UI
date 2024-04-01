@@ -5,4 +5,5 @@ export interface ApplicationRequest{
     vacancy?: VacancyResponse;
     userId: string;
     appliedDate: Date;
+    totalRecords?: number;
 }

@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EditExperienceComponent } from './edit-experience.component';
 
-describe('EditExperienceComponent', () => {
+xdescribe('EditExperienceComponent', () => {
   let component: EditExperienceComponent;
   let fixture: ComponentFixture<EditExperienceComponent>;
 

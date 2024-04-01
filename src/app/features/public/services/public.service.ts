@@ -30,6 +30,6 @@ export class PublicService {
   }
 
   getUserDetails(userId: string): Observable<Response>{
-    return this.http.get<Response>(`${environment.employerapiBaseUrl}/api/jobSeeker/getByUserId/${userId}?addAuth=true`);
+    return this.http.get<Response>(`${environment.jobseekerapiBaseUrl}/api/jobSeeker/getByUserId/${userId}?addAuth=true`);
   }
 }
