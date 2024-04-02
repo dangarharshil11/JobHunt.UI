@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
@@ -32,7 +33,8 @@ import { ApplicationListComponent } from './application-list/application-list.co
     InputTextareaModule,
     CalendarModule,
     TableModule,
-    AccordionModule
+    AccordionModule,
+    HttpClientModule,
   ]
 })
 export class UserModuleModule { }

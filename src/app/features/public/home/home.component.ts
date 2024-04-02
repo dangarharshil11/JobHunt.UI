@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
 import { VacancyResponse } from '../models/vacancy-response.model';
+import { Response } from '../models/response-model';
 import { PublicService } from '../services/public.service';
+import { Observable } from 'rxjs';
 
 interface PageEvent {
   first?: number;
@@ -16,9 +18,12 @@ interface PageEvent {
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  response$?: Observable<Response>;
+
   vacancies?: VacancyResponse[];
   allvacancies?: VacancyResponse[];
   isVacancyVisible: boolean = false;
+
   first: number = 0;
   rows: number = 3;
   searchText: string = '';
@@ -26,8 +31,10 @@ export class HomeComponent implements OnInit {
 
   constructor(private publicService: PublicService) { }
 
-  ngOnInit(): void {
-    this.publicService.getAllVacancies().subscribe({
+  ngOnInit(): void {  
+    this.response$ = this.publicService.getAllVacancies();
+
+    this.response$.subscribe({
       next: (response) => {
         if (response.isSuccess) {
           this.isVacancyVisible = true;
@@ -39,12 +46,14 @@ export class HomeComponent implements OnInit {
       error: (error) => {
         console.error(error);
       }
-    });
+    });    
   }
 
   filterResults(text?: string) {
-    this.vacancies = this.allvacancies?.slice(this.first, this.first+this.rows);
-    if (!text) {
+    this.vacancies = this.allvacancies;
+    if (!text || text == '') {
+      this.searchText = '';
+      this.vacancies = this.vacancies?.slice(this.first, this.first+this.rows);
       this.totalRecords = this.allvacancies?.length || 0;
       return;
     }
@@ -54,14 +63,15 @@ export class HomeComponent implements OnInit {
       vacancy.publishedBy.toLowerCase().includes(text.trim().toLowerCase())
     );
     this.totalRecords = this.vacancies?.length || 0;
+    this.vacancies = this.vacancies?.slice(this.first, this.first+this.rows);
   }
 
   onPageChange(event: PageEvent) {
     this.first = event.first || 0;
     this.rows = event.rows || 3;
-    this.vacancies = this.allvacancies?.slice(this.first, this.first+this.rows).filter(vacancy =>
+    this.vacancies = this.allvacancies?.filter(vacancy =>
       vacancy.jobTitle.toLowerCase().includes(this.searchText.trim().toLowerCase()) ||
       vacancy.publishedBy.toLowerCase().includes(this.searchText.trim().toLowerCase())
-    );;
+    ).slice(this.first, this.first+this.rows);
   }
 }
