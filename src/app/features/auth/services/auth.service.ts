@@ -18,14 +18,7 @@ export class AuthService {
   constructor(private http: HttpClient, private cookieService: CookieService) { }
 
   register(request: RegisterRequest): Observable<Response>{
-    return this.http.post<Response>(`${environment.authapiBaseUrl}/api/auth/register`,{
-      firstName: request.firstName,
-      lastName: request.lastName,
-      email: request.email,
-      phoneNumber: request.phoneNumber,
-      role: request.role,
-      password: request.password
-    });
+    return this.http.post<Response>(`${environment.authapiBaseUrl}/api/auth/register`,request);
   }
 
   login(request: LoginRequest): Observable<Response>{
