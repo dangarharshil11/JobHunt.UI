@@ -1,17 +1,17 @@
 import { DebugElement } from '@angular/core';
+import { Router } from '@angular/router';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { MessageService } from 'primeng/api';
+import { of } from 'rxjs';
 
 import { RegisterComponent } from './register.component';
 import { AuthModuleModule } from '../auth-module.module';
-import { RouterTestingModule } from '@angular/router/testing';
-import { MessageService } from 'primeng/api';
 import { AuthService } from '../services/auth.service';
-import { of } from 'rxjs';
-import { Router } from '@angular/router';
 import { Response } from '../models/response-model';
 
-describe('LoginComponent', () => {
+describe('RegisterComponent', () => {
   let component: RegisterComponent;
   let fixture: ComponentFixture<RegisterComponent>;
   let authService: any;

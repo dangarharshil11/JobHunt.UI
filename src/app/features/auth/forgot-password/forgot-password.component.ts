@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
@@ -20,7 +20,7 @@ export class ForgotPasswordComponent {
     password: ['', Validators.required]
   })
 
-  constructor(private authService: AuthService, private router: Router, private messageService: MessageService, private fb: FormBuilder){
+  constructor(private ngZone: NgZone, private authService: AuthService, private router: Router, private messageService: MessageService, private fb: FormBuilder){
     this.model = {
       email: '',
       password: '',
@@ -33,18 +33,20 @@ export class ForgotPasswordComponent {
       password: this.forgotPasswordForm.get('password')?.value || '',
     };
 
-    if(this.model?.email != '' && this.model.password != ''){
-      this.authService.forgotpassword(this.model).subscribe({
-        next: (response) => {
-          if(response.isSuccess){
-            this.show();
-            this.router.navigateByUrl("/auth/login");
+    if(this.forgotPasswordForm.valid){
+      this.ngZone.run(() => {
+        this.authService.forgotpassword(this.model).subscribe({
+          next: (response) => {
+            if(response.isSuccess){
+              this.show();
+              this.router.navigateByUrl("/auth/login");
+            }
+            else{
+              this.showerror();
+              this.error = response.message;
+            }
           }
-          else{
-            this.showerror();
-            this.error = response.message;
-          }
-        }
+        });
       });
     }
   }
