@@ -86,9 +86,8 @@ describe('JobDetailComponent', () => {
       fixture = TestBed.createComponent(JobDetailComponent);
       component = fixture.componentInstance;
       el = fixture.debugElement;
-      httpTestingController = TestBed.inject(HttpTestingController)
+      httpTestingController = TestBed.inject(HttpTestingController);
       publicService = TestBed.inject<PublicService>(PublicService);
-
       
       spyOn(localStorage, 'getItem').and.callFake((key: string) => {
         if (key === 'user-id') return 'userId123';

@@ -1,15 +1,15 @@
+import { DebugElement } from '@angular/core';
+import { Router } from '@angular/router';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { CookieService } from 'ngx-cookie-service';
+import { MessageService } from 'primeng/api';
+import { of } from 'rxjs';
 
 import { LoginComponent } from './login.component';
-import { DebugElement } from '@angular/core';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { AuthModuleModule } from '../auth-module.module';
 import { AuthService } from '../services/auth.service';
-import { MessageService } from 'primeng/api';
-import { RouterTestingModule } from '@angular/router/testing';
-import { of } from 'rxjs';
-import { Router } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
 import { LoginResponse } from '../models/login-response.model';
 import { Response } from '../models/response-model';
 
@@ -114,5 +114,9 @@ describe('LoginComponent', () => {
     component.onFormSubmit();
   
     expect(routerSpy).toHaveBeenCalledWith('/');
+  });
+
+  afterEach(() => {
+    httpTestingController.verify();
   });
 });

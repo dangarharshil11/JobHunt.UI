@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
+import { Observable } from 'rxjs';
 
 import { RegisterRequest } from '../models/register-request.model';
 import { AuthService } from '../services/auth.service';
+import { Response } from '../models/response-model';
 
 @Component({
   selector: 'app-register',
@@ -13,9 +15,10 @@ import { AuthService } from '../services/auth.service';
 })
 export class RegisterComponent {
   model: RegisterRequest;
+  response$?: Observable<Response>;
   roles = ['JobSeeker', 'Employer']
 
-  constructor(private authService: AuthService,private route: Router, private messageService: MessageService, private fb: FormBuilder){
+  constructor(private ngZone: NgZone, private authService: AuthService, private route: Router, private messageService: MessageService, private fb: FormBuilder) {
     this.model = {
       firstName: '',
       lastName: '',
@@ -29,13 +32,13 @@ export class RegisterComponent {
   registerForm = this.fb.group({
     firstName: ['', Validators.required],
     lastName: ['', Validators.required],
-    phoneNumber: new FormControl('', [ Validators.minLength(10), Validators.required ]),
+    phoneNumber: new FormControl('', [Validators.minLength(10), Validators.maxLength(10), Validators.required]),
     email: ['', Validators.required],
-    password: new FormControl('', [ Validators.minLength(6), Validators.required ]),
+    password: new FormControl('', [Validators.minLength(6), Validators.required]),
     selectedRole: ['', Validators.required]
   })
 
-  onFormSubmit(): void{ 
+  onFormSubmit(): void {
     this.model = {
       firstName: this.registerForm.get('firstName')?.value || '',
       lastName: this.registerForm.get('lastName')?.value || '',
@@ -44,18 +47,19 @@ export class RegisterComponent {
       role: this.registerForm.get('selectedRole')?.value || '',
       password: this.registerForm.get('password')?.value || '',
     };
-    
+
     if (!this.registerForm.valid) {
       this.registerForm.markAllAsTouched();
     }
     else {
+      this.ngZone.run(() => {
       this.authService.register(this.model).subscribe({
-        next: (response) => { 
-          if(response.isSuccess){
+        next: (response) => {
+          if (response.isSuccess) {
             this.show();
             this.route.navigateByUrl('/auth/login');
           }
-          else{
+          else {
             this.showError(response.message);
           }
         },
@@ -63,6 +67,7 @@ export class RegisterComponent {
           console.error(error);
         }
       });
+    });
     }
   }
 
