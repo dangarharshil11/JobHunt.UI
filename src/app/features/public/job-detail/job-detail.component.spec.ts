@@ -104,7 +104,7 @@ describe('JobDetailComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  xit('should fetch on ngOnInit', () => { 
+  it('should fetch on ngOnInit', () => { 
     pending()    
   });
 

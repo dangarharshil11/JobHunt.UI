@@ -68,7 +68,7 @@ const user: User = {
   roles: ['JobSeeker']
 };
 
-fdescribe('AuthService', () => {
+describe('AuthService', () => {
   let authService: AuthService,
         httpTestingController: HttpTestingController;
 
