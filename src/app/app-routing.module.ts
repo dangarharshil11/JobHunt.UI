@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { HomeComponent } from './routes/public/home/home.component';
 import { JobDetailComponent } from './routes/public/job-detail/job-detail.component';
+import { PagenotfoundComponent } from './shared/components/pagenotfound/pagenotfound.component';
 
 const routes: Routes = [
   // public Routes
@@ -20,6 +21,8 @@ const routes: Routes = [
   { path: 'user', loadChildren: () => import('./routes/jobseeker/user-module.module').then(m => m.UserModuleModule) },
   { path: 'experience', loadChildren: () => import('./routes/jobseeker/experience-module.module').then(m => m.ExperienceModuleModule) },
   { path: 'qualification', loadChildren: () => import('./routes/jobseeker/qualification-module.module').then(m => m.QualificationModuleModule) },
+
+  { path: '**', pathMatch: 'full', component: PagenotfoundComponent}
 ];
 
 @NgModule({

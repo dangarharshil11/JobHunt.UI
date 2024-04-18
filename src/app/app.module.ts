@@ -20,14 +20,15 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { CalendarModule } from 'primeng/calendar';
 import { AccordionModule } from 'primeng/accordion';
 import { PaginatorModule } from 'primeng/paginator';
+import { PagenotfoundComponent } from './shared/components/pagenotfound/pagenotfound.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
-
     HomeComponent,
     JobDetailComponent,
+    PagenotfoundComponent,
   ],
   imports: [
     BrowserModule,
