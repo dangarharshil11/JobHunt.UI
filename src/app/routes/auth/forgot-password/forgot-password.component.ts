@@ -16,8 +16,8 @@ export class ForgotPasswordComponent {
   model: LoginRequest;
 
   forgotPasswordForm = this.fb.group({
-    email: ['', Validators.required],
-    password: ['', Validators.required]
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required, Validators.minLength(7)]]
   })
 
   constructor(private ngZone: NgZone, private authService: AuthService, private router: Router, private toasterService: ToasterService, private fb: FormBuilder){

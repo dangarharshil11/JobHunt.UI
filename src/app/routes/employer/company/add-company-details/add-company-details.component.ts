@@ -50,13 +50,13 @@ export class AddCompanyDetailsComponent implements OnDestroy, OnInit {
   addCompanyForm = this.fb.group({
     organization: ['', Validators.required],
     organizationType: ['', Validators.required],
-    companyEmail: ['', Validators.required],
-    companyPhone: ['', Validators.minLength(10)],
+    companyEmail: ['', [Validators.required, Validators.email]],
+    companyPhone: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
     noOfEmployees: [1, Validators.min(1)],
-    startYear: new FormControl(2024, [
+    startYear: [2024, [
       Validators.min(1900),
       Validators.max(2024),
-    ]),
+    ]],
     about: ['', Validators.minLength(50)],
   });
 

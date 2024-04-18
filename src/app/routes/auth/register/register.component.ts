@@ -16,7 +16,8 @@ import { ToasterService } from 'src/app/shared/services/toaster.service';
 export class RegisterComponent {
   model: RegisterRequest;
   response$?: Observable<Response>;
-  roles = ['JobSeeker', 'Employer']
+  roles = ['JobSeeker', 'Employer'];
+  isValid: boolean = true;
 
   constructor(private ngZone: NgZone, private authService: AuthService, private route: Router, private toasterService: ToasterService, private fb: FormBuilder) {
     this.model = {
@@ -32,13 +33,14 @@ export class RegisterComponent {
   registerForm = this.fb.group({
     firstName: ['', Validators.required],
     lastName: ['', Validators.required],
-    phoneNumber: new FormControl('', [Validators.minLength(10), Validators.maxLength(10), Validators.required]),
-    email: ['', Validators.required],
-    password: new FormControl('', [Validators.minLength(6), Validators.required]),
+    phoneNumber: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required, Validators.minLength(7)]],
     selectedRole: ['', Validators.required]
   })
 
   onFormSubmit(): void {
+    this.isValid = true;
     this.model = {
       firstName: this.registerForm.get('firstName')?.value || '',
       lastName: this.registerForm.get('lastName')?.value || '',
@@ -49,7 +51,7 @@ export class RegisterComponent {
     };
 
     if (!this.registerForm.valid) {
-      this.registerForm.markAllAsTouched();
+      this.isValid = false;
     }
     else {
       this.ngZone.run(() => {

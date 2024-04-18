@@ -40,7 +40,7 @@ export class EditProfileComponent {
   editProfileForm = this.fb.group({
     firstName: ['', Validators.required],
     lastName: ['', Validators.required],
-    phone: new FormControl('', [Validators.minLength(10), Validators.required]),
+    phone: new FormControl('', [Validators.minLength(10), Validators.maxLength(10)]),
     address: ['', Validators.required],
     expectedSalary: [0, Validators.required],
     totalExperience: [0, Validators.required],

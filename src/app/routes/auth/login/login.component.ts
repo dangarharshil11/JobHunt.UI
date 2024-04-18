@@ -22,8 +22,8 @@ export class LoginComponent {
   response$?: Observable<Response>
 
   loginForm = this.fb.group({
-    email: ['', Validators.required],
-    password: ['', Validators.required]
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', Validators.minLength(7)]
   })
 
   constructor(private ngZone: NgZone, private authService: AuthService, private cookieService: CookieService, private route: Router, private fb: FormBuilder, private toasterService: ToasterService) {

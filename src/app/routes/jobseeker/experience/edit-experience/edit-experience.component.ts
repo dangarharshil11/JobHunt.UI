@@ -35,7 +35,7 @@ export class EditExperienceComponent {
     designation: ['', Validators.required],
     companyName: ['', Validators.required],
     companyUrl: ['', Validators.required],
-    jobDescription: ['', Validators.required],
+    jobDescription: ['', [Validators.required, Validators.minLength(50)]],
   });
 
   ngOnInit(): void {

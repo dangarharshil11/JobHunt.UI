@@ -16,7 +16,7 @@
                 <small 
                     class="d-block text-danger" 
                     *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.dirty">
-                        Email Address is Required
+                        Valid Email Address is Required
                 </small>
                 </div>
 
@@ -33,7 +33,7 @@
                 <small 
                     class="d-block text-danger" 
                     *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.dirty">
-                        Password is Required
+                        Password must be atleast 7 characters long
                 </small>
                 </div>
 
