@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { HomeComponent } from './features/public/home/home.component';
-import { JobDetailComponent } from './features/public/job-detail/job-detail.component';
+import { HomeComponent } from './routes/public/home/home.component';
+import { JobDetailComponent } from './routes/public/job-detail/job-detail.component';
 
 const routes: Routes = [
   // public Routes
@@ -10,16 +10,16 @@ const routes: Routes = [
   { path: "job/:id", component: JobDetailComponent },
 
   // Auth Routes
-  { path: 'auth', loadChildren: () => import('./features/auth/auth-module.module').then(m => m.AuthModuleModule) },
+  { path: 'auth', loadChildren: () => import('./routes/auth/auth-module.module').then(m => m.AuthModuleModule) },
   
   // Employer Routes
-  { path: 'profile', loadChildren: () => import('./features/employer/profile-module.module').then(m => m.ProfileModuleModule) },
-  { path: 'vacancy', loadChildren: () => import('./features/employer/vacancy-module.module').then(m => m.VacancyModuleModule) },
+  { path: 'profile', loadChildren: () => import('./routes/employer/profile-module.module').then(m => m.ProfileModuleModule) },
+  { path: 'vacancy', loadChildren: () => import('./routes/employer/vacancy-module.module').then(m => m.VacancyModuleModule) },
   
   // JobSeeker Routes
-  { path: 'user', loadChildren: () => import('./features/jobseeker/user-module.module').then(m => m.UserModuleModule) },
-  { path: 'experience', loadChildren: () => import('./features/jobseeker/experience-module.module').then(m => m.ExperienceModuleModule) },
-  { path: 'qualification', loadChildren: () => import('./features/jobseeker/qualification-module.module').then(m => m.QualificationModuleModule) },
+  { path: 'user', loadChildren: () => import('./routes/jobseeker/user-module.module').then(m => m.UserModuleModule) },
+  { path: 'experience', loadChildren: () => import('./routes/jobseeker/experience-module.module').then(m => m.ExperienceModuleModule) },
+  { path: 'qualification', loadChildren: () => import('./routes/jobseeker/qualification-module.module').then(m => m.QualificationModuleModule) },
 ];
 
 @NgModule({

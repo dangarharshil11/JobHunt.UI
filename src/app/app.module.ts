@@ -6,10 +6,10 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http"
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NavbarComponent } from './core/components/navbar/navbar.component';
-import { HomeComponent } from './features/public/home/home.component';
-import { JobDetailComponent } from './features/public/job-detail/job-detail.component';
-import { AuthInterceptor } from './core/interceptor/auth.interceptor';
+import { NavbarComponent } from './shared/components/navabar/navbar.component';
+import { HomeComponent } from './routes/public/home/home.component';
+import { JobDetailComponent } from './routes/public/job-detail/job-detail.component';
+import { AuthInterceptor } from './shared/interceptor/auth.interceptor';
 
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
