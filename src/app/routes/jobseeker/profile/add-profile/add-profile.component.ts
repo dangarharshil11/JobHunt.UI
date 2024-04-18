@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs';
 
 import { User } from '../../models/user.model';
 import { JobuserService } from '../../services/jobuser.service';
-import { MessageService } from 'primeng/api';
+import { ToasterService } from 'src/app/shared/services/toaster.service';
 
 @Component({
   selector: 'app-add-profile',
@@ -24,7 +24,7 @@ export class AddProfileComponent implements OnInit, OnDestroy {
 
   addProfileSubscription$?: Subscription;
 
-  constructor(private jobuserService: JobuserService, private router: Router, private messageService: MessageService, private fb: FormBuilder) {
+  constructor(private jobuserService: JobuserService, private router: Router, private toasterService: ToasterService, private fb: FormBuilder) {
     this.model = {
       id: '',
       firstName: '',
@@ -91,7 +91,7 @@ export class AddProfileComponent implements OnInit, OnDestroy {
             this.uploadImage();
           }
           else {
-            this.error(response.message);
+            this.toasterService.showError(response.message);
           }
         }
       });
@@ -112,7 +112,7 @@ export class AddProfileComponent implements OnInit, OnDestroy {
             this.addProfile();
           }
           else {
-            this.error(response.message);
+            this.toasterService.showError(response.message);
           }
         }
       });
@@ -126,13 +126,12 @@ export class AddProfileComponent implements OnInit, OnDestroy {
     console.log(this.model);
     this.addProfileSubscription$ = this.jobuserService.addProfile(this.model).subscribe({
       next: (response) => {
-        console.log(response);
         if(response.isSuccess){
-          this.show();
+          this.toasterService.showSuccess('Profile Added Successfully!');
           this.router.navigateByUrl(`/user/${response.result.email}`);
         }
         else{
-          this.error(response.message);
+          this.toasterService.showError(response.message);
         }
       }
     });
@@ -150,13 +149,5 @@ export class AddProfileComponent implements OnInit, OnDestroy {
   onImageFileUploadChange(event: Event): void {
     const element = event.currentTarget as HTMLInputElement;
     this.imageFile = element.files?.[0];
-  }
-
-  show() {
-    this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Profile Added Successfully!' });
-  }
-
-  error(msg: string) {
-    this.messageService.add({ severity: 'error', summary: 'Error', detail: msg });
   }
 }

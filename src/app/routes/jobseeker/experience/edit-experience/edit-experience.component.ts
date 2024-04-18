@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
 import { ExperienceRequest } from '../../models/experience-request.model';
 import { JobuserService } from '../../services/jobuser.service';
-import { MessageService } from 'primeng/api';
-import { FormBuilder, Validators } from '@angular/forms';
+import { ToasterService } from 'src/app/shared/services/toaster.service';
 
 @Component({
   selector: 'app-edit-experience',
@@ -19,7 +19,7 @@ export class EditExperienceComponent {
 
   editExperienceSubscription$?: Subscription;
 
-  constructor(private jobuserService: JobuserService, private router: Router, private route: ActivatedRoute, private fb: FormBuilder, private messageService: MessageService) {
+  constructor(private jobuserService: JobuserService, private router: Router, private route: ActivatedRoute, private fb: FormBuilder, private toasterService: ToasterService) {
     this.model = {
       userId: '',
       companyName: '',
@@ -61,7 +61,7 @@ export class EditExperienceComponent {
             });
           }
           else {
-            this.error(response.message);
+            this.toasterService.showError(response.message);
           }
         }
       });
@@ -84,11 +84,11 @@ export class EditExperienceComponent {
       this.editExperienceSubscription$ = this.jobuserService.editExperience(this.model, this.id).subscribe({
         next: (response) => {
           if (response.isSuccess) {
-            this.show(response.message)
+            this.toasterService.showSuccess(response.message)
             this.router.navigateByUrl(`/experience/${this.id}`);
           }
           else {
-            this.show(response.message);
+            this.toasterService.showSuccess(response.message);
           }
         }
       });
@@ -101,11 +101,11 @@ export class EditExperienceComponent {
       this.jobuserService.deleteExperience(this.id).subscribe({
         next: (response) => {
           if (response.isSuccess) {
-            this.show(response.message)
+            this.toasterService.showSuccess(response.message)
             this.router.navigateByUrl(`/experience/${this.id}`);
           }
           else {
-            this.show(response.message);
+            this.toasterService.showSuccess(response.message);
           }
         }
       })
@@ -114,13 +114,5 @@ export class EditExperienceComponent {
 
   ngOnDestroy(): void {
     this.editExperienceSubscription$?.unsubscribe();
-  }
-
-  show(msg: string) {
-    this.messageService.add({ severity: 'success', summary: 'Success', detail: msg });
-  }
-
-  error(msg: string) {
-    this.messageService.add({ severity: 'Error', summary: 'Error', detail: msg });
   }
 }

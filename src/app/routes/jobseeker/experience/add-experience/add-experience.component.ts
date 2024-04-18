@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { ExperienceRequest } from '../../models/experience-request.model';
 import { JobuserService } from '../../services/jobuser.service';
-import { MessageService } from 'primeng/api';
-import { FormBuilder, Validators } from '@angular/forms';
+import { ToasterService } from 'src/app/shared/services/toaster.service';
 
 @Component({
   selector: 'app-add-experience',
@@ -18,7 +18,7 @@ export class AddExperienceComponent {
 
   addExperienceSubscription$?: Subscription;
 
-  constructor(private jobuserService: JobuserService, private router: Router, private messageService: MessageService, private fb: FormBuilder){
+  constructor(private jobuserService: JobuserService, private router: Router, private toasterService: ToasterService, private fb: FormBuilder){
     this.model = {
       userId: '',
       companyName: '',
@@ -58,7 +58,7 @@ export class AddExperienceComponent {
     this.addExperienceSubscription$ = this.jobuserService.addExperience(this.model).subscribe({
       next: (response) =>{
         if(response.isSuccess){
-          this.show();
+          this.toasterService.showSuccess('Experience Added Successfully!');
           this.router.navigateByUrl(`/experience/${this.id}`);
         }
       }
@@ -67,9 +67,5 @@ export class AddExperienceComponent {
 
   ngOnDestroy(): void {
     this.addExperienceSubscription$?.unsubscribe();
-  }
-
-  show() {
-    this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Experience Added Successfully!' });
   }
 }

@@ -4,8 +4,8 @@ import { Subscription } from 'rxjs';
 
 import { QualificationRequest } from '../../models/qualification-request.model';
 import { JobuserService } from '../../services/jobuser.service';
-import { MessageService } from 'primeng/api';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { ToasterService } from 'src/app/shared/services/toaster.service';
 
 @Component({
   selector: 'app-add-qualification',
@@ -18,7 +18,7 @@ export class AddQualificationComponent implements OnInit, OnDestroy {
 
   addQualificationSubscription$?: Subscription;
 
-  constructor(private jobuserService: JobuserService, private router: Router, private messageService: MessageService, private fb: FormBuilder){
+  constructor(private jobuserService: JobuserService, private router: Router, private toasterService: ToasterService, private fb: FormBuilder){
     this.model = {
       userId: '',
       qualificationName: '',
@@ -54,7 +54,7 @@ export class AddQualificationComponent implements OnInit, OnDestroy {
     this.addQualificationSubscription$ = this.jobuserService.addQualification(this.model).subscribe({
       next: (response) =>{
         if(response.isSuccess){
-          this.show();
+          this.toasterService.showSuccess('Qualification Added Successfully!');
           this.router.navigateByUrl(`/qualification/${this.id}`);
         }
       }
@@ -63,9 +63,5 @@ export class AddQualificationComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.addQualificationSubscription$?.unsubscribe();
-  }
-
-  show() {
-    this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Qualification Added Successfully!' });
   }
 }

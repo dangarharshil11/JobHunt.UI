@@ -2,10 +2,10 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { MessageService } from 'primeng/api';
 
 import { VacancyRequest } from '../../models/vacancy-request.model';
 import { EmployerService } from '../../services/employer.service';
+import { ToasterService } from 'src/app/shared/services/toaster.service';
 
 @Component({
   selector: 'app-add-vacancy',
@@ -18,7 +18,7 @@ export class AddVacancyComponent implements OnDestroy, OnInit {
 
   addVacancySubscription?: Subscription;
 
-  constructor(private employerService: EmployerService, private router: Router, private messageService: MessageService, private fb: FormBuilder) {
+  constructor(private employerService: EmployerService, private router: Router, private toasterService: ToasterService, private fb: FormBuilder) {
     this.model = {
       publishedBy: '',
       publishedDate: new Date(),
@@ -68,11 +68,11 @@ export class AddVacancyComponent implements OnDestroy, OnInit {
     this.addVacancySubscription = this.employerService.createVacancy(this.model).subscribe({
       next: (response) => {
         if (response.isSuccess) {
-          this.show();
+          this.toasterService.showSuccess('Vacancy Added Successfully!');
           this.router.navigateByUrl('/vacancy');
         }
         else{
-          this.showError(response.message);
+          this.toasterService.showError(response.message);
         }
       }
     });
@@ -80,13 +80,5 @@ export class AddVacancyComponent implements OnDestroy, OnInit {
 
   ngOnDestroy(): void {
     this.addVacancySubscription?.unsubscribe();
-  }
-
-  show() {
-    this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Vacancy Added Successfully!' });
-  }
-
-  showError(msg: string) {
-    this.messageService.add({ severity: 'error', summary: 'Error', detail: msg });
   }
 }

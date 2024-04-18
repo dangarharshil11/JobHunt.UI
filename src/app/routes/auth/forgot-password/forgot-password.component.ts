@@ -1,10 +1,10 @@
 import { Component, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, Validators } from '@angular/forms';
-import { MessageService } from 'primeng/api';
 
 import { LoginRequest } from '../models/login-request.model';
 import { AuthService } from '../services/auth.service';
+import { ToasterService } from 'src/app/shared/services/toaster.service';
 
 @Component({
   selector: 'app-forgot-password',
@@ -20,7 +20,7 @@ export class ForgotPasswordComponent {
     password: ['', Validators.required]
   })
 
-  constructor(private ngZone: NgZone, private authService: AuthService, private router: Router, private messageService: MessageService, private fb: FormBuilder){
+  constructor(private ngZone: NgZone, private authService: AuthService, private router: Router, private toasterService: ToasterService, private fb: FormBuilder){
     this.model = {
       email: '',
       password: '',
@@ -38,24 +38,16 @@ export class ForgotPasswordComponent {
         this.authService.forgotpassword(this.model).subscribe({
           next: (response) => {
             if(response.isSuccess){
-              this.show();
+              this.toasterService.showSuccess('Password Reset Successful!')
               this.router.navigateByUrl("/auth/login");
             }
             else{
-              this.showerror();
+              this.toasterService.showError(response.message)
               this.error = response.message;
             }
           }
         });
       });
     }
-  }
-
-  show() {
-    this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Password Reset Successful!' });
-  }
-  
-  showerror(){
-    this.messageService.add({ severity: 'error', summary: 'Invalid Email', detail: 'User do not Exist Please Register!' });
   }
 }

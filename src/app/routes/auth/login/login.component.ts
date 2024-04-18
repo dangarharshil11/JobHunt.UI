@@ -2,12 +2,12 @@ import { Component, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, Validators } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
+import { Observable } from 'rxjs';
 
 import { LoginRequest } from '../models/login-request.model';
 import { AuthService } from '../services/auth.service';
-import { MessageService } from 'primeng/api';
-import { Observable } from 'rxjs';
 import { Response } from '../models/response-model';
+import { ToasterService } from 'src/app/shared/services/toaster.service';
 
 @Component({
   selector: 'app-login',
@@ -26,7 +26,7 @@ export class LoginComponent {
     password: ['', Validators.required]
   })
 
-  constructor(private ngZone: NgZone, private authService: AuthService, private cookieService: CookieService, private route: Router, private fb: FormBuilder, private messageService: MessageService) {
+  constructor(private ngZone: NgZone, private authService: AuthService, private cookieService: CookieService, private route: Router, private fb: FormBuilder, private toasterService: ToasterService) {
   }
 
   onFormSubmit(): void {
@@ -53,17 +53,10 @@ export class LoginComponent {
             this.route.navigateByUrl('/');
           }
           else {
-            this.showerror(response.message);
+            this.toasterService.showError(response.message);
           }
-        },
-        error: (error) => {
-          console.error(error);
         }
       });
     });
-  }
-
-  showerror(msg: string) {
-    this.messageService.add({ severity: 'error', summary: 'Error', detail: msg });
   }
 }

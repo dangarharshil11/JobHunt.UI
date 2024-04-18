@@ -1,11 +1,11 @@
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { ActivatedRoute, Router } from '@angular/router';
 
 import { QualificationRequest } from '../../models/qualification-request.model';
 import { JobuserService } from '../../services/jobuser.service';
-import { MessageService } from 'primeng/api';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { ToasterService } from 'src/app/shared/services/toaster.service';
 
 @Component({
   selector: 'app-edit-qualification',
@@ -19,7 +19,7 @@ export class EditQualificationComponent {
 
   editQualificationSubscription$?: Subscription;
 
-  constructor(private jobuserService: JobuserService, private fb: FormBuilder, private router: Router, private route: ActivatedRoute, private messageService: MessageService) {
+  constructor(private jobuserService: JobuserService, private fb: FormBuilder, private router: Router, private route: ActivatedRoute, private toasterService: ToasterService) {
     this.model = {
       userId: '',
       qualificationName: '',
@@ -58,7 +58,7 @@ export class EditQualificationComponent {
             });
           }
           else {
-            this.error(response.message);
+            this.toasterService.showError(response.message);
           }
         }
       });
@@ -79,11 +79,11 @@ export class EditQualificationComponent {
       this.editQualificationSubscription$ = this.jobuserService.editQualification(this.model, this.id).subscribe({
         next: (response) => {
           if (response.isSuccess) {
-            this.show(response.message);
+            this.toasterService.showSuccess(response.message);
             this.router.navigateByUrl(`/qualification/${this.id}`);
           }
           else {
-            this.error(response.message);
+            this.toasterService.showError(response.message);
           }
         }
       });
@@ -96,11 +96,11 @@ export class EditQualificationComponent {
       this.jobuserService.deleteQualification(this.id).subscribe({
         next: (response) => {
           if (response.isSuccess) {
-            this.show(response.message);
+            this.toasterService.showSuccess(response.message);
             this.router.navigateByUrl(`/qualification/${this.id}`);
           }
           else {
-            this.error(response.message);
+            this.toasterService.showError(response.message);
           }
         }
       });
@@ -109,13 +109,5 @@ export class EditQualificationComponent {
 
   ngOnDestroy(): void {
     this.editQualificationSubscription$?.unsubscribe();
-  }
-
-  show(msg: string) {
-    this.messageService.add({ severity: 'success', summary: 'Success', detail: msg });
-  }
-
-  error(msg: string) {
-    this.messageService.add({ severity: 'error', summary: 'Error', detail: msg });
   }
 }

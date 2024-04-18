@@ -8,26 +8,26 @@ import {
 import { Observable } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
-import { MessageService } from 'primeng/api';
+import { ToasterService } from '../services/toaster.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
 
-  constructor(private cookieService: CookieService, private router: Router, private messageService: MessageService) { }
+  constructor(private cookieService: CookieService, private router: Router, private toasterService: ToasterService) { }
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
 
     // Protecting Employer Routes
     if(this.router.url.startsWith('/profile') || this.router.url.startsWith('/vacancy')){
       if(!localStorage.getItem('user-roles')?.includes('Employer')){
-        this.showError('UnAuthorized');
+        this.toasterService.showError('UnAuthorized');
         this.router.navigateByUrl('');
       }
     }
     // Protecting JobSeeker Routes
     else if(this.router.url.startsWith('/user') || this.router.url.startsWith('/experience') || this.router.url.startsWith('/qualification')){
       if(!localStorage.getItem('user-roles')?.includes('JobSeeker')){
-        this.showError('UnAuthorized');
+        this.toasterService.showError('UnAuthorized');
         this.router.navigateByUrl('');
       }    
     }
@@ -46,9 +46,5 @@ export class AuthInterceptor implements HttpInterceptor {
 
   private shouldIntercept(request: HttpRequest<any>): boolean {
     return request.urlWithParams.indexOf('addAuth=true', 0) > -1 ? true : false;
-  }
-
-  showError(msg: string) {
-    this.messageService.add({ severity: 'error', summary: 'Error', detail: msg });
   }
 }

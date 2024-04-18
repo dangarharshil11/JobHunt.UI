@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
 
 import { EmployerService } from '../services/employer.service';
 import { User } from '../models/user.model';

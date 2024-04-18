@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs';
 
 import { JobuserService } from '../../services/jobuser.service';
 import { User } from '../../models/user.model';
-import { MessageService } from 'primeng/api';
+import { ToasterService } from 'src/app/shared/services/toaster.service';
 
 @Component({
   selector: 'app-edit-profile',
@@ -21,7 +21,7 @@ export class EditProfileComponent {
 
   editProfileSubscription$?: Subscription;
 
-  constructor(private jobuserService: JobuserService, private router: Router, private messageService: MessageService, private fb: FormBuilder) {
+  constructor(private jobuserService: JobuserService, private router: Router, private toasterService: ToasterService, private fb: FormBuilder) {
     this.model = {
       id: '',
       firstName: '',
@@ -63,7 +63,7 @@ export class EditProfileComponent {
             });
           }
           else {
-            this.error(response.message);
+            this.toasterService.showError(response.message);
           }
         }
       });
@@ -102,7 +102,7 @@ export class EditProfileComponent {
             }
           }
           else {
-            this.error(response.message);
+            this.toasterService.showError(response.message);
           }
         }
       });
@@ -126,7 +126,7 @@ export class EditProfileComponent {
             this.updateProfile();
           }
           else {
-            this.error(response.message);
+            this.toasterService.showError(response.message);
           }
         },
       });
@@ -140,11 +140,11 @@ export class EditProfileComponent {
     this.editProfileSubscription$ = this.jobuserService.editProfile(this.model).subscribe({
       next: (response) => {
         if (response.isSuccess) {
-          this.show(response.message);
+          this.toasterService.showSuccess(response.message);
           this.router.navigateByUrl(`/user/${response.result.email}`);
         }
         else {
-          this.error(response.message);
+          this.toasterService.showError(response.message);
         }
       }
     });
@@ -162,13 +162,5 @@ export class EditProfileComponent {
   onImageFileUploadChange(event: Event): void {
     const element = event.currentTarget as HTMLInputElement;
     this.imageFile = element.files?.[0];
-  }
-
-  show(msg: string) {
-    this.messageService.add({ severity: 'success', summary: 'Success', detail: msg });
-  }
-
-  error(msg: string) {
-    this.messageService.add({ severity: 'error', summary: 'Error', detail: msg });
   }
 }

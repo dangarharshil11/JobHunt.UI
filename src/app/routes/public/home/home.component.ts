@@ -42,9 +42,6 @@ export class HomeComponent implements OnInit {
           this.vacancies = this.allvacancies?.slice(this.first, this.first+this.rows);
           this.totalRecords = this.allvacancies?.length || 0;
         }
-      },
-      error: (error) => {
-        console.error(error);
       }
     });    
   }

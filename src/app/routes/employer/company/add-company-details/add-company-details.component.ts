@@ -2,10 +2,10 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { MessageService } from 'primeng/api';
 
 import { Organization } from '../../models/organization.model';
 import { EmployerService } from '../../services/employer.service';
+import { ToasterService } from 'src/app/shared/services/toaster.service';
 
 @Component({
   selector: 'app-add-company-details',
@@ -24,7 +24,7 @@ export class AddCompanyDetailsComponent implements OnDestroy, OnInit {
   constructor(
     private router: Router,
     private employerService: EmployerService,
-    private messageService: MessageService,
+    private toasterService: ToasterService,
     private fb: FormBuilder
   ) {
     this.profile = {
@@ -63,7 +63,8 @@ export class AddCompanyDetailsComponent implements OnDestroy, OnInit {
   onFormSubmit() {
     this.profile = {
       organization: this.addCompanyForm.get('organization')?.value || '',
-      organizationType: this.addCompanyForm.get('organizationType')?.value || '',
+      organizationType:
+        this.addCompanyForm.get('organizationType')?.value || '',
       companyEmail: this.addCompanyForm.get('companyEmail')?.value || '',
       companyPhone: this.addCompanyForm.get('companyPhone')?.value || '',
       noOfEmployees: this.addCompanyForm.get('noOfEmployees')?.value || 1,
@@ -91,10 +92,10 @@ export class AddCompanyDetailsComponent implements OnDestroy, OnInit {
                 .subscribe({
                   next: (response) => {
                     if (response.isSuccess) {
-                      this.show();
+                      this.toasterService.showSuccess('Organization Information Added Successfully!');
                       this.router.navigateByUrl(`/profile/${this.email}`);
                     } else {
-                      this.showError(response.message);
+                      this.toasterService.showError(response.message);
                     }
                   },
                 });
@@ -112,21 +113,5 @@ export class AddCompanyDetailsComponent implements OnDestroy, OnInit {
 
   ngOnDestroy(): void {
     this.addProfileSubscription?.unsubscribe();
-  }
-
-  show() {
-    this.messageService.add({
-      severity: 'success',
-      summary: 'Success',
-      detail: 'Organization Information Added Successfully!',
-    });
-  }
-
-  showError(msg: string) {
-    this.messageService.add({
-      severity: 'error',
-      summary: 'Error',
-      detail: msg,
-    });
   }
 }

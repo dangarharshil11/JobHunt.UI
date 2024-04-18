@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
 
 import { Organization } from '../../models/organization.model';
 import { EmployerService } from '../../services/employer.service';
-import { Response } from '../../models/response-model';
 
 @Component({
   selector: 'app-company-info',

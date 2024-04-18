@@ -28,9 +28,6 @@ export class VacancyListComponent implements OnInit {
             this.isVacanciesVisible = true;
             this.Vacancies = response.result;
           }
-        },
-        error: (error) => {
-          console.error(error);
         }
       });
     }

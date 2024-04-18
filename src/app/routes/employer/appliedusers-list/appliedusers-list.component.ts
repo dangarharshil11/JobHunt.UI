@@ -1,11 +1,11 @@
 import { Component, ChangeDetectorRef, AfterContentChecked, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { MessageService } from 'primeng/api';
 import { Table, TableLazyLoadEvent } from 'primeng/table';
 
 import { EmployerService } from '../services/employer.service';
 import { ApplicationResponse } from '../models/application-response.model';
 import { SP_VacancyRequestDto } from '../models/SP_VacancyRequest.model';
+import { ToasterService } from 'src/app/shared/services/toaster.service';
 
 @Component({
   selector: 'app-appliedusers-list',
@@ -19,7 +19,7 @@ export class AppliedusersListComponent implements AfterContentChecked {
   request: SP_VacancyRequestDto = {};
   @ViewChild('dt1') dt1: Table | undefined;
 
-  constructor(private employerService: EmployerService, private route: ActivatedRoute, private messageService: MessageService, private changeDetector: ChangeDetectorRef) { }
+  constructor(private employerService: EmployerService, private route: ActivatedRoute, private toasterService: ToasterService, private changeDetector: ChangeDetectorRef) { }
 
   ngAfterContentChecked(): void {
     this.changeDetector.detectChanges();
@@ -53,18 +53,15 @@ export class AppliedusersListComponent implements AfterContentChecked {
         if (response.isSuccess) {
           jobapplication.applicationStatus = status
           if (status == "ACCEPTED") {
-            this.show("Job Application Accepted!");
+            this.toasterService.showSuccess("Job Application Accepted!");
           }
           else {
-            this.error("Job Application Rejected!");
+            this.toasterService.showError("Job Application Rejected!");
           }
         }
         else {
-          this.error(response.message);
+          this.toasterService.showError(response.message);
         }
-      },
-      error: (error) => {
-        console.error(error);
       }
     })
   }
@@ -92,17 +89,7 @@ export class AppliedusersListComponent implements AfterContentChecked {
           this.totalRecords = response.result.totalRecords;
           this.jobapplications = response.result.results;
         }
-      },
-      error: (error) => {
-        console.error(error);
       }
     });
-  }
-
-  show(msg: string) {
-    this.messageService.add({ severity: 'success', summary: 'Success', detail: msg });
-  }
-  error(msg: string) {
-    this.messageService.add({ severity: 'error', summary: 'Rejected', detail: msg });
   }
 }

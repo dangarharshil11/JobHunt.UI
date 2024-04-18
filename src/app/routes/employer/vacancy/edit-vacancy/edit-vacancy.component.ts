@@ -1,11 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { EmployerService } from '../../services/employer.service';
 import { VacancyRequest } from '../../models/vacancy-request.model';
-import { MessageService } from 'primeng/api';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { ToasterService } from 'src/app/shared/services/toaster.service';
 
 @Component({
   selector: 'app-edit-vacancy',
@@ -19,7 +19,7 @@ export class EditVacancyComponent implements OnInit, OnDestroy {
   
   editVacancySubscription?: Subscription;
 
-   constructor(private employerService: EmployerService, private router: Router, private route: ActivatedRoute, private messageService: MessageService, private fb: FormBuilder){
+   constructor(private employerService: EmployerService, private router: Router, private route: ActivatedRoute, private toasterService: ToasterService, private fb: FormBuilder){
     this.model = {
       publishedBy: '',
       publishedDate: new Date(),
@@ -97,11 +97,11 @@ export class EditVacancyComponent implements OnInit, OnDestroy {
       this.editVacancySubscription = this.employerService.updateVacancy(this.model, this.id).subscribe({
         next: (response) => {
           if(response.isSuccess){
-            this.show(response.message);
+            this.toasterService.showSuccess(response.message);
             this.router.navigateByUrl('/vacancy');
           }
           else{
-            this.error(response.message);
+            this.toasterService.showError(response.message);
           }
         }
       });
@@ -114,15 +114,12 @@ export class EditVacancyComponent implements OnInit, OnDestroy {
       this.employerService.deleteVacancy(this.id).subscribe({
         next: (response) => {
           if(response.isSuccess){
-            this.show(response.message);
+            this.toasterService.showSuccess(response.message);
             this.router.navigateByUrl('/vacancy');
           }
           else{
-            this.error(response.message);
+            this.toasterService.showError(response.message);
           }
-        },
-        error: (error) => {
-          console.error(error);
         }
       });
     }
@@ -130,13 +127,5 @@ export class EditVacancyComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.editVacancySubscription?.unsubscribe();
-  }
-
-  show(msg:string) {
-    this.messageService.add({ severity: 'success', summary: 'Success', detail: msg });
-  }
-  
-  error(msg:string){
-    this.messageService.add({ severity: 'error', summary: 'Error', detail: msg });
   }
 }

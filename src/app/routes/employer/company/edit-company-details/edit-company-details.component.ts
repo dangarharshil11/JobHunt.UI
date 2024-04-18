@@ -1,11 +1,11 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { Organization } from '../../models/organization.model';
 import { EmployerService } from '../../services/employer.service';
-import { MessageService } from 'primeng/api';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { ToasterService } from 'src/app/shared/services/toaster.service';
 
 @Component({
   selector: 'app-edit-company-details',
@@ -20,7 +20,7 @@ export class EditCompanyDetailsComponent implements OnInit, OnDestroy {
 
   editProfileSubscription?: Subscription;
 
-  constructor(private router: Router, private employerService: EmployerService, private messageService: MessageService, private fb: FormBuilder, private changeDetector: ChangeDetectorRef) {
+  constructor(private router: Router, private employerService: EmployerService, private toasterService: ToasterService, private fb: FormBuilder, private changeDetector: ChangeDetectorRef) {
     this.profile = {
       organization: '',
       organizationType: '',
@@ -100,7 +100,7 @@ export class EditCompanyDetailsComponent implements OnInit, OnDestroy {
               this.updateProfile();
             }
             else {
-              this.error(response.message);
+              this.toasterService.showError(response.message);
             }
           }
         });
@@ -116,15 +116,12 @@ export class EditCompanyDetailsComponent implements OnInit, OnDestroy {
     this.editProfileSubscription = this.employerService.updateProfile(this.profile).subscribe({
       next: (response) => {
         if (response.isSuccess) {
-          this.show();
+          this.toasterService.showSuccess('Organization Information Updated Successfully!');
           this.router.navigateByUrl(`/profile/${response.result.createdBy}`)
         }
         else {
-          this.error(response.message);
+          this.toasterService.showError(response.message);
         }
-      },
-      error: (error) => {
-        console.error(error);
       }
     });
   }
@@ -136,13 +133,5 @@ export class EditCompanyDetailsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.editProfileSubscription?.unsubscribe();
-  }
-
-  show() {
-    this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Organization Information Updated Successfully!' });
-  }
-
-  error(msg: string) {
-    this.messageService.add({ severity: 'error', summary: 'Error', detail: msg });
   }
 }

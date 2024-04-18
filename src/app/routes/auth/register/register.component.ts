@@ -1,12 +1,12 @@
 import { Component, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { MessageService } from 'primeng/api';
 import { Observable } from 'rxjs';
 
 import { RegisterRequest } from '../models/register-request.model';
 import { AuthService } from '../services/auth.service';
 import { Response } from '../models/response-model';
+import { ToasterService } from 'src/app/shared/services/toaster.service';
 
 @Component({
   selector: 'app-register',
@@ -18,7 +18,7 @@ export class RegisterComponent {
   response$?: Observable<Response>;
   roles = ['JobSeeker', 'Employer']
 
-  constructor(private ngZone: NgZone, private authService: AuthService, private route: Router, private messageService: MessageService, private fb: FormBuilder) {
+  constructor(private ngZone: NgZone, private authService: AuthService, private route: Router, private toasterService: ToasterService, private fb: FormBuilder) {
     this.model = {
       firstName: '',
       lastName: '',
@@ -56,26 +56,15 @@ export class RegisterComponent {
       this.authService.register(this.model).subscribe({
         next: (response) => {
           if (response.isSuccess) {
-            this.show();
+            this.toasterService.showSuccess('Registration Successful!')
             this.route.navigateByUrl('/auth/login');
           }
           else {
-            this.showError(response.message);
+            this.toasterService.showError(response.message);
           }
-        },
-        error: (error) => {
-          console.error(error);
         }
       });
     });
     }
-  }
-
-  show() {
-    this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Registration Successful!' });
-  }
-
-  showError(msg: string) {
-    this.messageService.add({ severity: 'error', summary: 'Error', detail: msg });
   }
 }

@@ -4,13 +4,13 @@ import { CookieService } from 'ngx-cookie-service';
 import { jwtDecode } from 'jwt-decode';
 
 import { AuthService } from '../../routes/auth/services/auth.service';
-import { MessageService } from 'primeng/api';
+import { ToasterService } from '../services/toaster.service';
 
 export const authGuard: CanActivateFn = (route, state) => {
   const cookieService = inject(CookieService);
   const authService = inject(AuthService);
   const router = inject(Router);
-  const messageService = inject(MessageService);
+  const toasterService = inject(ToasterService);
 
   const user = authService.getUser();
 
@@ -27,7 +27,7 @@ export const authGuard: CanActivateFn = (route, state) => {
     // User should be logout if token expires
     if(expDate < currentTime){
       authService.logout();
-      showerror(messageService, "Session Expired, Pleaase Login Again")
+      toasterService.showError("Session Expired, Pleaase Login Again")
       return router.createUrlTree(['/auth/login'], { queryParams: {returnUrl: state.url} });
     }
     // If User Role is invalid
@@ -35,20 +35,17 @@ export const authGuard: CanActivateFn = (route, state) => {
       if(user.roles.includes("Employer") || user.roles.includes("JobSeeker")){
         return true;
       }
-      showerror(messageService, "UnAuthorized User, You do not have access to this page");
+      toasterService.showError("UnAuthorized User, You do not have access to this page");
       return false;
     }
   }
   // If User is not LoggedIn
   else{
     authService.logout();
-    showerror(messageService, "Please Login");
+    toasterService.showError("Please Login");
     return router.createUrlTree(['/auth/login'], { queryParams: {returnUrl: state.url} });
   }
 
 };
 
-function showerror(messageService: MessageService, msg: string) {
-  messageService.add({ severity: 'error', summary: 'Error', detail: msg });
-}
 
