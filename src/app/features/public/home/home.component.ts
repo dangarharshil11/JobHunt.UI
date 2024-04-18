@@ -49,6 +49,7 @@ export class HomeComponent implements OnInit {
     });    
   }
 
+  // Method for Global Filter
   filterResults(text?: string) {
     this.vacancies = this.allvacancies;
     if (!text || text == '') {
@@ -66,6 +67,7 @@ export class HomeComponent implements OnInit {
     this.vacancies = this.vacancies?.slice(this.first, this.first+this.rows);
   }
 
+  // Methodfor Pagination
   onPageChange(event: PageEvent) {
     this.first = event.first || 0;
     this.rows = event.rows || 3;

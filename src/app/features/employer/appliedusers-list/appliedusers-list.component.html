@@ -47,7 +47,7 @@
                 <input pInputText type="text" #filter class="form-control" placeholder="Search" />
             </span>
         </div>
-        <p-table #dt1 [value]="this.jobapplications" [lazy]="true" (onLazyLoad)="loadCustomers($event)"
+        <p-table #dt1 [value]="this.jobapplications" [lazy]="true" (onLazyLoad)="loadApplications($event)"
             [tableStyle]="{'min-width': '60rem'}" [paginator]="true" [rows]="2" [totalRecords]="totalRecords"
             [showCurrentPageReport]="true"
             currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"

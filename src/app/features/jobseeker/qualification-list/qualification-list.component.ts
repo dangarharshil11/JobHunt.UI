@@ -26,9 +26,6 @@ export class QualificationListComponent implements OnInit {
             this.isQualificationsVisible = true;
             this.qualifications = response.result;
           }
-        },
-        error:(error) => {
-          console.error(error);
         }
       });
     }

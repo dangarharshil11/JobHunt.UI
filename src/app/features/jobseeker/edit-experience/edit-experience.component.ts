@@ -48,6 +48,7 @@ export class EditExperienceComponent {
 
     if (this.userId && this.id) {
       this.model.userId = this.userId;
+      // Retrieving User Experience By Id
       this.jobuserService.getExperienceById(this.id).subscribe({
         next: (response) => {
           if (response.isSuccess) {
@@ -62,14 +63,12 @@ export class EditExperienceComponent {
           else {
             this.error(response.message);
           }
-        },
-        error: (error) => {
-          console.error(error);
         }
       });
     }
   }
 
+  // Method for Updating User Experience
   onFormSubmit() {
     this.model = {
       userId: this.model.userId,
@@ -91,14 +90,12 @@ export class EditExperienceComponent {
           else {
             this.show(response.message);
           }
-        },
-        error: (error) => {
-          console.error(error);
         }
       });
     }
   }
 
+  // Method for Deleting User Experience
   onDelete() {
     if (this.id) {
       this.jobuserService.deleteExperience(this.id).subscribe({
@@ -110,9 +107,6 @@ export class EditExperienceComponent {
           else {
             this.show(response.message);
           }
-        },
-        error: (error) => {
-          console.error(error);
         }
       })
     }

@@ -60,14 +60,12 @@ export class EditQualificationComponent {
           else {
             this.error(response.message);
           }
-        },
-        error: (error) => {
-          console.error(error);
         }
       });
     }
   }
 
+  // Method for updating User's Qualification
   onFormSubmit() {
     this.model = {
       userId: this.model.userId,
@@ -87,14 +85,12 @@ export class EditQualificationComponent {
           else {
             this.error(response.message);
           }
-        },
-        error: (error) => {
-          console.error(error);
         }
       });
     }
   }
 
+  // Method for deleting User's Qualification
   onDelete() {
     if (this.id) {
       this.jobuserService.deleteQualification(this.id).subscribe({
@@ -106,9 +102,6 @@ export class EditQualificationComponent {
           else {
             this.error(response.message);
           }
-        },
-        error: (error) => {
-          console.error(error);
         }
       });
     }

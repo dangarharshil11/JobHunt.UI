@@ -53,11 +53,10 @@ export class AddQualificationComponent implements OnInit, OnDestroy {
     
     this.addQualificationSubscription$ = this.jobuserService.addQualification(this.model).subscribe({
       next: (response) =>{
-        this.show();
-        this.router.navigateByUrl(`/qualification/${this.id}`);
-      },
-      error: (error) => {
-        console.error(error);
+        if(response.isSuccess){
+          this.show();
+          this.router.navigateByUrl(`/qualification/${this.id}`);
+        }
       }
     });
   }

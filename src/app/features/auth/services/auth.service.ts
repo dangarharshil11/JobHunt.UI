@@ -32,6 +32,7 @@ export class AuthService {
     return this.http.post<Response>(`${environment.authapiBaseUrl}/api/auth/forgotpassword`, request);
   }
 
+  // Storing user-data to localStorage
   setUser(user: User): void{
     this.$user.next(user);
     localStorage.setItem('user-id',user.userId);
@@ -40,6 +41,7 @@ export class AuthService {
     localStorage.setItem('user-roles',user.roles.join(','));
   }
 
+  // Retrieving user-data from localStorage
   getUser(): User | undefined{
     const userId = localStorage.getItem('user-id');
     const fullName = localStorage.getItem('user-name');
@@ -62,6 +64,7 @@ export class AuthService {
     return this.$user.asObservable();
   }
 
+  // Clearnig User-data from cookie and localStorage on logout
   logout(): void{
     localStorage.clear();
     this.cookieService.delete('Authorization', '/');

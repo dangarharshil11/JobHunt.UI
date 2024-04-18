@@ -57,11 +57,10 @@ export class AddExperienceComponent {
 
     this.addExperienceSubscription$ = this.jobuserService.addExperience(this.model).subscribe({
       next: (response) =>{
-        this.show();
-        this.router.navigateByUrl(`/experience/${this.id}`);
-      },
-      error: (error) => {
-        console.error(error);
+        if(response.isSuccess){
+          this.show();
+          this.router.navigateByUrl(`/experience/${this.id}`);
+        }
       }
     });
   }

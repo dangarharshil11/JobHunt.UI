@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { Organization } from '../models/organization.model';
@@ -20,7 +20,7 @@ export class EditCompanyDetailsComponent implements OnInit, OnDestroy {
 
   editProfileSubscription?: Subscription;
 
-  constructor(private route: ActivatedRoute, private router: Router, private employerService: EmployerService, private messageService: MessageService, private fb: FormBuilder, private changeDetector: ChangeDetectorRef) {
+  constructor(private router: Router, private employerService: EmployerService, private messageService: MessageService, private fb: FormBuilder, private changeDetector: ChangeDetectorRef) {
     this.profile = {
       organization: '',
       organizationType: '',
@@ -45,8 +45,10 @@ export class EditCompanyDetailsComponent implements OnInit, OnDestroy {
   });
 
   ngOnInit(): void {
+    // Retrieving email from localStorage
     this.email = localStorage.getItem('user-email');
     if (this.email) {
+      // Retrieving Organization Profile based on email
       this.employerService.getprofile(this.email).subscribe({
         next: (response) => {
           if (response.isSuccess) {
@@ -61,9 +63,6 @@ export class EditCompanyDetailsComponent implements OnInit, OnDestroy {
               about: this.profile.about,
             })
           }
-        },
-        error: (error) => {
-          console.error(error);
         }
       });
     }
@@ -90,22 +89,23 @@ export class EditCompanyDetailsComponent implements OnInit, OnDestroy {
       this.userId = localStorage.getItem('user-id');
     }
     if (this.userId != null) {
+      // Update Profile with new image
       if (this.file) {
+        // Upload Image if new image Provided by user
         this.employerService.uploadImage(this.file, this.userId).subscribe({
           next: (response) => {
             if (response.isSuccess) {
               this.profile.imageUrl = response.result;
+              // update organization profile
               this.updateProfile();
             }
             else {
               this.error(response.message);
             }
-          },
-          error: (error) => {
-            console.error(error);
           }
         });
       }
+      // Update Profile without new image
       else {
         this.updateProfile();
       }

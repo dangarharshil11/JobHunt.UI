@@ -25,7 +25,8 @@ export class AppliedusersListComponent implements AfterContentChecked {
     this.changeDetector.detectChanges();
   }
 
-  loadCustomers(event: TableLazyLoadEvent) {
+  // Lazy Loading JobApplications
+  loadApplications(event: TableLazyLoadEvent) {
     this.route.paramMap.subscribe({
       next: (response) => {
         this.vacancyId = response.get('id');
@@ -45,6 +46,7 @@ export class AppliedusersListComponent implements AfterContentChecked {
     }
   }
 
+  // Function for Accepting or Rejecting the JobApplication
   onClick(status: string, jobapplication: ApplicationResponse) {
     this.employerService.processApplication(status, jobapplication.id).subscribe({
       next: (response) => {
@@ -67,11 +69,13 @@ export class AppliedusersListComponent implements AfterContentChecked {
     })
   }
 
+  // Global Filter 
   applyFilterGlobal(text: string) {
     this.request.searchText = text;
     this.getData(this.request);
   }
 
+  // Advance Search for Individual Column
   applyfilter(name: string, email: string, fromDate: string, toDate: string, status: string) {
     this.request.fullName = name;
     this.request.email = email;
@@ -81,15 +85,8 @@ export class AppliedusersListComponent implements AfterContentChecked {
     this.getData(this.request);
   }
 
-  show(msg: string) {
-    this.messageService.add({ severity: 'success', summary: 'Success', detail: msg });
-  }
-  error(msg: string) {
-    this.messageService.add({ severity: 'error', summary: 'Rejected', detail: msg });
-  }
-
   getData(request: SP_VacancyRequestDto) {
-    this.employerService.paginationEndpoint(this.request).subscribe({
+    this.employerService.paginationEndpoint(request).subscribe({
       next: (response) => {
         if (response.isSuccess) {
           this.totalRecords = response.result.totalRecords;
@@ -100,5 +97,12 @@ export class AppliedusersListComponent implements AfterContentChecked {
         console.error(error);
       }
     });
+  }
+
+  show(msg: string) {
+    this.messageService.add({ severity: 'success', summary: 'Success', detail: msg });
+  }
+  error(msg: string) {
+    this.messageService.add({ severity: 'error', summary: 'Rejected', detail: msg });
   }
 }

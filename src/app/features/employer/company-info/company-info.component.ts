@@ -31,6 +31,7 @@ export class CompanyInfoComponent {
   }
 
   ngOnInit(): void {
+    // Retrieving email from url
     this.route.paramMap.subscribe({
       next: (params) => {
         this.email = params.get('email');     
@@ -38,6 +39,7 @@ export class CompanyInfoComponent {
     });
     if(this.email){ 
       this.profile.createdBy = this.email;   
+      // Retrieve Organization Profile based on email
       this.employerService.getprofile(this.email).subscribe({
         next: (response) => {
           if(response.result){

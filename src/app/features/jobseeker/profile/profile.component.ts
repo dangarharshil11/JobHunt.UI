@@ -28,39 +28,33 @@ export class ProfileComponent implements OnInit {
     this.email = localStorage.getItem('user-email');
     this.id = localStorage.getItem('user-id')
     if(this.email && this.id){
+      // Retrieving User Profile by email
       this.jobuserService.getProfile(this.email).subscribe({
         next: (response) => {
           if(response.isSuccess){
             this.isProfileVisible = true;
             this.profile = response.result;
           }
-        },
-        error: (error) =>{
-          console.error(error);
         }
       });
 
+      // Retrieving User's all Qualifications
       this.jobuserService.getAllQualifications(this.id).subscribe({
         next: (response) => {
           if(response.isSuccess && response.result.length > 0){
             this.isQualificationVisible = true;
             this.qualifications = response.result;
           }
-        },
-        error: (error) =>{
-          console.error(error);
         }
       });
 
+      // Retrieving User's all Experiences
       this.jobuserService.getAllExperiences(this.id).subscribe({
         next: (response) => {
           if(response.isSuccess && response.result.length > 0){
             this.isExperiencesVisible = true;
             this.experiences = response.result;
           }
-        },
-        error: (error) =>{
-          console.error(error);
         }
       });
     }

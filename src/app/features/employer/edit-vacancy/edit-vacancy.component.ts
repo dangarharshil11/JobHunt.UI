@@ -46,6 +46,7 @@ export class EditVacancyComponent implements OnInit, OnDestroy {
   });
 
   ngOnInit(): void {
+    // Retrieving vacancyId form url
     this.route.paramMap.subscribe({
       next: (response) => {
         this.id = response.get("id");
@@ -53,6 +54,7 @@ export class EditVacancyComponent implements OnInit, OnDestroy {
     });
 
     if(this.id){
+      // Retrieving Vacancy by VacancyId
       this.employerService.getVacancyById(this.id).subscribe({
         next: (response) => {
           if(response.isSuccess){
@@ -68,14 +70,12 @@ export class EditVacancyComponent implements OnInit, OnDestroy {
               lastDate: this.model.lastDate
             })
           }
-        },
-        error: (error) => {
-          console.error(error);
         }
       })
     }
   }
 
+  // Method for Updating Vacancy
   onFormSubmit(){
     this.model = {
       jobTitle: this.editVacancyForm.get('jobTitle')?.value || this.model.jobTitle,
@@ -89,7 +89,9 @@ export class EditVacancyComponent implements OnInit, OnDestroy {
       lastDate: this.editVacancyForm.get('lastDate')?.value || new Date(Date.now()+(15*24*60*60*1000)),
       publishedDate: this.model.publishedDate,
     }
+
     this.email = localStorage.getItem('user-email');
+
     if(this.email && this.id){ 
       this.model.publishedBy = this.email;
       this.editVacancySubscription = this.employerService.updateVacancy(this.model, this.id).subscribe({
@@ -101,14 +103,12 @@ export class EditVacancyComponent implements OnInit, OnDestroy {
           else{
             this.error(response.message);
           }
-        },
-        error: (error) => {
-          console.error(error);
         }
       });
     } 
   }
 
+  // Method for Deleting Vacancy
   onDelete(){
     if(this.id){
       this.employerService.deleteVacancy(this.id).subscribe({

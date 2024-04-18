@@ -74,9 +74,6 @@ export class AddVacancyComponent implements OnDestroy, OnInit {
         else{
           this.showError(response.message);
         }
-      },
-      error: (error) => {
-        console.error(error);
       }
     });
   }

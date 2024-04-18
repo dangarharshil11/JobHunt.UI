@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
 
 import { QualificationResponse } from '../models/qualification-response.model';
 import { JobuserService } from '../services/jobuser.service';
@@ -32,9 +31,6 @@ export class QualificationDetailsComponent implements OnInit {
             this.isQualificationVisible = true;
             this.qualification = response.result;
           }
-        },
-        error:(error) => {
-          console.error(error);
         }
       });
     }

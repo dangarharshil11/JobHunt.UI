@@ -16,6 +16,7 @@ export const authGuard: CanActivateFn = (route, state) => {
 
   let token = cookieService.get('Authorization');
 
+  // If  User is LoggedIn
   if(token && user){
     token = token.replace('Bearer ', '');
     const decodedToken: any = jwtDecode(token);
@@ -23,11 +24,13 @@ export const authGuard: CanActivateFn = (route, state) => {
     const expDate = decodedToken.exp * 1000;
     const currentTime = new Date().getTime();
 
+    // User should be logout if token expires
     if(expDate < currentTime){
       authService.logout();
       showerror(messageService, "Session Expired, Pleaase Login Again")
       return router.createUrlTree(['/auth/login'], { queryParams: {returnUrl: state.url} });
     }
+    // If User Role is invalid
     else{
       if(user.roles.includes("Employer") || user.roles.includes("JobSeeker")){
         return true;
@@ -36,6 +39,7 @@ export const authGuard: CanActivateFn = (route, state) => {
       return false;
     }
   }
+  // If User is not LoggedIn
   else{
     authService.logout();
     showerror(messageService, "Please Login");
@@ -43,6 +47,7 @@ export const authGuard: CanActivateFn = (route, state) => {
   }
 
 };
+
 function showerror(messageService: MessageService, msg: string) {
   messageService.add({ severity: 'error', summary: 'Error', detail: msg });
 }

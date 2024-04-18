@@ -31,9 +31,6 @@ export class ExperienceDetailsComponent implements OnInit {
             this.isExperienceVisible = true;
             this.experience = response.result;
           }
-        },
-        error: (error) => {
-          console.error(error);
         }
       });
     }

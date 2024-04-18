@@ -27,9 +27,6 @@ export class ExperienceListComponent {
             this.experiences = response.result;
             this.isExperiencesVisible = true;
           }
-        },
-        error:(error) => {
-          console.error(error);
         }
       });
     }

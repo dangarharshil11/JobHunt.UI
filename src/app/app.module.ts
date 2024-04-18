@@ -26,7 +26,6 @@ import { PaginatorModule } from 'primeng/paginator';
     AppComponent,
     NavbarComponent,
 
-    // Home Component
     HomeComponent,
     JobDetailComponent,
   ],

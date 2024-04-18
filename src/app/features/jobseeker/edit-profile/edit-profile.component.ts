@@ -65,9 +65,6 @@ export class EditProfileComponent {
           else {
             this.error(response.message);
           }
-        },
-        error: (error) => {
-          console.error(error);
         }
       });
     }
@@ -90,25 +87,33 @@ export class EditProfileComponent {
     this.uploadResume();
   }
 
+  // If User has Uploaded new Resume
   uploadResume(): void{
     if(this.resumeFile){
       this.jobuserService.uploadResume(this.resumeFile, this.model.id).subscribe({
         next: (response) => {
           if (response.isSuccess) {
             this.model.resumeUrl = response.result;
-            this.uploadImage();
+            if(this.imageFile){
+              this.uploadImage();
+            }
+            else{
+              this.updateProfile();
+            }
           }
           else {
             this.error(response.message);
           }
-        },
-        error: (error) => {
-          console.error(error);
         }
       });
     }
-    else{
+    // If User has Uploaded new User Profile Image
+    else if(this.imageFile){
       this.uploadImage();
+    }
+    // If Uaser Profile is updated without any new resume or image
+    else{
+      this.updateProfile();
     }
   }
 
@@ -124,9 +129,6 @@ export class EditProfileComponent {
             this.error(response.message);
           }
         },
-        error: (error) => {
-          console.error(error);
-        }
       });
     }
     else{
@@ -144,9 +146,6 @@ export class EditProfileComponent {
         else {
           this.error(response.message);
         }
-      },
-      error: (error) => {
-        console.error(error);
       }
     });
   }

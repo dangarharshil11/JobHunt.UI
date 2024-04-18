@@ -46,6 +46,7 @@ export class JobDetailComponent {
     });
 
     if (this.id) {
+      // Retrieving Vacancy By VacancyId
       this.response$ = this.publicService.getVacancyById(this.id);
 
       this.response$.subscribe({
@@ -53,20 +54,16 @@ export class JobDetailComponent {
           this.isVacancyVisible = true;
           this.vacancy = response.result
           if (this.vacancy) {
+            // Retrieving Organization Profile
             this.response$ = this.publicService.getProfileByName(this.vacancy?.publishedBy);
+
             this.response$.subscribe({
               next: (response) => {
                 this.isProfileVisible = true;
                 this.profile = response.result
-              },
-              error: (error) => {
-                console.error(error);
               }
             });
           }
-        },
-        error: (error) => {
-          console.error(error);
         }
       });
       this.request.vacancyId = this.id;
@@ -76,12 +73,15 @@ export class JobDetailComponent {
     }
   }
 
+  // Method for Creating Job Application for current vacancy
   onApply() {
+    // Checking if user has JobSeeker Role or not
     if (this.userRoles?.includes("JobSeeker")) {
       this.response$ = this.publicService.getUserDetails(this.request.userId);
       this.ngZone.run(() => {
       this.response$.subscribe({
         next: (response) => {
+          // Checking if Candidate has Added his/her Profile or not
           if (response.isSuccess) {
             this.response$ = this.publicService.apply(this.request);
             this.response$.subscribe({
@@ -93,18 +93,12 @@ export class JobDetailComponent {
                 else {
                   this.error(response.message);
                 }
-              },
-              error: (error) => {
-                console.error(error);
               }
             });
           }
           else{
             this.error("Please Add your Profile Before Applying");
           }
-        },
-        error: (error) => {
-          console.error(error);
         }
       });
     });

@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 
 import { VacancyResponse } from '../models/vacancy-response.model';
@@ -15,7 +14,7 @@ export class VacancyDetailComponent {
   vacancy?: VacancyResponse;
   isVacancyVisible: boolean = false;
 
-  constructor(private readonly employerService: EmployerService, private route: ActivatedRoute){}
+  constructor(private employerService: EmployerService, private route: ActivatedRoute){}
 
   ngOnInit(): void {
     this.route.paramMap.subscribe({

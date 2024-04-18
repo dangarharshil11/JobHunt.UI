@@ -37,8 +37,9 @@ export class VacancyListComponent implements OnInit {
   }
 
   clear(table: Table) {
-        table.clear();
+    table.clear();
   }
+
   applyFilterGlobal($event: any, stringVal: any) {
     this.dt1!.filterGlobal(($event.target as HTMLInputElement).value, stringVal);
   }

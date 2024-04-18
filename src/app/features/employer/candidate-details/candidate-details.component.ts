@@ -26,43 +26,41 @@ export class CandidateDetailsComponent {
   }
 
   ngOnInit(): void {
+    // Retrieve UserId from url
     this.route.paramMap.subscribe({
       next: (response) => {
         this.userId = response.get("id");
       }
-    })
+    });
+
     if(this.userId){
+      // Retrieve Candidate Profile based on userId
       this.employerService.getCandidateProfile(this.userId).subscribe({
         next: (response) => {
           if(response.isSuccess && response.result){
             this.isProfileVisible = true;
             this.profile = response.result;
           }
-        },
-        error: (error) =>{
-          console.error(error);
         }
       });
+
+      // Retrieve Candidate's Qualifications based on userId
       this.employerService.getAllQualifications(this.userId).subscribe({
         next: (response) => {
           if(response.isSuccess && response.result.length > 0){
             this.isQualificationVisible = true;
             this.qualifications = response.result;
           }
-        },
-        error: (error) =>{
-          console.error(error);
         }
       });
+
+      // Retrieve Candidate's Experiences based on userId
       this.employerService.getAllExperiences(this.userId).subscribe({
         next: (response) => {
           if(response.isSuccess && response.result.length > 0){
             this.isExperiencesVisible = true;
             this.experiences = response.result;
           }
-        },
-        error: (error) =>{
-          console.error(error);
         }
       });
     }

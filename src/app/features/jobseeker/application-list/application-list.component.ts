@@ -27,9 +27,6 @@ export class ApplicationListComponent implements OnInit {
             this.isApplicationVisible = true;
             this.applications = response.result;
           }
-        },
-        error: (error) => {
-          console.error(error);
         }
       });
     }

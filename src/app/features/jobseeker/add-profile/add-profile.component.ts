@@ -76,6 +76,7 @@ export class AddProfileComponent implements OnInit, OnDestroy {
     if (!this.model.dateOfBirth) {
       this.dateFlag = true;
     }
+    // Uploading Resume of a candidate
     this.uploadResume();
   }
 
@@ -86,14 +87,12 @@ export class AddProfileComponent implements OnInit, OnDestroy {
         next: (response) => {
           if (response.isSuccess) {
             this.model.resumeUrl = response.result;
+            // Upload User Profile Image
             this.uploadImage();
           }
           else {
             this.error(response.message);
           }
-        },
-        error: (error) => {
-          console.error(error);
         }
       });
     }
@@ -109,14 +108,12 @@ export class AddProfileComponent implements OnInit, OnDestroy {
         next: (response) => {
           if (response.isSuccess) {
             this.model.imageUrl = response.result;
+            // Create User Profile
             this.addProfile();
           }
           else {
             this.error(response.message);
           }
-        },
-        error: (error) => {
-          console.error(error);
         }
       });
     }
@@ -137,9 +134,6 @@ export class AddProfileComponent implements OnInit, OnDestroy {
         else{
           this.error(response.message);
         }
-      },
-      error: (error) => {
-        console.error(error);
       }
     });
   }
