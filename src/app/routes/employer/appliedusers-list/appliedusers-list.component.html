@@ -69,6 +69,11 @@
                     </th>
                     <th style="width:15%"></th>
                 </tr>
+                <th colspan="6" *ngIf="totalRecords== null" class="text-center">
+                    <p class="mt-2 card-body">
+                        No one has Applied for this Vacancy!
+                    </p>
+                </th>
             </ng-template>
             <ng-template pTemplate="body" let-jobapplication>
                 <tr>
@@ -95,9 +100,5 @@
             </ng-template>
         </p-table>
     </div>
-    <ng-template #noApplications>
-        <p class="mt-2 card-body">
-            No one has Applied for this Vacancy!
-        </p>
-    </ng-template>
+    
 </div>

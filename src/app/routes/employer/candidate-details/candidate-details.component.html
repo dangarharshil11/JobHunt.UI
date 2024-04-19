@@ -129,9 +129,9 @@
                             </div>
                         </div>
                     </ng-container>
-                    <ng-template *ngIf="!isExperiencesVisible" pTemplate="content">
+                    <div *ngIf="!isExperiencesVisible">
                         <p class="mt-3">Candidate has no experiences</p>
-                    </ng-template>
+                    </div>
                 </p-accordionTab>
             </div>
             <div class="my-3 border border-dark rounded bg-light">
@@ -164,9 +164,9 @@
                             </div>
                         </div>
                     </ng-container>
-                    <ng-template *ngIf="!isQualificationVisible" pTemplate="content">
+                    <div *ngIf="!isQualificationVisible">
                         <p class="mt-3">Candidate has no Qualifications</p>
-                    </ng-template>
+                    </div>
                 </p-accordionTab>
             </div>
         </p-accordion>
