@@ -55,7 +55,7 @@ export class AddQualificationComponent implements OnInit, OnDestroy {
       next: (response) =>{
         if(response.isSuccess){
           this.toasterService.showSuccess('Qualification Added Successfully!');
-          this.router.navigateByUrl(`/qualification/${this.id}`);
+          this.router.navigateByUrl(`/user/qualification/${this.id}`);
         }
       }
     });

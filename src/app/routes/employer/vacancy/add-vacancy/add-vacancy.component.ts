@@ -69,7 +69,7 @@ export class AddVacancyComponent implements OnDestroy, OnInit {
       next: (response) => {
         if (response.isSuccess) {
           this.toasterService.showSuccess('Vacancy Added Successfully!');
-          this.router.navigateByUrl('/vacancy');
+          this.router.navigateByUrl('/employer/vacancy');
         }
         else{
           this.toasterService.showError(response.message);

@@ -13,18 +13,26 @@ import { VacancyDetailComponent } from './vacancy/vacancy-detail/vacancy-detail.
 import { VacancyListComponent } from './vacancy/vacancy-list/vacancy-list.component';
 
 const routes: Routes = [
-  //Company Related Routes
-  {path: "add", component: AddCompanyDetailsComponent, canActivate: [authGuard]},
-  {path: "edit", component: EditCompanyDetailsComponent, canActivate: [authGuard]},
-  {path: ":email", component: CompanyInfoComponent, canActivate: [authGuard]},
+  // Company Profile Related Routes
+  { path: 'profile', canActivateChild: [authGuard], 
+    children: [
+      {path: "add", component: AddCompanyDetailsComponent},
+      {path: "edit", component: EditCompanyDetailsComponent},
+      {path: ":email", component: CompanyInfoComponent},
+    ]
+  },
   
   // Vacancy Related Routes
-  {path: "add", component: AddVacancyComponent, canActivate: [authGuard]},
-  {path: "edit/:id", component: EditVacancyComponent, canActivate: [authGuard]},
-  {path: "details/:id", component: VacancyDetailComponent, canActivate: [authGuard]},
-  {path: "applications/:id", component: AppliedusersListComponent, canActivate: [authGuard]},
-  {path: "candidate/:id", component: CandidateDetailsComponent, canActivate: [authGuard]},
-  {path: "", component: VacancyListComponent, canActivate: [authGuard]},
+  { path: 'vacancy', canActivateChild: [authGuard], 
+    children: [
+      {path: "add", component: AddVacancyComponent},
+      {path: "edit/:id", component: EditVacancyComponent},
+      {path: "details/:id", component: VacancyDetailComponent},
+      {path: "applications/:id", component: AppliedusersListComponent},
+      {path: "candidate/:id", component: CandidateDetailsComponent},
+      {path: "", component: VacancyListComponent},
+    ]
+  },
 ];
 
 @NgModule({

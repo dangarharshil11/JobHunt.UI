@@ -80,7 +80,7 @@ export class EditQualificationComponent {
         next: (response) => {
           if (response.isSuccess) {
             this.toasterService.showSuccess(response.message);
-            this.router.navigateByUrl(`/qualification/${this.id}`);
+            this.router.navigateByUrl(`/user/qualification/${this.id}`);
           }
           else {
             this.toasterService.showError(response.message);
@@ -97,7 +97,7 @@ export class EditQualificationComponent {
         next: (response) => {
           if (response.isSuccess) {
             this.toasterService.showSuccess(response.message);
-            this.router.navigateByUrl(`/qualification/${this.id}`);
+            this.router.navigateByUrl(`/user/qualification/${this.id}`);
           }
           else {
             this.toasterService.showError(response.message);

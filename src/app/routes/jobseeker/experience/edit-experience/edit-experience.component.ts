@@ -85,7 +85,7 @@ export class EditExperienceComponent {
         next: (response) => {
           if (response.isSuccess) {
             this.toasterService.showSuccess(response.message)
-            this.router.navigateByUrl(`/experience/${this.id}`);
+            this.router.navigateByUrl(`/user/experience/${this.id}`);
           }
           else {
             this.toasterService.showSuccess(response.message);
@@ -102,7 +102,7 @@ export class EditExperienceComponent {
         next: (response) => {
           if (response.isSuccess) {
             this.toasterService.showSuccess(response.message)
-            this.router.navigateByUrl(`/experience/${this.id}`);
+            this.router.navigateByUrl(`/user/experience/${this.id}`);
           }
           else {
             this.toasterService.showSuccess(response.message);

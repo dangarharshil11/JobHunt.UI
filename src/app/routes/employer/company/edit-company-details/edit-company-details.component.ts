@@ -120,7 +120,7 @@ export class EditCompanyDetailsComponent implements OnInit, OnDestroy {
       next: (response) => {
         if (response.isSuccess) {
           this.toasterService.showSuccess('Organization Information Updated Successfully!');
-          this.router.navigateByUrl(`/profile/${response.result.createdBy}`)
+          this.router.navigateByUrl(`/employer/profile/${response.result.createdBy}`)
         }
         else {
           this.toasterService.showError(response.message);

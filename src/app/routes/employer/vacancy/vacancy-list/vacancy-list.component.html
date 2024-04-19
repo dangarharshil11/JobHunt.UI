@@ -4,7 +4,7 @@
             <h1 class="mt-3">Vacancy List</h1>
         </div>
         <div class="my-auto">
-            <a class="btn btn-primary" [routerLink]="['/vacancy/add']">
+            <a class="btn btn-primary" [routerLink]="['/employer/vacancy/add']">
                 Add Vacancy
             </a>
         </div>
@@ -83,13 +83,13 @@
                         <td>{{vacancy.noOfVacancies}}</td>
                         <td>{{vacancy.minimumSalary}} - {{vacancy.maximumSalary}}</td>
                         <td>
-                            <a class="btn btn-light" [routerLink]="['/vacancy/applications', vacancy.id]">Applications</a>
+                            <a class="btn btn-light" [routerLink]="['/employer/vacancy/applications', vacancy.id]">Applications</a>
                         </td>
                         <td>
-                            <a class="btn btn-light" [routerLink]="['/vacancy/details', vacancy.id]">Details</a>
+                            <a class="btn btn-light" [routerLink]="['/employer/vacancy/details', vacancy.id]">Details</a>
                         </td>
                         <td>
-                            <a class="btn btn-success" [routerLink]="['/vacancy/edit', vacancy.id]">Edit</a>
+                            <a class="btn btn-success" [routerLink]="['/employer/vacancy/edit', vacancy.id]">Edit</a>
                         </td>
                     </tr>
                 </ng-template>

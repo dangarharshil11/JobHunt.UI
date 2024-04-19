@@ -14,13 +14,10 @@ const routes: Routes = [
   { path: 'auth', loadChildren: () => import('./routes/auth/auth-module.module').then(m => m.AuthModuleModule) },
   
   // Employer Routes
-  { path: 'profile', loadChildren: () => import('./routes/employer/employer.module').then(m => m.EmployerModule) },
-  { path: 'vacancy', loadChildren: () => import('./routes/employer/employer.module').then(m => m.EmployerModule) },
+  { path: 'employer', loadChildren: () => import('./routes/employer/employer.module').then(m => m.EmployerModule) },
   
   // JobSeeker Routes
   { path: 'user', loadChildren: () => import('./routes/jobseeker/jobseeker.module').then(m => m.JobSeekerModule) },
-  { path: 'experience', loadChildren: () => import('./routes/jobseeker/jobseeker.module').then(m => m.JobSeekerModule) },
-  { path: 'qualification', loadChildren: () => import('./routes/jobseeker/jobseeker.module').then(m => m.JobSeekerModule) },
 
   { path: '**', pathMatch: 'full', component: PagenotfoundComponent}
 ];

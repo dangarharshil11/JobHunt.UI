@@ -4,7 +4,7 @@
             <h1 class="mt-3">Candidate List</h1>
         </div>
         <div class="my-auto">
-            <button class="btn btn-secondary" [routerLink]="['/vacancy']">Back to Vacancy List</button>
+            <button class="btn btn-secondary" [routerLink]="['/employer/vacancy']">Back to Vacancy List</button>
         </div>
     </div>
     <p-accordion [activeIndex]="0">
@@ -88,7 +88,7 @@
                     </td>
                     <td class="text-center">
                         <a class="btn btn-light"
-                            [routerLink]="['/vacancy/candidate/', jobapplication.user.id]">Candidate
+                            [routerLink]="['/employer/vacancy/candidate/', jobapplication.user.id]">Candidate
                             Details</a>
                     </td>
                 </tr>

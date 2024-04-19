@@ -98,7 +98,7 @@ export class EditVacancyComponent implements OnInit, OnDestroy {
         next: (response) => {
           if(response.isSuccess){
             this.toasterService.showSuccess(response.message);
-            this.router.navigateByUrl('/vacancy');
+            this.router.navigateByUrl('/employer/vacancy');
           }
           else{
             this.toasterService.showError(response.message);
@@ -115,7 +115,7 @@ export class EditVacancyComponent implements OnInit, OnDestroy {
         next: (response) => {
           if(response.isSuccess){
             this.toasterService.showSuccess(response.message);
-            this.router.navigateByUrl('/vacancy');
+            this.router.navigateByUrl('/employer/vacancy');
           }
           else{
             this.toasterService.showError(response.message);

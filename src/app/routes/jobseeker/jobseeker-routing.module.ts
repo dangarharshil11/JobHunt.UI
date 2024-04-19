@@ -16,23 +16,31 @@ import { EditProfileComponent } from './profile/edit-profile/edit-profile.compon
 import { ProfileComponent } from './profile/profile/profile.component';
 
 const routes: Routes = [
-    // Qualification Related Routes
-    {path: "add", component: AddQualificationComponent, canActivate: [authGuard]},
-    {path: "edit/:id", component: EditQualificationComponent, canActivate: [authGuard]},
-    {path: "details/:id", component:QualificationDetailsComponent, canActivate: [authGuard]},
-    {path: ":id", component: QualificationListComponent, canActivate: [authGuard]},
-
-    // Experience Related ROutes
-    {path: "add", component: AddExperienceComponent, canActivate: [authGuard]},
-    {path: "edit/:id", component: EditExperienceComponent, canActivate: [authGuard]},
-    {path: "details/:id", component: ExperienceDetailsComponent, canActivate: [authGuard]},
-    {path: ":id", component: ExperienceListComponent, canActivate: [authGuard]},
-
     // User Profile Related Routes
     {path: "add", component: AddProfileComponent, canActivate: [authGuard]},
     {path: "edit", component: EditProfileComponent, canActivate: [authGuard]},
     {path: "applications", component: ApplicationListComponent, canActivate: [authGuard]},
     {path: ":email", component: ProfileComponent, canActivate: [authGuard]},
+
+    // Qualification Related Routes
+    { path: "qualification", canActivateChild: [authGuard], 
+      children: [
+        {path: "add", component: AddQualificationComponent},
+        {path: "edit/:id", component: EditQualificationComponent},
+        {path: "details/:id", component:QualificationDetailsComponent},
+        {path: ":id", component: QualificationListComponent},
+      ]
+    },
+
+    // Experience Related Routes
+    { path: "experience", canActivateChild: [authGuard], 
+      children: [
+        {path: "add", component: AddExperienceComponent},
+        {path: "edit/:id", component: EditExperienceComponent},
+        {path: "details/:id", component: ExperienceDetailsComponent},
+        {path: ":id", component: ExperienceListComponent},
+      ]
+    },
 ];
 
 @NgModule({

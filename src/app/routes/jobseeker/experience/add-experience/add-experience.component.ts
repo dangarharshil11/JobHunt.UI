@@ -59,7 +59,7 @@ export class AddExperienceComponent {
       next: (response) =>{
         if(response.isSuccess){
           this.toasterService.showSuccess('Experience Added Successfully!');
-          this.router.navigateByUrl(`/experience/${this.id}`);
+          this.router.navigateByUrl(`/user/experience/${this.id}`);
         }
       }
     });
