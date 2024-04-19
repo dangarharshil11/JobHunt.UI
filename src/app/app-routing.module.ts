@@ -14,13 +14,13 @@ const routes: Routes = [
   { path: 'auth', loadChildren: () => import('./routes/auth/auth-module.module').then(m => m.AuthModuleModule) },
   
   // Employer Routes
-  { path: 'profile', loadChildren: () => import('./routes/employer/profile-module.module').then(m => m.ProfileModuleModule) },
-  { path: 'vacancy', loadChildren: () => import('./routes/employer/vacancy-module.module').then(m => m.VacancyModuleModule) },
+  { path: 'profile', loadChildren: () => import('./routes/employer/employer.module').then(m => m.EmployerModule) },
+  { path: 'vacancy', loadChildren: () => import('./routes/employer/employer.module').then(m => m.EmployerModule) },
   
   // JobSeeker Routes
-  { path: 'user', loadChildren: () => import('./routes/jobseeker/user-module.module').then(m => m.UserModuleModule) },
-  { path: 'experience', loadChildren: () => import('./routes/jobseeker/experience-module.module').then(m => m.ExperienceModuleModule) },
-  { path: 'qualification', loadChildren: () => import('./routes/jobseeker/qualification-module.module').then(m => m.QualificationModuleModule) },
+  { path: 'user', loadChildren: () => import('./routes/jobseeker/jobseeker.module').then(m => m.JobSeekerModule) },
+  { path: 'experience', loadChildren: () => import('./routes/jobseeker/jobseeker.module').then(m => m.JobSeekerModule) },
+  { path: 'qualification', loadChildren: () => import('./routes/jobseeker/jobseeker.module').then(m => m.JobSeekerModule) },
 
   { path: '**', pathMatch: 'full', component: PagenotfoundComponent}
 ];

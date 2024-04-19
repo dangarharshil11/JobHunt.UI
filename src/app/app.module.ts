@@ -31,8 +31,8 @@ import { PagenotfoundComponent } from './shared/components/pagenotfound/pagenotf
     PagenotfoundComponent,
   ],
   imports: [
-    BrowserModule,
     AppRoutingModule,
+    BrowserModule,
     FormsModule,
     HttpClientModule,
     ToastModule,
