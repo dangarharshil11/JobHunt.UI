@@ -80,6 +80,6 @@ export class EmployerService {
     formData.append('file', file);
     formData.append('fileName', fileName)
 
-    return this.http.post<Response>(`${environment.jobseekerapiBaseUrl}/api/company/uploadImage?addAuth=true`, formData);
+    return this.http.post<Response>(`${environment.employerapiBaseUrl}/api/company/uploadImage?addAuth=true`, formData);
   }
 }
