@@ -1,5 +1,5 @@
 export const environment = {
-    authapiBaseUrl: 'https://localhost:7777',
-    employerapiBaseUrl: 'https://localhost:7777',
-    jobseekerapiBaseUrl: 'https://localhost:7777',
+    authapiBaseUrl: 'https://jobhuntservicesauthapi.azurewebsites.net',
+    employerapiBaseUrl: 'https://jobhuntservicesemployerapi.azurewebsites.net',
+    jobseekerapiBaseUrl: 'https://jobhuntservicesjobseekerapi.azurewebsites.net',
 };
