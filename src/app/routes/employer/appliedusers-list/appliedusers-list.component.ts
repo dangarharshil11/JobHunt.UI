@@ -17,6 +17,7 @@ export class AppliedusersListComponent implements AfterContentChecked {
   jobapplications!: ApplicationResponse[];
   totalRecords!: number;
   request: SP_VacancyRequestDto = {};
+  Is_SP_Success: boolean = false;
   @ViewChild('dt1') dt1: Table | undefined;
 
   constructor(private employerService: EmployerService, private route: ActivatedRoute, private toasterService: ToasterService, private changeDetector: ChangeDetectorRef) { }
@@ -56,7 +57,7 @@ export class AppliedusersListComponent implements AfterContentChecked {
             this.toasterService.showSuccess("Job Application Accepted!");
           }
           else {
-            this.toasterService.showError("Job Application Rejected!");
+            this.toasterService.showSuccess("Job Application Rejected!");
           }
         }
         else {
@@ -89,6 +90,18 @@ export class AppliedusersListComponent implements AfterContentChecked {
           this.totalRecords = response.result.totalRecords;
           this.jobapplications = response.result.results;
         }
+      },
+      error: (err) => {
+        console.log("fw")
+        this.Is_SP_Success = false;
+        this.employerService.getApplicationsByVacancyId(this.vacancyId || "").subscribe({
+          next: (response) => {
+            if(response.isSuccess){
+              this.jobapplications = response.result;
+              this.totalRecords = this.jobapplications.length;
+            }
+          }
+        })
       }
     });
   }
