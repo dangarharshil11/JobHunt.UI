@@ -27,13 +27,6 @@ export class LoginComponent {
   })
 
   constructor(private ngZone: NgZone, private authService: AuthService, private cookieService: CookieService, private route: Router, private fb: FormBuilder, private toasterService: ToasterService) {
-   var revenue = 50;
-  	window.VWO = window.VWO || [];
-  	VWO.event = VWO.event || function () {VWO.push(['event'].concat([].slice.call(arguments)))};
-  	VWO.event('purchase', {
-  		'checkout':true,
-  		'revenue':revenue
-  	})
   }
 
   onFormSubmit(): void {
