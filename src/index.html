@@ -22,7 +22,7 @@ f=false,w=window,d=document,v=d.querySelector('#vwoCode'),cK='_vwo_'+account_id+
 </script>
 <!-- End VWO Async SmartCode -->
 <script type='text/javascript' id='vwoCode'>
-  var revenue = 10;
+  var revenue = Math.floor((Math.random() * 100) + 1);
 	window.VWO = window.VWO || [];
 	VWO.event = VWO.event || function () {VWO.push(['event'].concat([].slice.call(arguments)))};
 	VWO.event('purchase', {
